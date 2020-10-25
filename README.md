@@ -5,6 +5,10 @@
 
 Repositorio Proyecto Final DAW-EOI Rincón de la Victoria 2020
 
+Desarrollado por:
+
+ Adrian Moyano Castillo, Óscar López Miñarro y Juan Cerezo Serrano
+
 ---
 
 ## Indice
@@ -36,7 +40,7 @@ Debemos  crear una aplicación que ofrezca a los clientes la posibilidad de gest
 
 # Objetivos
 
-Crear un MVP, en el que los usuarios puedan registrarse en la aplicación, se puedan realizar operaciones de registro, actualización y borrado de gastos e ingresos, pudiendo estos ser categorizados según un tipo de gasto o ingreso.
+Desarrollar una aplicación web, en el que los usuarios puedan registrarse en la aplicación, se puedan realizar operaciones de registro, actualización y borrado de gastos e ingresos, pudiendo estos ser categorizados según un tipo de gasto o ingreso.
 
 Para que la web sea rentable...(en proceso)
 
