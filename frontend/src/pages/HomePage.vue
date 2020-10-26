@@ -1,8 +1,8 @@
 <template>
   <div class="degrade">
-    <div class="container bg box-shadow">
+    <div toggleable="xl" class="container bg box-shadow">
       <!-- menu nav -->
-      <b-navbar toggleable="lg" class="trans barnav">
+      <b-navbar toggleable="xl" class="trans barnav">
         <b-navbar-brand href="#">
           <img src="@/assets/money/png/006-coins.png" alt="" class="logo" />
           <p class="white"></p
@@ -75,9 +75,7 @@ export default {
   background-color: #00487c;
 }
 
-
 .box-shadow {
-
   -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
   box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
@@ -105,12 +103,11 @@ export default {
   background: -webkit-linear-gradient(
     top,
     rgba(248, 181, 0, 1) 0%,
-    rgba(248, 181, 0, 1) 15%,
+    rgba(248, 181, 0, 1) 5%,
     rgba(252, 205, 77, 1) 78%,
     rgba(251, 223, 147, 1) 87%,
     rgba(252, 234, 187, 1) 95%,
     rgba(252, 234, 187, 1) 100%
   );
-
 }
 </style>
