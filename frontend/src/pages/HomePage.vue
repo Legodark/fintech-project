@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-    <div class="container bg box-shadow">
+    <div class="container bg box-shadow div-case-large">
       <!-- menu nav -->
       <b-navbar toggleable="lg" class="trans barnav">
         <b-navbar-brand href="#">
@@ -111,6 +111,10 @@ export default {
     rgba(252, 234, 187, 1) 95%,
     rgba(252, 234, 187, 1) 100%
   );
+  height: 1500px;
 
+}
+.div-case-large{
+    height: 1500px;
 }
 </style>
