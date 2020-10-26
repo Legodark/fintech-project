@@ -11,15 +11,15 @@
 				<div class="login-group">
 					<div class="form-group">
 						<label for="reg_username" class="sr-only">Username</label>
-						<input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="Usuario">
+						<input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="Usuario" v-model="registerUser.name">
 					</div>
           <div class="form-group">
 						<label for="reg_username" class="sr-only">Email address</label>
-						<input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="Apellidos">
+						<input type="text" class="form-control" id="reg_lastname" name="reg_username" placeholder="Apellidos" v-model="registerUser.lastname">
 					</div>
 					<div class="form-group">
 						<label for="reg_password" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="Contraseña">
+						<input type="password" class="form-control" id="reg_lastname" name="reg_password" placeholder="Contraseña" v-model="registerUser.password">
 					</div>
 					<!--<div class="form-group">
 						<label for="reg_password_confirm" class="sr-only">Password Confirm</label>
@@ -28,7 +28,7 @@
 
 					<div class="form-group">
 						<label for="reg_email" class="sr-only">Email</label>
-						<input type="text" class="form-control" id="reg_email" name="reg_email" placeholder="Email">
+						<input type="email" class="form-control" id="reg_email" name="reg_email" placeholder="Email" v-model="registerUser.email">
 					</div>
 					<!--<div class="form-group">
 						<label for="reg_fullname" class="sr-only">Full Name</label>
@@ -48,7 +48,7 @@
 						<label for="reg_agree">i agree with <a href="#">terms</a></label>
 					</div>
 				</div>
-				<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+				<button type="submit" class="login-button" @click.prevent="register()"><i class="fa fa-chevron-right"></i></button>
 			</div>
 			<div class="etc-login-form">
 				<p class="text-center">Si ya tienes cuenta: <router-link to="/login">Login</router-link></p>
@@ -64,7 +64,32 @@
 
 <script>
 export default {
-  name: "ResgisterPage"
+  name: "ResgisterPage",
+  data(){
+    return{
+      registerUser: {
+        name: '',
+        lastname: '',
+        email: '',
+        password: '',
+      }
+    }
+  },
+  methods: {
+    async register(){
+      try{
+        await this.$http.post('http://localhost:3000/auth/register', this.registerUser)
+
+        alert('Te has registrado satisfactorizamente.')
+
+        this.$router.push('/login')
+
+      }catch(error){
+
+        alert('Se ha producido un error al registrar el usuario.')
+      }
+    }
+  }
 }
 </script>
 

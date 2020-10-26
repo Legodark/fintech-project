@@ -11,18 +11,18 @@
 				<div class="login-group">
 					<div class="form-group">
 						<label for="lg_username" class="sr-only">Username</label>
-						<input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="Usuario">
+						<input type="email" class="form-control" id="lg_username" name="lg_username" placeholder="Usuario" v-model="user.email">
 					</div>
 					<div class="form-group">
 						<label for="lg_password" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="Contraseña">
+						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="Contraseña" v-model="user.password">
 					</div>
 					<div class="form-group login-group-checkbox">
 						<input type="checkbox" id="lg_remember" name="lg_remember">
 						<label for="lg_remember">Recordar</label>
 					</div>
 				</div>
-				<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+				<button type="submit" class="login-button" @click.prevent="login(user)"><i class="fa fa-chevron-right"></i></button>
 			</div>
 			<div class="etc-login-form">
 				<p class="text-center">Recupera tu contraseña <a href="#">aquí</a></p>
@@ -40,8 +40,21 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
-  name: "HomePage"
+  name: "HomePage",
+  data(){
+    return {
+      user: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods:{
+    ...mapActions(['login'])
+  }
 }
 </script>
 

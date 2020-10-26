@@ -1,13 +1,14 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
+import './plugins/bootstrap-vue'
+import './plugins/bootstrap-vue'
 import Vue from 'vue'
-import './plugins/bootstrap-vue'
-import './plugins/bootstrap-vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueAxios from  'vue-axios'
 import axios from 'axios'
-
+import store from './store/index'
 
 
 // rutes
@@ -32,8 +33,10 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
+Vue.use(Vuex)
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')
