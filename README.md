@@ -7,7 +7,7 @@ Repositorio Proyecto Final DAW-EOI Rincón de la Victoria 2020
 
 Desarrollado por:
 
- Adrian Moyano Castillo, Óscar López Miñarro y Juan Cerezo Serrano
+ Adrian Moyano Castillo y Juan Cerezo Serrano
 
 ---
 

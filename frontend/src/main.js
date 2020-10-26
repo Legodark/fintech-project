@@ -13,10 +13,15 @@ import axios from 'axios'
 // rutes
 
 import HomePage from '@/pages/HomePage'
+import LoginPage from '@/pages/LoginPage'
+import RegisterPage from '@/pages/RegisterPage'
 
 const routes = [
 
-  { path: "/", name: "Home", component: HomePage }
+  { path: "/", name: "Home", component: HomePage },
+  { path: "/login", name: "Login", component: LoginPage },
+  { path: "/register", name: "Register", component: RegisterPage }
+
 ]
 
 const router = new VueRouter({ routes, mode: 'history' })
