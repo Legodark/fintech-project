@@ -24,9 +24,9 @@ Desarrollado por:
     - [Prototipo](#prototipo)
     - [Mapa web](#mapa-web)
     - [Esquema de Flujo](#esquema-de-flujo)
+    - [VUE components](#vue-components)
 5. [Desarrollo Back End](#desarrollo-frond-end)
-    - [Tecnologias Usadas](#tecnologias-usadas)
-    - ...
+    - [Dependecias Usadas](#dependecias-usadas)
 6. [Mapa Web](#mapa-web)
 7. [Análisis API](#análisis-api)
     - [Identificación de Recursos](#identificación-de-recursos)
@@ -66,7 +66,7 @@ Para que la web sea rentable...(en proceso)
 
 # Desarrollo Frond End
 
-### Tecnologías usadas (PROVISIONAL):
+### Tecnologías usadas
 
 <img src="https://img.icons8.com/color/48/000000/vue-js.png"/><img src="https://img.icons8.com/color/48/000000/bootstrap.png"/><img src="https://img.icons8.com/color/48/000000/html-5.png"/><img src="https://img.icons8.com/color/48/000000/css3.png"/><img src="https://img.icons8.com/color/48/000000/javascript-logo-1.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/>
 
@@ -84,9 +84,30 @@ Para que la web sea rentable...(en proceso)
 <img src="https://i.ibb.co/mXFdMTK/Flujo-web.png" alt="Flujo-web" border="0">
 </p>
 
+### VUE Components 
+
+- Pages:
+    - HomePage.vue
+    - Login.vue
+    - Registro.vue
+    - RecoverAccount.vue
+    - Profile.vue
+    - Ingresos.vue
+    - Movimientos.vue
+    - Gastos.vue
+- Componetes:
+    - SliderBar.vue (con menu y logo)
+    - GastosTotales.vue
+    - IngresosTotales.vue
+- Overflow:
+    - AñadirIngresos.vue
+    - AñadirGastos.vue 
+    - EditarGastos.vue (Recurrente)*
+    - EditarIngresos.vue (Recurrente)*
+
 # Desarrollo Back End
 
-### Tecnologías usadas (PROVISIONAL):
+### Dependecias Usadas
 
 <img src="https://img.icons8.com/color/48/000000/nodejs.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/>
 
@@ -109,13 +130,14 @@ Para que la web sea rentable...(en proceso)
     - Email [string]
     - Contraseña [string]
     - Activo [boolean]
+    - Date [date]
 
 - Movimientos (Schema):
     - ID[number]
-    - userID[number]
+    - UserID[number]
     - Categoría[string]
     - Descripción[string]
-    - icono[string]
+    - Icono[string]
     - Cantidad[number]
     - Fecha|hora[string]
     - Comentario[string]
@@ -124,9 +146,9 @@ Para que la web sea rentable...(en proceso)
 
 - Categorías (Schema):
     - ID[number]
-    - nombre[string]
-    - tipo[string]
-    - image[string]
+    - Nombre[string]
+    - Tipo[string]
+    - Image[string]
 
 ## Endpoints
 

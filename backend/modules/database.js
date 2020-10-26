@@ -14,7 +14,7 @@ async function connectionDatabase(){
       await mongoose.connect(dataBase, options)
       console.log('Base de datos conectada')
     }
-    catch(error){ console.log('error db:', error)}
+    catch(error){ console.log('error al conectar a la bd:', error)}
   
   }
   
