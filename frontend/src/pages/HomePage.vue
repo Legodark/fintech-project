@@ -26,15 +26,9 @@
             <b-navbar-brand href="#"><router-link to="/login"><p class="white">Login</p></router-link></b-navbar-brand>
 
             <!-- hacer dinamico -->
-<<<<<<< HEAD
             <b-navbar-brand href="/dashboard"
               ><p class="white">Dashboard</p></b-navbar-brand
             >
-=======
-            <b-navbar-brand>
-              <p class="white">Dashboard</p>
-              </b-navbar-brand>
->>>>>>> b56100eb1ed2004b060ee2de03018018b5775df7
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>

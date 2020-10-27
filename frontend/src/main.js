@@ -9,6 +9,11 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import estilos from '@/assets/style/main.css'
 
+<<<<<<< HEAD
+=======
+import VueAxios from  'vue-axios'
+import store from './store/index'
+>>>>>>> 5a3f1279e07a563fd0a9a8f1e2c92f9caea31215
 
 
 // rutes
