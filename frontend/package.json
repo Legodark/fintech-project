@@ -11,9 +11,11 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.18.1",
     "core-js": "^3.6.5",
+    "jwt-decode": "^3.0.0",
     "vue": "^2.6.12",
     "vue-axios": "2.1.4",
-    "vue-router": "^3.4.5"
+    "vue-router": "^3.4.5",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",
@@ -21,6 +23,7 @@
     "@vue/cli-service": "~4.5.0",
     "bootstrap": "^4.5.2",
     "mutationobserver-shim": "^0.3.7",
+    "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "sass": "^1.26.11",

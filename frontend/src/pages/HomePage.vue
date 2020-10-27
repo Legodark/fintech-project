@@ -9,23 +9,32 @@
         ></b-navbar-brand>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <p class="white">FindSave</p>
+            <p class="white">FinSave</p>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-nav-form>
-              <b-navbar-brand href="#">
-                <p class="white">Register</p></b-navbar-brand
+              <b-navbar-brand>
+                <router-link to="/register">
+                <p class="white">Register</p>
+                </router-link>
+                </b-navbar-brand
               >
             </b-nav-form>
 
-            <b-navbar-brand href="#"><p class="white">Login</p></b-navbar-brand>
+            <b-navbar-brand href="#"><router-link to="/login"><p class="white">Login</p></router-link></b-navbar-brand>
 
             <!-- hacer dinamico -->
+<<<<<<< HEAD
             <b-navbar-brand href="/dashboard"
               ><p class="white">Dashboard</p></b-navbar-brand
             >
+=======
+            <b-navbar-brand>
+              <p class="white">Dashboard</p>
+              </b-navbar-brand>
+>>>>>>> b56100eb1ed2004b060ee2de03018018b5775df7
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
