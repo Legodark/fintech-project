@@ -18,7 +18,9 @@
           <base-input type="email"
                     label="Email"
                     placeholder=""
+                    v-model="userUpdate.email"
                     >
+
           </base-input>
         </div>
         <div class="col-md-6">
@@ -35,6 +37,7 @@
           <base-input type="text"
                     label="Nombre"
                     placeholder=""
+                    v-model="userUpdate.name"
                     >
           </base-input>
         </div>
@@ -42,6 +45,7 @@
           <base-input type="text"
                     label="Apellidos"
                     placeholder=""
+                    v-model="userUpdate.lastname"
                     >
           </base-input>
         </div>
@@ -93,10 +97,10 @@
         </div>
       </div>-->
       <div class="text-center">
-        <button type="submit" class="btn btn-info btn-fill">
+        <button type="submit" class="btn btn-info btn-fill" @click.prevent="updateUser()">
           Actualizar Perfil
         </button>
-        <button type="submit" class="btn btn-danger btn-fill ml-3">
+        <button type="submit" class="btn btn-danger btn-fill ml-3" @click.prevent="deleteAccount()">
           Borrar Usuario
         </button>
       </div>
@@ -117,15 +121,51 @@ export default {
     Card,
     BaseInput
     },
-  userUpdate: {
-    name: '',
-    lastname: '',
-    email: '',
-    password: ''
+  data(){
+    return {
+      userUpdate: ''
+    }
   },
   methods:{
+    async userLoad(){
+      await this.$store.dispatch('userLoad')
+      this.userUpdate = this.$store.state.user
+      console.log(this.userUpdate);
 
+    },
+    async updateUser(){
+      try{
+      await this.axios.patch(`http://localhost:3000/auth/user/${this.userUpdate._id}`, this.userUpdate)
 
+      }
+      catch(error){
+        console.log('No se ha podido actulizar el usuario', error);
+      }
+      this.logOut()
+
+    },
+    async logOut(){
+       await this.$store.dispatch('logOut')
+
+        this.$router.push("/")
+    },
+    async deleteAccount(){
+      try{
+      if(confirm('Seguro que deseas eliminar tu cuenta? Esta operación no se puede deshacer'))
+      await this.axios.delete(`http://localhost:3000/auth/user/${this.userUpdate._id}`)
+      else{
+        return
+      }
+      }
+      catch(error){
+        console.log('La cuenta no se ha podido eliminar correctamente', error);
+      }
+      this.logOut()
+    }
+
+  },
+  mounted() {
+    this.userLoad()
   }
 }
 

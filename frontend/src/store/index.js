@@ -1,14 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import jwtDecode from "jwt-decode";
 Vue.use(Vuex)
+
+
 const store = new Vuex.Store({
 
   state: {
-    token: null
+    token: null,
+    userID: null,
+    user: null
   },
   mutations: {
     setToken(state, payload){
       state.token = payload
+    },
+    setUserID(state, payload){
+      state.userID = null
+
+      if (null !== payload) {
+      state.userID = jwtDecode(payload)
+      }
+    },
+    setUser(state, payload){
+      state.user = payload
     }
   },
   actions: {
@@ -33,10 +48,23 @@ const store = new Vuex.Store({
     },
     readToken({commit}){
       if(localStorage.getItem('token')){
-        commit('setToken', localStorage.getItem('token'))
+        commit('setToken', localStorage.getItem('setToken'))
       } else {
         commit ('setToken', null)
       }
+    },
+    async userLoad({commit}){
+      try{
+      commit('setUserID', localStorage.getItem('setToken'))
+      console.log(this.state.userID.id)
+
+      const cargarUsuario = await Vue.axios.get(`http://localhost:3000/auth/user/${this.state.userID.id}`)
+      commit('setUser', cargarUsuario.data)
+      console.log(this.state.user);
+    }
+    catch(error){
+      alert ('Ups, el usuario no se esta')
+    }
     }
   },
   modules: {

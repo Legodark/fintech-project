@@ -104,12 +104,6 @@ router.patch('/user/:id', async(req,res) => {
   let searchId = req.params.id
   let filters = { _id: searchId }
 
-  // Encriptación de la contraseña
-  console.log(req.body.password);
-
-  //const salt = await bcrypt.genSalt(10)
-  //const password = await bcrypt.hash(req.body.password, salt)
-
   const user = {
       name: req.body.name,
       lastname: req.body.lastname,
