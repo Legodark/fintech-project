@@ -23,7 +23,7 @@
             <b-navbar-brand href="#"><p class="white">Login</p></b-navbar-brand>
 
             <!-- hacer dinamico -->
-            <b-navbar-brand href="#"
+            <b-navbar-brand href="/dashboard"
               ><p class="white">Dashboard</p></b-navbar-brand
             >
           </b-navbar-nav>
@@ -71,43 +71,4 @@ export default {
 </script>
 
 <style>
-.bg {
-  background-color: #00487c;
-}
-
-.box-shadow {
-  -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-  box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-}
-
-.trans {
-  background-color: transparent;
-}
-.white {
-  color: white;
-}
-
-.navbar {
-  padding-top: 5px;
-}
-
-.logo {
-  width: 30px;
-}
-.center {
-  text-align: center;
-}
-
-.degrade {
-  background: -webkit-linear-gradient(
-    top,
-    rgba(248, 181, 0, 1) 0%,
-    rgba(248, 181, 0, 1) 5%,
-    rgba(252, 205, 77, 1) 78%,
-    rgba(251, 223, 147, 1) 87%,
-    rgba(252, 234, 187, 1) 95%,
-    rgba(252, 234, 187, 1) 100%
-  );
-}
 </style>

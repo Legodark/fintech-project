@@ -7,16 +7,19 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueAxios from  'vue-axios'
 import axios from 'axios'
+import estilos from '@/assets/style/main.css'
 
 
 
 // rutes
 
 import HomePage from '@/pages/HomePage'
+import DashBoard from '@/pages/DashBoard'
 
 const routes = [
 
-  { path: "/", name: "Home", component: HomePage }
+  { path: "/", name: "Home", component: HomePage },
+  { path: "/dashboard", name: "DashBoard", component: DashBoard },
 ]
 
 const router = new VueRouter({ routes, mode: 'history' })
