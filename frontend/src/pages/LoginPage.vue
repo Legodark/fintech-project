@@ -11,24 +11,25 @@
 				<div class="login-group">
 					<div class="form-group">
 						<label for="lg_username" class="sr-only">Username</label>
-						<input type="email" class="form-control" id="lg_username" name="lg_username" placeholder="Usuario" v-model="user.email">
+						<input type="email" class="form-control" id="lg_username" name="lg_username" placeholder="Usuario" v-model="userLogin.email">
 					</div>
 					<div class="form-group">
 						<label for="lg_password" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="Contraseña" v-model="user.password">
-					</div>
-					<div class="form-group login-group-checkbox">
-						<input type="checkbox" id="lg_remember" name="lg_remember">
-						<label for="lg_remember">Recordar</label>
+						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="Password" v-model="userLogin.password">
 					</div>
 				</div>
-				<button type="submit" class="login-button" @click.prevent="login(user)"><i class="fa fa-chevron-right"></i></button>
+				<button type="submit" class="login-button" @click.prevent="login()"><i class="fa fa-chevron-right"></i></button>
 			</div>
+
 			<div class="etc-login-form">
-				<p class="text-center">Recupera tu contraseña <a href="#">aquí</a></p>
+        <div class="text-center text-warning"><p>{{error}}</p></div>
+				<p class="text-center"><a href="#"></a></p>
 				<p class="text-center">Registrate <router-link to="/register">aquí</router-link></p>
 			</div>
       <div class="text-center"><router-link to="/">HomePage</router-link></div>
+      <div class="text-center"><router-link to="/profile">Profile</router-link></div>
+      <div class="text-center"><button @click.prevent="logOut()">Salir</button></div>
+
 		</form>
 	</div>
 	<!-- end:Main Form -->
@@ -46,14 +47,30 @@ export default {
   name: "HomePage",
   data(){
     return {
-      user: {
+      userLogin: {
         email: '',
         password: ''
-      }
+      },
+      error: ''
     }
   },
   methods:{
-    ...mapActions(['login'])
+    async login(){
+
+      try{
+      await this.$store.dispatch('login', this.userLogin)
+
+      this.$router.push('/')
+      }
+      catch(error){
+        this.error = error.response.data.mensage
+      }
+    },
+    async logOut(){
+       await this.$store.dispatch('logOut')
+
+        this.$router.push("/")
+    }
   }
 }
 </script>

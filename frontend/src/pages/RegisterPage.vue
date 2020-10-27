@@ -19,7 +19,7 @@
 					</div>
 					<div class="form-group">
 						<label for="reg_password" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="reg_lastname" name="reg_password" placeholder="Contraseña" v-model="registerUser.password">
+						<input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="Contraseña" v-model="registerUser.password">
 					</div>
 					<!--<div class="form-group">
 						<label for="reg_password_confirm" class="sr-only">Password Confirm</label>
@@ -78,15 +78,14 @@ export default {
   methods: {
     async register(){
       try{
-        await this.$http.post('http://localhost:3000/auth/register', this.registerUser)
+        await this.axios.post('http://localhost:3000/auth/register', this.registerUser)
 
         alert('Te has registrado satisfactorizamente.')
 
         this.$router.push('/login')
 
       }catch(error){
-
-        alert('Se ha producido un error al registrar el usuario.')
+        console.log(error.response.data);
       }
     }
   }

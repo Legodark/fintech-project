@@ -6,6 +6,24 @@ const schemaLogin = require('../models/validations/validateLogin')
 
 const User = require('../models/users')
 
+router.get ('/user/:id', async (req,res) =>{
+
+    let searchId = req.params.id
+    let idUser = { _id: searchId }
+
+    let foundIdUser = await User.findById(idUser).exec()
+    let searchUser = foundIdUser.toJSON()
+    delete searchUser.password
+    delete searchUser.enabled
+
+    res.json(searchUser)
+
+
+
+
+})
+
+
 
 router.post('/login', async(req,res) => {
 
@@ -33,11 +51,9 @@ router.post('/login', async(req,res) => {
 
   res.header('auth-token', token).json({
     error: null,
-    data: {token}
+    token
   })
 })
-
-
 
 router.post('/register', async(req,res) => {
 
@@ -80,8 +96,55 @@ router.post('/register', async(req,res) => {
 
     }
 
+})
 
 
+router.patch('/user/:id', async(req,res) => {
+
+  let searchId = req.params.id
+  let filters = { _id: searchId }
+
+  // Encriptación de la contraseña
+  console.log(req.body.password);
+
+  //const salt = await bcrypt.genSalt(10)
+  //const password = await bcrypt.hash(req.body.password, salt)
+
+  const user = {
+      name: req.body.name,
+      lastname: req.body.lastname,
+      email: req.body.email,
+  }
+
+  try {
+
+    let foundItem = await User.findOneAndUpdate(filters, user, { new: true }).exec()
+
+    let foundUser = foundItem.toJSON()
+    delete foundUser.password
+
+    res.json(foundUser)
+} catch (e) {
+    res.status(400).json({ message: e.message })
+}
+}),
+
+router.delete('/user/:id', async(req, res) =>{
+
+  let searchId = req.params.id
+  let idUser = { _id: searchId }
+
+  try{
+
+  let deleteIdUser = await User.findByIdAndDelete(idUser).exec()
+
+  res.json({
+    message: `El usuario con id:${deleteIdUser._id} ha sido eliminado satisfactoriamente`
+  })
+  }
+  catch(error){
+    res.status(400).json({message: 'El usuario no se ha podido borrar'})
+  }
 })
 
 module.exports = router

@@ -13,25 +13,23 @@ const store = new Vuex.Store({
   },
   actions: {
     async login({commit}, usuario){
+
       try{
-        const res = await fetch('http://localhost:3000/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(usuario)
-        })
-        const resDB = await res.json()
-        console.log(resDB.data.token);
+        const res = await Vue.axios.post('http://localhost:3000/auth/login', usuario)
 
-        commit ('setToken', resDB.data.token )
+        console.log(res.data.token);
 
-        localStorage.setItem('token', resDB.data.token)
 
+        commit ('setToken', res.data.token )
+
+        localStorage.setItem('setToken', res.data.token)
       }
       catch(error){
-        console.log(error)
+        console.log('tienes un error aqui');
       }
+    },
+    logOut(){
+      localStorage.removeItem('setToken', null)
     },
     readToken({commit}){
       if(localStorage.getItem('token')){

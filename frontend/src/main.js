@@ -6,8 +6,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import VueAxios from  'vue-axios'
 import axios from 'axios'
+import VueAxios from  'vue-axios'
 import store from './store/index'
 
 
@@ -16,12 +16,14 @@ import store from './store/index'
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
+import ProfilePage from '@/pages/ProfilePage'
 
 const routes = [
 
   { path: "/", name: "Home", component: HomePage },
   { path: "/login", name: "Login", component: LoginPage },
-  { path: "/register", name: "Register", component: RegisterPage }
+  { path: "/register", name: "Register", component: RegisterPage },
+  { path: "/profile", name: "Profile", component: ProfilePage}
 
 ]
 
