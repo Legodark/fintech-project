@@ -1,0 +1,10 @@
+.icono {
+  width: 80px;
+  margin: 10px;
+  border-radius: 200px 200px 200px 200px;
+-moz-border-radius: 200px 200px 200px 200px;
+-webkit-border-radius: 200px 200px 200px 200px;
+border: 2px solid #e80707;
+text-align: justify;
+
+}

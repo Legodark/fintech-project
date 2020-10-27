@@ -1,8 +1,8 @@
 <template>
   <div class="degrade">
-    <div class="container bg box-shadow div-case-large">
+    <div toggleable="xl" class="container bg box-shadow">
       <!-- menu nav -->
-      <b-navbar toggleable="lg" class="trans barnav">
+      <b-navbar toggleable="xl" class="trans barnav">
         <b-navbar-brand href="#">
           <img src="@/assets/money/png/006-coins.png" alt="" class="logo" />
           <p class="white"></p
@@ -26,9 +26,15 @@
             <b-navbar-brand href="#"><router-link to="/login"><p class="white">Login</p></router-link></b-navbar-brand>
 
             <!-- hacer dinamico -->
+<<<<<<< HEAD
+            <b-navbar-brand href="/dashboard"
+              ><p class="white">Dashboard</p></b-navbar-brand
+            >
+=======
             <b-navbar-brand>
               <p class="white">Dashboard</p>
               </b-navbar-brand>
+>>>>>>> b56100eb1ed2004b060ee2de03018018b5775df7
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -74,50 +80,4 @@ export default {
 </script>
 
 <style>
-.bg {
-  background-color: #00487c;
-}
-
-
-.box-shadow {
-
-  -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-  box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-}
-
-.trans {
-  background-color: transparent;
-}
-.white {
-  color: white;
-}
-
-.navbar {
-  padding-top: 5px;
-}
-
-.logo {
-  width: 30px;
-}
-.center {
-  text-align: center;
-}
-
-.degrade {
-  background: -webkit-linear-gradient(
-    top,
-    rgba(248, 181, 0, 1) 0%,
-    rgba(248, 181, 0, 1) 15%,
-    rgba(252, 205, 77, 1) 78%,
-    rgba(251, 223, 147, 1) 87%,
-    rgba(252, 234, 187, 1) 95%,
-    rgba(252, 234, 187, 1) 100%
-  );
-  height: 1500px;
-
-}
-.div-case-large{
-    height: 1500px;
-}
 </style>

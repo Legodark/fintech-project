@@ -1,0 +1,30 @@
+/* background pantilla general */
+@import "../style/core/background.css";
+
+/* background blanco */
+@import "../style/core/bg-white.css";
+
+/* caligrafia */
+@import "../style/core/cursiva.css";
+@import "../style/core/letrawhite.css";
+
+/* navbarhome */
+@import "../style/core/navbarhome.css";
+
+/* dashboard estilo top */
+@import "../style/core/panelsuperior.css";
+
+/* dashboard icono perfil */
+@import "../style/core/iconoperfil.css";
+
+/* dashboard icono panel */
+
+@import "../style/core/iconpanel.css";
+
+
+/* border panelees gastos e ingresos */
+
+@import "../style/core/bordergastos.css";
+@import "../style/core/borderingresos.css";
+
+
