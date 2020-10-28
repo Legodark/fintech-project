@@ -10,9 +10,18 @@
 
 /* navbarhome */
 @import "../style/core/navbarhome.css";
+@import "../style/core/sliderbarburger.css";
+@import "../style/core/dashboardnav.css";
+
+
+        // ******DASHBOARD***
+
+
+        // *****Sliedermenu burger*****
+@import "../style/core/burgerbutton.css";
 
 /* dashboard estilo top */
-@import "../style/core/panelsuperior.css";
+@import "../style/core/pading.css";
 
 /* dashboard icono perfil */
 @import "../style/core/iconoperfil.css";
