@@ -7,7 +7,7 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
-import estilos from '@/assets/style/main.css'
+import estilos from '@/assets/style/main.scss'
 
 import VueAxios from  'vue-axios'
 import store from './store/index'
@@ -31,7 +31,13 @@ const routes = [
 
 ]
 
+
+
 const router = new VueRouter({ routes, mode: 'history' })
+
+/*router.beforeEach((to, from, next) => {
+  // ...
+})*/
 
 
 

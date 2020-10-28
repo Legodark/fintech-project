@@ -1,174 +1,210 @@
 <template>
-<div class="degrade">
-  <div class="container bg div-case-large box-shadow">
-  <div class="row justify-content-center">
-  <card class="custom-margin">
-    <h4 slot="header" class="card-title text-center">Editar Perfil</h4>
-    <form>
-      <div class="row">
-        <!--<div class="col-md-5">
-          <base-input type="text"
-                    label="Company"
-                    :disabled="true"
-                    placeholder="Light dashboard"
-                    >
-          </base-input>
-        </div>-->
-        <div class="col-md-6">
-          <base-input type="email"
-                    label="Email"
-                    placeholder=""
-                    v-model="userUpdate.email"
-                    >
+  <div class="degrade">
+    <div class="container bg div-case-large box-shadow">
+      <div class="row justify-content-center">
+        <card class="custom-margin">
+          <h4 slot="header" class="card-title text-center">{{ nameEdit }}</h4>
+          <form>
+            <div class="row justify-content-center">
+              <div class="col-md-6">
+                <base-input
+                  type="email"
+                  label="Email"
+                  placeholder=""
+                  v-model="userUpdate.email"
+                  :disabled="true"
+                >
+                </base-input>
+              </div>
+            </div>
 
-          </base-input>
-        </div>
-        <div class="col-md-6">
-          <base-input type="password"
-                    label="Password"
-                    placeholder="min 8 caracteres"
-                    >
-          </base-input>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-md-6">
+                <base-input
+                  type="text"
+                  label="Nombre"
+                  placeholder=""
+                  v-model="userUpdate.name"
+                  :disabled="esActive === false"
+                >
+                </base-input>
+              </div>
+              <div class="col-md-6">
+                <base-input
+                  type="text"
+                  label="Apellidos"
+                  placeholder=""
+                  v-model="userUpdate.lastname"
+                  :disabled="esActive === false"
+                >
+                </base-input>
+              </div>
+            </div>
+            <div class="row" v-if="esActive">
+              <div class="col-md-6">
+                <base-input
+                  type="password"
+                  label="Password"
+                  placeholder="min 8 caracteres"
+                  v-model="passwordUpdate"
+                  :disabled="esActive === false"
+                >
+                </base-input>
+              </div>
+              <div class="col-md-6 ">
+                <base-input
+                  type="password"
+                  label="Repite la contraseña"
+                  placeholder="min 8 caracteres"
+                  v-model="repeatpassword"
+                  :disabled="esActive === false"
+                >
+                </base-input>
+                <p>{{ errorPassword }}</p>
+                <button
+                  type="submit"
+                  class="btn btn-warning btn-fill ml-4"
+                  @click.prevent="updatePassword()"
+                >
+                  Actualizar contraseña
+                </button>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <base-input type="text"
-                    label="Nombre"
-                    placeholder=""
-                    v-model="userUpdate.name"
-                    >
-          </base-input>
-        </div>
-        <div class="col-md-6">
-          <base-input type="text"
-                    label="Apellidos"
-                    placeholder=""
-                    v-model="userUpdate.lastname"
-                    >
-          </base-input>
-        </div>
+            <div class="text-center">
+              <button
+                type="submit"
+                class="btn btn-info btn-fill"
+                @click.prevent="isActive()"
+                v-if="esActive === false"
+              >
+                Editar
+              </button>
+            </div>
+            <div class="text-center mt-3" v-if="esActive">
+              <button
+                type="submit"
+                class="btn btn-primary btn-fill ml-4"
+                @click.prevent="updateUser()"
+              >
+                Actualizar Perfil
+              </button>
+              <button
+                type="submit"
+                class="btn btn-info btn-fill ml-2 "
+                @click.prevent="isActive()"
+                v-if="esActive === true"
+              >
+                Salir de Editar
+              </button>
+              <button
+                type="submit"
+                class="btn btn-danger btn-fill ml-3 ml-3"
+                @click.prevent="deleteAccount()"
+              >
+                Borrar Usuario
+              </button>
+            </div>
+          </form>
+        </card>
       </div>
-
-      <!--<div class="row">
-        <div class="col-md-12">
-          <base-input type="text"
-                    label="Address"
-                    placeholder="Home Address"
-                    >
-          </base-input>
-        </div>
+      <div class="text-center mt-2">
+        <router-link to="/" class="text-warning">HomePage</router-link>
       </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <base-input type="text"
-                    label="City"
-                    placeholder="City"
-                    >
-          </base-input>
-        </div>
-        <div class="col-md-4">
-          <base-input type="text"
-                    label="Country"
-                    placeholder="Country"
-                    >
-          </base-input>
-        </div>
-        <div class="col-md-4">
-          <base-input type="number"
-                    label="Postal Code"
-                    placeholder="ZIP Code"
-                    >
-          </base-input>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>About Me</label>
-            <textarea rows="5" class="form-control border-input"
-                      placeholder="Here can be your description"
-                      >
-              </textarea>
-          </div>
-        </div>
-      </div>-->
-      <div class="text-center">
-        <button type="submit" class="btn btn-info btn-fill" @click.prevent="updateUser()">
-          Actualizar Perfil
-        </button>
-        <button type="submit" class="btn btn-danger btn-fill ml-3" @click.prevent="deleteAccount()">
-          Borrar Usuario
-        </button>
-      </div>
-    </form>
-  </card>
+    </div>
   </div>
-  <div class="text-center mt-2"><router-link to="/" class="text-warning">HomePage</router-link></div>
-</div>
-</div>
 </template>
 
 <script>
-import Card from '@/components/Card'
-import BaseInput from '@/inputs/BaseInput'
+import Card from "@/components/Card";
+import BaseInput from "@/inputs/BaseInput";
 export default {
-  name: 'ProfilePage',
+  name: "ProfilePage",
   components: {
     Card,
     BaseInput
-    },
-  data(){
-    return {
-      userUpdate: ''
-    }
   },
-  methods:{
-    async userLoad(){
-      await this.$store.dispatch('userLoad')
-      this.userUpdate = this.$store.state.user
+  data() {
+    return {
+      nameEdit: "Perfil",
+      esActive: false,
+      userUpdate: "",
+      passwordUpdate: "",
+      repeatpassword: "",
+      errorPassword: ""
+    };
+  },
+  methods: {
+    async userLoad() {
+      await this.$store.dispatch("userLoad");
+      this.userUpdate = this.$store.state.user;
       console.log(this.userUpdate);
-
     },
-    async updateUser(){
-      try{
-      await this.axios.patch(`http://localhost:3000/auth/user/${this.userUpdate._id}`, this.userUpdate)
-
+    async updateUser() {
+      try {
+        await this.axios.patch(
+          `http://localhost:3000/auth/user/${this.userUpdate._id}`,
+          this.userUpdate
+        );
+      } catch (error) {
+        console.log("No se ha podido actulizar el usuario", error);
       }
-      catch(error){
-        console.log('No se ha podido actulizar el usuario', error);
-      }
-      this.logOut()
-
+      this.isActive();
+      this.logOut();
     },
-    async logOut(){
-       await this.$store.dispatch('logOut')
-
-        this.$router.push("/")
+    async updatePassword() {
+      if (this.passwordUpdate !== this.repeatpassword) {
+        this.errorPassword = "Las contraseñas no coinciden";
+        return;
+      }
+      try {
+        await this.axios.patch(
+          `http://localhost:3000/auth/change/user/${this.userUpdate._id}`,
+          { password: this.passwordUpdate }
+        );
+      } catch (error) {
+        console.log("Las contraseñas no coinciden.", error);
+      }
     },
-    async deleteAccount(){
-      try{
-      if(confirm('Seguro que deseas eliminar tu cuenta? Esta operación no se puede deshacer'))
-      await this.axios.delete(`http://localhost:3000/auth/user/${this.userUpdate._id}`)
-      else{
-        return
+    async logOut() {
+      await this.$store.dispatch("logOut");
+
+      this.$router.push("/");
+    },
+    async deleteAccount() {
+      try {
+        if (
+          confirm(
+            "Seguro que deseas eliminar tu cuenta? Esta operación no se puede deshacer"
+          )
+        )
+          await this.axios.delete(
+            `http://localhost:3000/auth/user/${this.userUpdate._id}`
+          );
+        else {
+          return;
+        }
+      } catch (error) {
+        console.log("La cuenta no se ha podido eliminar correctamente", error);
       }
+      this.isActive();
+      this.logOut();
+    },
+    isActive() {
+      if (this.esActive === true) {
+        this.nameEdit = "Perfil";
+        return (this.esActive = false);
       }
-      catch(error){
-        console.log('La cuenta no se ha podido eliminar correctamente', error);
+      if (this.esActive === false) {
+        this.nameEdit = "Editar Perfil";
+        return (this.esActive = true);
       }
-      this.logOut()
     }
-
   },
   mounted() {
-    this.userLoad()
+    this.userLoad();
   }
-}
-
+};
 </script>
 
 <style>
@@ -187,20 +223,18 @@ export default {
     rgba(252, 234, 187, 1) 100%
   );
   height: 1000px;
-
 }
-.div-case-large{
-    height: 1000px;
+.div-case-large {
+  height: 1000px;
 }
 
 .box-shadow {
-
   -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
   box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
 }
 
-.custom-margin{
+.custom-margin {
   margin-top: 100px;
 }
 </style>

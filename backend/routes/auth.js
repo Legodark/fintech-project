@@ -133,13 +133,13 @@ router.patch('/change/user/:id', async(req,res) =>{
   const salt = await bcrypt.genSalt(10)
   const password = await bcrypt.hash(req.body.password, salt)
 
-  const newUser = {
+  const newuser = {
     password
   }
 
   try {
 
-    let foundItem = await User.findOneAndUpdate(filters, newUser, { new: true }).exec()
+    let foundItem = await User.findOneAndUpdate(filters, newuser, { new: true }).exec()
 
     let foundUser = foundItem.toJSON()
     delete foundUser.password
