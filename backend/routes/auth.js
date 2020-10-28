@@ -123,6 +123,37 @@ router.patch('/user/:id', async(req,res) => {
 }
 }),
 
+router.patch('/change/user/:id', async(req,res) =>{
+
+  let searchId = req.params.id
+  let filters = { _id: searchId }
+
+
+
+  const salt = await bcrypt.genSalt(10)
+  const password = await bcrypt.hash(req.body.password, salt)
+
+  const newUser = {
+    password
+  }
+
+  try {
+
+    let foundItem = await User.findOneAndUpdate(filters, newUser, { new: true }).exec()
+
+    let foundUser = foundItem.toJSON()
+    delete foundUser.password
+
+    res.json(foundUser)
+} catch (e) {
+    res.status(400).json({ message: e.message })
+}
+
+
+
+
+})
+
 router.delete('/user/:id', async(req, res) =>{
 
   let searchId = req.params.id
