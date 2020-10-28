@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-    <div toggleable="xl" class="container bg box-shadow">
+    <div toggleable="xl" class="container bg box-shadow div-case-large">
       <!-- menu nav -->
       <b-navbar toggleable="xl" class="trans barnav">
         <b-navbar-brand href="#">
@@ -17,13 +17,16 @@
             <b-nav-form>
               <b-navbar-brand>
                 <router-link to="/register">
-                <p class="white">Register</p>
+                  <p class="white">Register</p>
                 </router-link>
-                </b-navbar-brand
-              >
+              </b-navbar-brand>
             </b-nav-form>
 
-            <b-navbar-brand href="#"><router-link to="/login"><p class="white">Login</p></router-link></b-navbar-brand>
+            <b-navbar-brand href="#"
+              ><router-link to="/login"
+                ><p class="white">Login</p></router-link
+              ></b-navbar-brand
+            >
 
             <!-- hacer dinamico -->
             <b-navbar-brand href="/dashboard"

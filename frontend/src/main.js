@@ -7,13 +7,14 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
-import estilos from '@/assets/style/main.css'
+import estilos from '@/assets/style/main.scss'
 
-<<<<<<< HEAD
-=======
 import VueAxios from  'vue-axios'
 import store from './store/index'
->>>>>>> 5a3f1279e07a563fd0a9a8f1e2c92f9caea31215
+
+
+import { IconsPlugin } from 'bootstrap-vue'
+Vue.use(IconsPlugin)
 
 
 // rutes
@@ -23,6 +24,9 @@ import DashBoard from '@/pages/DashBoard'
 import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
 import ProfilePage from '@/pages/ProfilePage'
+import Movimientos from '@/pages/Movimientos'
+import Ingresos from '@/pages/Ingresos'
+import Gastos from '@/pages/Gastos'
 
 const routes = [
 
@@ -30,7 +34,10 @@ const routes = [
   { path: "/dashboard", name: "DashBoard", component: DashBoard },
   { path: "/login", name: "Login", component: LoginPage },
   { path: "/register", name: "Register", component: RegisterPage },
-  { path: "/profile", name: "Profile", component: ProfilePage}
+  { path: "/profile", name: "Profile", component: ProfilePage},
+  { path: "/stock", name: "Movimientos", component: Movimientos},
+  { path: "/pay", name: "Ingresos", component: Ingresos},
+  { path: "/spend", name: "Gastos", component: Gastos},
 
 ]
 
