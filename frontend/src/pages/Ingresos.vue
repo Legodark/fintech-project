@@ -41,17 +41,17 @@
               </div>
               <!-- derecha listar movimientos -->
               <div class="col-6">
-                <b-card header="Ingresos" class="text-center">
+                <b-card header="Ingresos" class="text-center" >
                   <b-list-group-item
                     href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded ingresos"
+                    class="flex-column align-items-start mb-2 shadow rounded ingresos" v-for="(ingreso, index) in ingresosOBJ" :key="index"
                   >
                     <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">24 de Octubre de 2020</h5>
+                      <h5 class="mb-1">{{ ingreso.date }}</h5>
                       <small class="text-muted">3 days ago</small>
                     </div>
                     <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">wallapop</h6>
+                      <h6 class="mb-1">{{ ingreso.category }}</h6>
                     </div>
                     <div>
                       <img
@@ -59,60 +59,13 @@
                         alt=""
                         class="icon float-left"
                       />
-                      <p class="mb-1 float-left">Venta bici</p>
+                      <p class="mb-1 float-left"> {{ ingreso.description }} </p>
 
-                      <p class="float-right">70€</p>
+                      <p class="float-right"> {{ ingreso.quantity }}</p>
                     </div>
-                    <small class="text-muted">Efectivo</small>
+                    <small class="text-muted">{{ ingreso.metodo }}</small>
                   </b-list-group-item>
 
-                  <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded ingresos"
-                  >
-                    <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">5 de Octubre de 2020</h5>
-                      <small class="text-muted">22 days ago</small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">Nomina</h6>
-                    </div>
-                    <div>
-                      <img
-                        src="@/assets/money/png/025-profits.png"
-                        alt=""
-                        class="icon float-left"
-                      />
-                      <p class="mb-1 float-left">Traspaso desde cuenta</p>
-
-                      <p class="float-right">2200€</p>
-                    </div>
-                    <small class="text-muted">Transferencia realizada</small>
-                  </b-list-group-item>
-
-                  <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded ingresos"
-                  >
-                    <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">5 de Octubre de 2020</h5>
-                      <small class="text-muted">22 days ago</small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">Nomina</h6>
-                    </div>
-                    <div>
-                      <img
-                        src="@/assets/money/png/025-profits.png"
-                        alt=""
-                        class="icon float-left"
-                      />
-                      <p class="mb-1 float-left">Traspaso desde cuenta</p>
-
-                      <p class="float-right">2200€</p>
-                    </div>
-                    <small class="text-muted">Transferencia realizada</small>
-                  </b-list-group-item>
 
                 </b-card>
               </div>
@@ -139,7 +92,50 @@ export default {
     Burger,
     Sidebar
   },
+  data(){
+    return{
+      ingresosOBJ:[{
+        type: 'Ingresos',
+        quantity: '1530',
+        Forma: 'Transferencia',
+        description: 'nomina pagada',
+        category: 'nomina',
+        date: '28 de octubre 2020',
+        metodo:'tranferencia pagada',
+        enabled: '',
+
+        },
+        {
+        type: 'Ingresos',
+        quantity: '130',
+        Forma: 'Efectivo',
+        description: 'Venta de bici',
+        category: 'Salud y bienstar',
+        date: '28 de octubre 2020',
+        metodo:'efectivo',
+        enabled: '',
+        },
+        {
+        type: 'Ingresos',
+        quantity: '250',
+        Forma: 'Efectivo',
+        description: 'mantenimiento web',
+        category: 'Informatica',
+        date: '2 de octubre 2020',
+        metodo:'efectivo',
+        enabled: '',
+        }
+
+
+
+      ]
+    }
+    methods:{
+
+    }
+  }
 }
+
 </script>
 
 <style>
