@@ -18,6 +18,7 @@ app.use(bodyparser.json());
 const homeRoute = require('./routes/home')
 const authRoute = require('./routes/auth')
 const dashRoute = require('./routes/dashboard')
+const movesRoute = require('./routes/moves')
 const restrictArea = require('./middlewares/validate-token')
 
 // Activación de las rutas
@@ -25,6 +26,7 @@ const restrictArea = require('./middlewares/validate-token')
 app.use('/', homeRoute)
 app.use('/auth', authRoute)
 app.use('/auth/dashboard', restrictArea, dashRoute)
+app.use('/moves', restrictArea, movesRoute)
 
 // Conexion a la base de datos
 

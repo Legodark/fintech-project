@@ -107,7 +107,7 @@ router.patch('/user/:id', async(req,res) => {
   const user = {
       name: req.body.name,
       lastname: req.body.lastname,
-      email: req.body.email,
+      email: req.body.email
   }
 
   try {
