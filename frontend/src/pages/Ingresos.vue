@@ -34,31 +34,32 @@
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Ingresos" class="text-center">
+                  <div v-for="(ingreso, index) in ingresosOBJ" :key="index">
                   <b-list-group-item
                     href="#"
                     class="flex-column align-items-start mb-2 shadow rounded ingresos"
-                    v-for="(ingreso, index) in ingresosOBJ"
-                    :key="index"
+                    v-if="ingreso.type !== 'gasto'"
                   >
                     <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">{{ ingreso.date }}</h5>
+                      <h3 class="mb-1">{{ ingreso.description }}</h3>
                       <small class="text-muted">3 days ago</small>
                     </div>
                     <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">{{ ingreso.category }}</h6>
+                      <h6 class="mb-1">{{ transformDate(ingreso) }}</h6>
                     </div>
                     <div>
                       <img
-                        src="@/assets/money/png/025-profits.png"
+                        :src="typeImage(ingreso)"
                         alt=""
-                        class="icon float-left"
+                        class="icon float-left mr-2"
                       />
-                      <p class="mb-1 float-left">{{ ingreso.description }}</p>
+                      <p class="mb-1 float-left">{{ingreso.category}}</p>
 
-                      <p class="float-right">{{ ingreso.quantity }}</p>
+                      <p class="float-right">{{ingreso.quantity}}€</p>
                     </div>
-                    <small class="text-muted">{{ ingreso.metodo }}</small>
+                    <small class="text-muted">{{ingreso.type}}</small>
                   </b-list-group-item>
+                  </div>
                 </b-card>
               </div>
             </b-card-group>
@@ -87,8 +88,32 @@ export default {
     };
   },
   methods: {
-
-  }
+    async moveLoad() {
+        await this.$store.dispatch("moveLoad");
+        this.ingresosOBJ = this.$store.state.moves;
+        console.log(this.ingresosOBJ);
+    },
+    transformDate(move) {
+      let transform = new Date(move.date)
+      let shortTime = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }
+      return new Intl.DateTimeFormat('en-US', shortTime).format(transform)
+    },
+    filterType(move){
+      if(move.type !== 'ingreso'){
+        this.isActive = false
+        console.log(this.isActive);
+      }
+    },
+    typeImage(move){
+      if(move.type === 'ingreso'){
+        move.image = '@/assets/money/png/025-profits.png'
+        console.log(move.image);
+      }
+    }
+  },
+  mounted(){
+      this.moveLoad()
+    }
 };
 </script>
 

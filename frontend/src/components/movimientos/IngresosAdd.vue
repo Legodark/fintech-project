@@ -26,10 +26,13 @@
                 </div>
                 <div class="form-group text-center">
                   <label>Tipo de Movimiento</label>
-                  <select class="form-control">
-                    <option>Gasto</option>
-                    <option>Ingreso</option>
-                  </select>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingreso"
+                    value=""
+                    disabled="true"
+                  />
                 </div>
               </div>
               <div class="col-md-6">

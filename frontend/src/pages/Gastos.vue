@@ -33,55 +33,32 @@
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Gastos" class="text-center">
+                  <div v-for="(gastos, index) in gastosOBG" :key="index">
                   <b-list-group-item
                     href="#"
                     class="flex-column align-items-start mb-2 shadow rounded gastos"
+                    v-if="gastos.type !== 'ingreso'"
                   >
                     <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">24 de Octubre de 2020</h5>
+                      <h3 class="mb-1">{{ gastos.description }}</h3>
                       <small class="text-muted">3 days ago</small>
                     </div>
                     <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">Tarjeta crédito *6845</h6>
+                      <h6 class="mb-1">{{ transformDate(gastos) }}</h6>
                     </div>
                     <div>
                       <img
-                        src="@/assets/money/png/024-loss-1.png"
+                        :src="typeImage(gastos)"
                         alt=""
-                        class="icon float-left"
+                        class="icon float-left mr-2"
                       />
-                      <p class="mb-1 float-left">Pizza delicious</p>
+                      <p class="mb-1 float-left">{{gastos.category}}</p>
 
-                      <p class="float-right">70€</p>
+                      <p class="float-right">-{{gastos.quantity}}€</p>
                     </div>
-                    <small class="text-muted">Restaurante</small>
+                    <small class="text-muted">{{gastos.type}}</small>
                   </b-list-group-item>
-
-                  <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded gastos"
-                  >
-                    <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">5 de Octubre de 2020</h5>
-                      <small class="text-muted">22 days ago</small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">Transferencia</h6>
-                    </div>
-                    <div>
-                      <img
-                        src="@/assets/money/png/024-loss-1.png"
-                        alt=""
-                        class="icon float-left"
-                      />
-                      <p class="mb-1 float-left">Alquiler</p>
-
-                      <p class="float-right">520€</p>
-                    </div>
-                    <small class="text-muted">Transferencia realizada</small>
-                  </b-list-group-item>
-
-
+                  </div>
                 </b-card>
               </div>
             </b-card-group>
@@ -108,6 +85,38 @@ export default {
     Sidebar,
     MenuSlide
   },
+  data(){
+    return{
+      gastosOBG:[]
+    }
+  },
+  methods: {
+    async moveLoad() {
+        await this.$store.dispatch("moveLoad");
+        this.gastosOBG = this.$store.state.moves;
+        console.log(this.gastosOBG);
+    },
+    transformDate(gastos) {
+      let transform = new Date(gastos.date)
+      let shortTime = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }
+      return new Intl.DateTimeFormat('en-US', shortTime).format(transform)
+    },
+    filterType(gastos){
+      if(gastos.type !== 'ingreso'){
+        this.isActive = false
+        console.log(this.isActive);
+      }
+    },
+    typeImage(gastos){
+      if(gastos.type === 'ingreso'){
+        gastos.image = '@/assets/money/png/025-profits.png'
+        console.log(gastos.image);
+      }
+    }
+  },
+  mounted(){
+      this.moveLoad()
+    }
 }
 </script>
 

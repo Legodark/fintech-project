@@ -26,10 +26,13 @@
                 </div>
                 <div class="form-group text-center">
                   <label>Tipo de Movimiento</label>
-                  <select class="form-control">
-                    <option>Gasto</option>
-                    <option>Ingreso</option>
-                  </select>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Gasto"
+                    value=""
+                    disabled="Gasto"
+                  />
                 </div>
               </div>
               <div class="col-md-6">
@@ -67,6 +70,18 @@ export default {
     },
     hide() {
       this.$modal.hide("my-first-modal-gasto");
+    },
+    async register(){
+      try{
+        await this.axios.post('http://localhost:3000/auth/register', this.registerUser)
+
+        alert('Te has registrado satisfactorizamente.')
+
+        this.$router.push('/login')
+
+      }catch(error){
+        console.log(error.response.data);
+      }
     }
   },
   mount() {
