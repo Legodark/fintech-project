@@ -26,7 +26,7 @@ const restrictArea = require('./middlewares/validate-token')
 app.use('/', homeRoute)
 app.use('/auth', authRoute)
 app.use('/auth/dashboard', restrictArea, dashRoute)
-app.use('/moves', restrictArea, movesRoute)
+app.use('/moves', movesRoute)
 
 // Conexion a la base de datos
 

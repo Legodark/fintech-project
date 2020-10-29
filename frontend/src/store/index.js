@@ -9,7 +9,8 @@ const store = new Vuex.Store({
   state: {
     token: null,
     userID: null,
-    user: null
+    user: null,
+    moves: []
   },
   mutations: {
     setToken(state, payload){
@@ -24,6 +25,9 @@ const store = new Vuex.Store({
     },
     setUser(state, payload){
       state.user = payload
+    },
+    setMoves(state, payload){
+      state.moves = payload
     }
   },
   actions: {
@@ -63,8 +67,20 @@ const store = new Vuex.Store({
       console.log(this.state.user);
     }
     catch(error){
-      alert ('Ups, el usuario no se esta')
+      alert ('Ups, no se puede cargar los datos del usuario')
     }
+    },
+    async moveLoad({commit}){
+      try{
+        commit('setUserID', localStorage.getItem('setToken'))
+        console.log(this.state.userID.id)
+
+        const cargarMoves = await Vue.axios.get(`http://localhost:3000/moves/listmoves/${this.state.userID.id}`)
+        commit('setMoves', cargarMoves.data)
+      }
+      catch(error){
+        alert ('Ups, no se pueden cargar los datos de los movimientos')
+      }
     }
   },
   modules: {

@@ -10,12 +10,9 @@
 
         <Sidebar>
           <ul class="sidebar-panel-nav">
-            <li><a href="/stock">Movimientos</a></li>
-            <li><a href="#">Añadir</a></li>
-            <li><a href="/pay">Ingresos</a></li>
-            <li><a href="/spend">Gastos</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><router-link to="/moves">Movimientos</router-link></li>
+            <li><router-link to="/entrys">Ingresos</router-link></li>
+            <li><router-link to="/spend">Gastos</router-link></li>
           </ul>
         </Sidebar>
       </div>

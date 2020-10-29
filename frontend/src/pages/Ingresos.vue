@@ -9,15 +9,7 @@
         </nav>
 
         <Sidebar>
-          <ul class="sidebar-panel-nav">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/stock">Movimientos</a></li>
-            <li><a href="#">Añadir</a></li>
-
-            <li><a href="/spend">Gastos</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+          <MenuSlide />
         </Sidebar>
       </div>
 
@@ -41,10 +33,12 @@
               </div>
               <!-- derecha listar movimientos -->
               <div class="col-6">
-                <b-card header="Ingresos" class="text-center" >
+                <b-card header="Ingresos" class="text-center">
                   <b-list-group-item
                     href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded ingresos" v-for="(ingreso, index) in ingresosOBJ" :key="index"
+                    class="flex-column align-items-start mb-2 shadow rounded ingresos"
+                    v-for="(ingreso, index) in ingresosOBJ"
+                    :key="index"
                   >
                     <div class="d-flex w-100 justify-content-between cursiva">
                       <h5 class="mb-1">{{ ingreso.date }}</h5>
@@ -59,85 +53,43 @@
                         alt=""
                         class="icon float-left"
                       />
-                      <p class="mb-1 float-left"> {{ ingreso.description }} </p>
+                      <p class="mb-1 float-left">{{ ingreso.description }}</p>
 
-                      <p class="float-right"> {{ ingreso.quantity }}</p>
+                      <p class="float-right">{{ ingreso.quantity }}</p>
                     </div>
                     <small class="text-muted">{{ ingreso.metodo }}</small>
                   </b-list-group-item>
-
-
                 </b-card>
               </div>
             </b-card-group>
           </div>
         </div>
       </div>
-
-
-
     </div>
   </div>
-
 </template>
 
-
 <script>
-import Burger from '@/components/Menu/Burger.vue';
-import Sidebar from '@/components/Menu/Sidebar.vue';
+import Burger from "@/components/Menu/Burger.vue";
+import Sidebar from "@/components/Menu/Sidebar.vue";
+import MenuSlide from "@/mixins/MenuSlide";
 
 export default {
   name: "Ingresos",
   components: {
     Burger,
-    Sidebar
+    Sidebar,
+    MenuSlide
   },
-  data(){
-    return{
-      ingresosOBJ:[{
-        type: 'Ingresos',
-        quantity: '1530',
-        Forma: 'Transferencia',
-        description: 'nomina pagada',
-        category: 'nomina',
-        date: '28 de octubre 2020',
-        metodo:'tranferencia pagada',
-        enabled: '',
+  data() {
+    return {
+      ingresosOBJ: []
+    };
+  },
+  methods: {
 
-        },
-        {
-        type: 'Ingresos',
-        quantity: '130',
-        Forma: 'Efectivo',
-        description: 'Venta de bici',
-        category: 'Salud y bienstar',
-        date: '28 de octubre 2020',
-        metodo:'efectivo',
-        enabled: '',
-        },
-        {
-        type: 'Ingresos',
-        quantity: '250',
-        Forma: 'Efectivo',
-        description: 'mantenimiento web',
-        category: 'Informatica',
-        date: '2 de octubre 2020',
-        metodo:'efectivo',
-        enabled: '',
-        }
-
-
-
-      ]
-    }
-    methods:{
-
-    }
   }
-}
-
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

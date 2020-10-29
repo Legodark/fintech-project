@@ -9,15 +9,7 @@
         </nav>
 
         <Sidebar>
-          <ul class="sidebar-panel-nav">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/stock">Movimientos</a></li>
-            <li><a href="#">Añadir</a></li>
-
-            <li><a href="/pay">Ingresos</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+          <MenuSlide/>
         </Sidebar>
       </div>
 
@@ -107,12 +99,14 @@
 <script>
 import Burger from '@/components/Menu/Burger.vue';
 import Sidebar from '@/components/Menu/Sidebar.vue';
+import MenuSlide from "@/mixins/MenuSlide";
 
 export default {
   name: "Gastos",
   components: {
     Burger,
-    Sidebar
+    Sidebar,
+    MenuSlide
   },
 }
 </script>

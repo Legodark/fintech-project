@@ -8,6 +8,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import estilos from '@/assets/style/main.scss'
+import vmodal from 'vue-js-modal'
 
 import VueAxios from  'vue-axios'
 import store from './store/index'
@@ -35,11 +36,12 @@ const routes = [
   { path: "/login", name: "Login", component: LoginPage },
   { path: "/register", name: "Register", component: RegisterPage },
   { path: "/profile", name: "Profile", component: ProfilePage},
-  { path: "/stock", name: "Movimientos", component: Movimientos},
-  { path: "/pay", name: "Ingresos", component: Ingresos},
+  { path: "/moves", name: "Movimientos", component: Movimientos},
+  { path: "/entrys", name: "Ingresos", component: Ingresos},
   { path: "/spend", name: "Gastos", component: Gastos},
 
 ]
+
 
 
 
@@ -55,6 +57,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
+Vue.use(vmodal)
 Vue.use(Vuex)
 
 new Vue({
