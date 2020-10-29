@@ -16,19 +16,19 @@ const store = new Vuex.Store({
     setToken(state, payload){
       state.token = payload
     },
-    setUserID(state, payload){
+    /*setUserID(state, payload){
       state.userID = null
 
       if (null !== payload) {
       state.userID = jwtDecode(payload)
       }
-    },
+    },*/
     setUser(state, payload){
       state.user = payload
     },
     setMoves(state, payload){
       state.moves = payload
-    }
+    },
   },
   actions: {
     async login({commit}, usuario){
@@ -59,10 +59,13 @@ const store = new Vuex.Store({
     },
     async userLoad({commit}){
       try{
-      commit('setUserID', localStorage.getItem('setToken'))
-      console.log(this.state.userID.id)
+        let config = {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+          }
+        }
 
-      const cargarUsuario = await Vue.axios.get(`http://localhost:3000/auth/user/${this.state.userID.id}`)
+      const cargarUsuario = await Vue.axios.get(`http://localhost:3000/auth/user`, config)
       commit('setUser', cargarUsuario.data)
       console.log(this.state.user);
     }
@@ -72,10 +75,12 @@ const store = new Vuex.Store({
     },
     async moveLoad({commit}){
       try{
-        commit('setUserID', localStorage.getItem('setToken'))
-        console.log(this.state.userID.id)
-
-        const cargarMoves = await Vue.axios.get(`http://localhost:3000/moves/listmoves/${this.state.userID.id}`)
+        let config = {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+          }
+        }
+        const cargarMoves = await Vue.axios.get(`http://localhost:3000/moves/listmoves`, config)
         commit('setMoves', cargarMoves.data)
       }
       catch(error){

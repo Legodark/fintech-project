@@ -22,6 +22,7 @@
                     class="form-control"
                     placeholder=""
                     value=""
+                    v-model="registerGasto.quantity"
                   />
                 </div>
                 <div class="form-group text-center">
@@ -38,7 +39,7 @@
               <div class="col-md-6">
                 <div class="form-group text-center">
                   <label>Categoria</label>
-                  <select class="form-control">
+                  <select class="form-control" v-model="registerGasto.category">
                     <option>Consumible</option>
                     <option>Salud y Bienestar</option>
                     <option>Ocio</option>
@@ -49,11 +50,22 @@
                 </div>
                 <div class="form-group text-center">
                   <label>Descripción</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                  <textarea
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="2"
+                    v-model="registerGasto.description"
+                  ></textarea>
                 </div>
               </div>
             </div>
-            <button type="button" class="btnSubmit">Añadir</button>
+            <button
+              type="button"
+              class="btnSubmit"
+              @click.prevent="registerMovesGasto()"
+            >
+              Añadir
+            </button>
           </div>
         </div>
       </div>
@@ -64,22 +76,33 @@
 <script>
 export default {
   name: "GastosAdd",
+  data() {
+    return {
+      registerGasto: {
+        quantity: "",
+        description: "",
+        category: "",
+        type: "gasto"
+      }
+    };
+  },
   methods: {
     openModalGasto() {
-      this.$modal.show("my-first-modal-gasto")
+      this.$modal.show("my-first-modal-gasto");
     },
     hide() {
       this.$modal.hide("my-first-modal-gasto");
     },
-    async register(){
-      try{
-        await this.axios.post('http://localhost:3000/auth/register', this.registerUser)
-
-        alert('Te has registrado satisfactorizamente.')
-
-        this.$router.push('/login')
-
-      }catch(error){
+    async registerMovesGasto() {
+      try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+          }
+        };
+        await this.axios.post(
+          "http://localhost:3000/moves/entry", this.registerGasto, config);
+      } catch (error) {
         console.log(error.response.data);
       }
     }
@@ -92,7 +115,7 @@ export default {
 
 <style>
 .custom-boton {
-  border: none
+  border: none;
 }
 .note {
   text-align: center;

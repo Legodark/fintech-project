@@ -1,14 +1,17 @@
 const router = require('express').Router()
+const config = require('../modules/config')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const schemaRegister = require('../models/validations/validateRegister')
 const schemaLogin = require('../models/validations/validateLogin')
+const verification = require('../middlewares/validate-token')
 
 const User = require('../models/users')
+const Move = require('../models/moves')
 
-router.get ('/user/:id', async (req,res) =>{
+router.get ('/user', verification , async (req,res) =>{
 
-    let searchId = req.params.id
+    let searchId = req.user.id
     let idUser = { _id: searchId }
 
     let foundIdUser = await User.findById(idUser).exec()
@@ -17,9 +20,6 @@ router.get ('/user/:id', async (req,res) =>{
     delete searchUser.enabled
 
     res.json(searchUser)
-
-
-
 
 })
 
@@ -40,19 +40,21 @@ router.post('/login', async(req,res) => {
   const validatePassword = await bcrypt.compare(req.body.password, user.password)
   if(!validatePassword) return res.status(400).json({error: true, mensage: 'Credenciales erroneas'})
 
-  // Creamos el token
-
-  const token = jwt.sign({
-
-    name: user.name,
+  let jwtPayload = {
     id: user._id,
-  }, process.env.TOKEN_SECRET)
+    name: user.name
+  }
 
-
-  res.header('auth-token', token).json({
-    error: null,
-    token
+  let generatedToken = jwt.sign(jwtPayload, config.TOKEN_SECRET, {
+    expiresIn: config.APP_TOKEN_VALIDITY_IN_DAYS + ' days'
   })
+
+  if (!generatedToken) {
+    res.status(500).json({ message: 'No ha sido posible iniciar sesión con el usuario. Inténtalo más tarde' })
+    return
+  }
+
+  res.json({ token: generatedToken })
 })
 
 router.post('/register', async(req,res) => {
@@ -99,9 +101,9 @@ router.post('/register', async(req,res) => {
 })
 
 
-router.patch('/user/:id', async(req,res) => {
+router.patch('/user', verification, async(req,res) => {
 
-  let searchId = req.params.id
+  let searchId = req.user.id
   let filters = { _id: searchId }
 
   const user = {
@@ -123,9 +125,9 @@ router.patch('/user/:id', async(req,res) => {
 }
 }),
 
-router.patch('/change/user/:id', async(req,res) =>{
+router.patch('/change/user', verification, async(req,res) =>{
 
-  let searchId = req.params.id
+  let searchId = req.user.id
   let filters = { _id: searchId }
 
 
@@ -154,9 +156,9 @@ router.patch('/change/user/:id', async(req,res) =>{
 
 })
 
-router.delete('/user/:id', async(req, res) =>{
+router.delete('/user', verification, async(req, res) =>{
 
-  let searchId = req.params.id
+  let searchId = req.user.id
   let idUser = { _id: searchId }
 
   try{

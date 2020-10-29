@@ -1,13 +1,13 @@
+const config = require('../modules/config')
 const jwt = require('jsonwebtoken')
 
-  const verifyToken = (req,res,next) => {
+  const verifyToken = async(req,res,next) => {
 
-    const token = req.header('setToken')
-    if(!token) return res.status(401).json({ error: 'Acceso denegado'})
+    if(!req.token) return res.status(401).json({ error: 'Acceso denegado'})
 
     try{
 
-      const verification = jwt.verify(token, process.env.TOKEN_SECRET)
+      const verification = await jwt.verify(req.token, config.TOKEN_SECRET)
 
       req.user = verification
 

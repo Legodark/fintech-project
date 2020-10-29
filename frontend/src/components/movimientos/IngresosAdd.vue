@@ -22,6 +22,7 @@
                     class="form-control"
                     placeholder=""
                     value=""
+                    v-model="registerIngreso.quantity"
                   />
                 </div>
                 <div class="form-group text-center">
@@ -32,25 +33,36 @@
                     placeholder="Ingreso"
                     value=""
                     disabled="true"
+
                   />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group text-center">
                   <label>Categoria</label>
-                  <select class="form-control">
+                  <select class="form-control" v-model="registerIngreso.category">
                     <option>Transferencia</option>
                     <option>Ingreso Cajero</option>
-
                   </select>
                 </div>
                 <div class="form-group text-center">
                   <label>Descripción</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                  <textarea
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="2"
+                    v-model="registerIngreso.description"
+                  ></textarea>
                 </div>
               </div>
             </div>
-            <button type="button" class="btnSubmit">Añadir</button>
+            <button
+              type="button"
+              class="btnSubmit"
+              @click.prevent="registerMovesIngreso(), hide()"
+            >
+              Añadir
+            </button>
           </div>
         </div>
       </div>
@@ -61,12 +73,38 @@
 <script>
 export default {
   name: "IngresosAdd",
+  data() {
+    return {
+      registerIngreso: {
+        quantity: "",
+        description: "",
+        category: "",
+        type: "ingreso"
+      }
+    };
+  },
   methods: {
     openModalIngreso() {
-      this.$modal.show("my-first-modal-ingreso")
+      this.$modal.show("my-first-modal-ingreso");
     },
     hide() {
       this.$modal.hide("my-first-modal-ingreso");
+    },
+    async registerMovesIngreso() {
+      try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+          }
+        };
+        await this.axios.post(
+          "http://localhost:3000/moves/entry",
+          this.registerIngreso,
+          config
+        );
+      } catch (error) {
+        console.log(error.response.data);
+      }
     }
   },
   mount() {

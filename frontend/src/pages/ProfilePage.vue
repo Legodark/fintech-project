@@ -142,9 +142,15 @@ export default {
     },
     async updateUser() {
       try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+          }
+        };
         await this.axios.patch(
-          `http://localhost:3000/auth/user/${this.userUpdate._id}`,
-          this.userUpdate
+          `http://localhost:3000/auth/user`,
+          this.userUpdate,
+          config
         );
       } catch (error) {
         console.log("No se ha podido actulizar el usuario", error);
@@ -158,9 +164,15 @@ export default {
         return;
       }
       try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+          }
+        };
         await this.axios.patch(
-          `http://localhost:3000/auth/change/user/${this.userUpdate._id}`,
-          { password: this.passwordUpdate }
+          `http://localhost:3000/auth/change/user`,
+          { password: this.passwordUpdate },
+          config
         );
       } catch (error) {
         console.log("Las contraseñas no coinciden.", error);
@@ -177,11 +189,14 @@ export default {
           confirm(
             "Seguro que deseas eliminar tu cuenta? Esta operación no se puede deshacer"
           )
-        )
-          await this.axios.delete(
-            `http://localhost:3000/auth/user/${this.userUpdate._id}`
-          );
-        else {
+        ) {
+          let config = {
+            headers: {
+              Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+            }
+          };
+          await this.axios.delete(`http://localhost:3000/auth/user`, config);
+        } else {
           return;
         }
       } catch (error) {

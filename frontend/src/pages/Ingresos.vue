@@ -35,30 +35,129 @@
               <div class="col-6">
                 <b-card header="Ingresos" class="text-center">
                   <div v-for="(ingreso, index) in ingresosOBJ" :key="index">
-                  <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded ingresos"
-                    v-if="ingreso.type !== 'gasto'"
-                  >
-                    <div class="d-flex w-100 justify-content-between cursiva">
-                      <h3 class="mb-1">{{ ingreso.description }}</h3>
-                      <small class="text-muted">3 days ago</small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">{{ transformDate(ingreso) }}</h6>
-                    </div>
-                    <div>
-                      <img
-                        :src="typeImage(ingreso)"
-                        alt=""
-                        class="icon float-left mr-2"
-                      />
-                      <p class="mb-1 float-left">{{ingreso.category}}</p>
+                    <b-list-group-item
+                      class="flex-column align-items-start mb-2 shadow rounded ingresos"
+                      v-if="ingreso.type !== 'gasto'"
+                    >
+                      <div class="d-flex w-100 justify-content-between cursiva">
+                        <h3 class="mb-1">{{ ingreso.description }}</h3>
+                        <small class="text-muted mt-2 mr-5">3 days ago</small>
+                        <small class="text-muted"
+                          ><div
+                            class="float-right"
+                            @click="(itemToShow = index), openModal()"
+                          >
+                            <i class="fas fa-edit"></i></div
+                        ></small>
+                        <div v-show="itemToShow == index">
+                          <div>
+                            <modal name="my-first-modal-move">
+                              <div class="container-full register-form">
+                                <div class="form">
+                                  <div class="note">
+                                    <p>Editar Movimiento</p>
+                                  </div>
 
-                      <p class="float-right">{{ingreso.quantity}}€</p>
-                    </div>
-                    <small class="text-muted">{{ingreso.type}}</small>
-                  </b-list-group-item>
+                                  <div class="form-content">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                          <label>Cantidad</label>
+                                          <input
+                                            type="text"
+                                            class="form-control"
+                                            :placeholder="ingreso.quantity"
+                                            value=""
+                                            v-model="ingreso.quantity"
+                                          />
+                                        </div>
+                                        <div class="form-group text-center">
+                                          <label>Tipo de Movimiento</label>
+                                          <select
+                                            class="form-control"
+                                            v-model="ingreso.type"
+                                          >
+                                            <option disabled selected>{{
+                                              ingreso.type
+                                            }}</option>
+                                            <option>gasto</option>
+                                            <option>ingreso</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                          <label>Categoria</label>
+                                          <select
+                                            class="form-control"
+                                            v-model="ingreso.category"
+                                          >
+                                            <option disabled selected>{{
+                                              ingreso.category
+                                            }}</option>
+                                            <option>Consumible</option>
+                                            <option>Salud y Bienestar</option>
+                                            <option>Ocio</option>
+                                            <option>Electrónica</option>
+                                            <option>Viajes</option>
+                                            <option>Mantenimiento</option>
+                                          </select>
+                                        </div>
+                                        <div class="form-group text-center">
+                                          <label>Descripción</label>
+                                          <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="2"
+                                            v-model="ingreso.description"
+                                          ></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <button
+                                      type="button"
+                                      class="btn btn-warning float-left"
+                                      @click.prevent="updateMoves(ingreso), hide(), moveLoad()">
+
+                                      Actualizar
+                                    </button>
+
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary float-right"
+                                      @click.prevent="hide(), moveLoad()"
+                                    >
+                                      Salir
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger mr-4 float-right"
+                                      @click.prevent="deleteMove(ingreso), hide(), moveLoad()"
+                                    >
+                                      Borrar Movimiento
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </modal>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">{{ transformDate(ingreso) }}</h6>
+                      </div>
+                      <div>
+                        <img
+                          :src="typeImage(ingreso)"
+                          alt=""
+                          class="icon float-left mr-2"
+                        />
+                        <p class="mb-1 float-left">{{ ingreso.category }}</p>
+
+                        <p class="float-right">{{ ingreso.quantity }}€</p>
+                      </div>
+                      <small class="text-muted">{{ ingreso.type }}</small>
+                    </b-list-group-item>
                   </div>
                 </b-card>
               </div>
@@ -74,47 +173,102 @@
 import Burger from "@/components/Menu/Burger.vue";
 import Sidebar from "@/components/Menu/Sidebar.vue";
 import MenuSlide from "@/mixins/MenuSlide";
+import IngresosAdd from "@/components/movimientos/IngresosAdd";
+import OpenModal from "@/mixins/OpenModal"
+import TimeFormat from "@/mixins/TimeFormat"
 
 export default {
   name: "Ingresos",
+  mixins: [OpenModal, TimeFormat],
   components: {
     Burger,
     Sidebar,
-    MenuSlide
+    MenuSlide,
+    IngresosAdd,
   },
   data() {
     return {
-      ingresosOBJ: []
+      ingresosOBJ: [],
+      updateOBG: {},
+      deleteItem: {},
+      itemToShow: -1
     };
   },
   methods: {
     async moveLoad() {
-        await this.$store.dispatch("moveLoad");
-        this.ingresosOBJ = this.$store.state.moves;
-        console.log(this.ingresosOBJ);
+      await this.$store.dispatch("moveLoad");
+      this.ingresosOBJ = this.$store.state.moves;
+      console.log(this.ingresosOBJ);
     },
-    transformDate(move) {
-      let transform = new Date(move.date)
-      let shortTime = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }
-      return new Intl.DateTimeFormat('en-US', shortTime).format(transform)
-    },
-    filterType(move){
-      if(move.type !== 'ingreso'){
-        this.isActive = false
+    filterType(move) {
+      if (move.type !== "ingreso") {
+        this.isActive = false;
         console.log(this.isActive);
       }
     },
-    typeImage(move){
-      if(move.type === 'ingreso'){
-        move.image = '@/assets/money/png/025-profits.png'
+    typeImage(move) {
+      if (move.type === "ingreso") {
+        move.image = "@/assets/money/png/025-profits.png";
         console.log(move.image);
       }
-    }
+    },
+    async updateMoves(move) {
+      const updateOBG = {
+        id: move._id,
+        quantity: move.quantity,
+        category: move.category,
+        type: move.type,
+        description: move.description
+      };
+      try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
+          }
+        };
+        await this.axios.patch(
+          "http://localhost:3000/moves/update",
+          updateOBG,
+          config
+        );
+      } catch (error) {
+        console.log("No se ha podido actulizar el movimiento", error);
+      }
+    },
+    async deleteMove(move) {
+      try {
+        const deleteItem = {
+            id: move._id,
+            }
+        console.log(deleteItem.id);
+        if (
+          confirm(
+            "Seguro que deseas eliminar el movimiento? Esta operación no se puede deshacer"
+          )
+        ) {
+          let config = {
+            headers: {
+              Authorization: `Bearer ${window.localStorage.getItem("setToken")}`,
+            },
+          };
+          await this.axios.delete(`http://localhost:3000/moves/delete/${deleteItem.id}`, config);
+        } else {
+          return;
+        }
+      } catch (error) {
+        console.log("El movimiento no se ha podido eliminar correctamente", error);
+      }
+    },
   },
-  mounted(){
-      this.moveLoad()
-    }
+  mounted() {
+    this.moveLoad();
+  }
 };
 </script>
 
-<style></style>
+<style>
+.custom-button-edit {
+  background-color: transparent;
+  border: none;
+}
+</style>

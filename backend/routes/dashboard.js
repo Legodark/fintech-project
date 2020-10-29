@@ -1,6 +1,7 @@
 const router = require('express').Router()
+const verificacion = require('../middlewares/validate-token')
 
-router.get('/', (req, res) => {
+router.get('/', verificacion, (req, res) => {
 
   res.json({
 

@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
+const verification = require('../middlewares/validate-token')
 
 const Move = require('../models/moves')
 
-router.get('/listmoves/:id', async(req, res) => {
+router.get('/listmoves', verification, async(req, res) => {
 
-  let searchIdUser = req.params.id
+  let searchIdUser = req.user.id
   let idUser = { userID: searchIdUser }
 
   let foundIdMove = await Move.find(idUser).exec()
@@ -14,15 +14,10 @@ router.get('/listmoves/:id', async(req, res) => {
   res.json(foundIdMove)
 })
 
-router.post('/entry', async (req,res) => {
-
- let token = req.headers.authorization.split(" ")[1]
- let userID = jwt.decode(token, process.env.TOKEN_SECRET)
-
-
+router.post('/entry', verification,  async (req,res) => {
 
  const move = new Move({
-  userID: userID.id,
+  userID: req.user.id,
   quantity: req.body.quantity,
   description: req.body.description,
   category: req.body.category,
@@ -34,9 +29,8 @@ router.post('/entry', async (req,res) => {
   try{
   const moveDB = await move.save()
 
-  res.json({
-    moveDB
-  })
+  res.json(moveDB)
+
   }
   catch(error){
     res.status(400).json({ message: e.message })
@@ -44,9 +38,11 @@ router.post('/entry', async (req,res) => {
 
 })
 
-router.patch('/:id', async(req, res) => {
+router.patch('/update', verification, async(req, res) => {
 
-  let searchId = req.params.id
+  let searchId = req.body.id
+  console.log(searchId);
+
   let filters = { _id: searchId }
 
   const move = {
@@ -70,11 +66,11 @@ router.patch('/:id', async(req, res) => {
 
 }),
 
-router.delete('/:id', async(req, res) => {
+router.delete('/delete/:id', verification, async(req, res) => {
 
   let searchId = req.params.id
   let idMove = { _id: searchId }
-
+  console.log(idMove);
   try{
 
   let deleteIdMove = await Move.findByIdAndDelete(idMove).exec()

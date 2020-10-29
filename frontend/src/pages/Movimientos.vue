@@ -7,7 +7,6 @@
           <img src="@/assets/money/png/006-coins.png" alt="" class="logo" />
           <Burger class="mt-2"></Burger>
         </nav>
-
         <Sidebar>
           <MenuSlide/>
         </Sidebar>
@@ -29,8 +28,109 @@
                     v-if="move.type !== 'ingreso'"
                   >
                     <div class="d-flex w-100 justify-content-between cursiva">
-                      <h3 class="mb-1">{{move.description}}</h3>
-                    </div>
+                        <h3 class="mb-1">{{ move.description }}</h3>
+                        <small class="text-muted mt-2 mr-5">3 days ago</small>
+                        <small class="text-muted"
+                          ><div
+                            class="float-right"
+                            @click="(itemToShow = index), openModal()"
+                          >
+                            <i class="fas fa-edit"></i></div
+                        ></small>
+                        <div v-show="itemToShow == index">
+                          <div>
+                            <modal name="my-first-modal-move">
+                              <div class="container-full register-form">
+                                <div class="form">
+                                  <div class="note">
+                                    <p>Editar Movimiento</p>
+                                  </div>
+
+                                  <div class="form-content">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                          <label>Cantidad</label>
+                                          <input
+                                            type="text"
+                                            class="form-control"
+                                            :placeholder="move.quantity"
+                                            value=""
+                                            v-model="move.quantity"
+                                          />
+                                        </div>
+                                        <div class="form-group text-center">
+                                          <label>Tipo de Movimiento</label>
+                                          <select
+                                            class="form-control"
+                                            v-model="move.type"
+                                          >
+                                            <option disabled selected>{{
+                                              move.type
+                                            }}</option>
+                                            <option>gasto</option>
+                                            <option>ingreso</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                          <label>Categoria</label>
+                                          <select
+                                            class="form-control"
+                                            v-model="move.category"
+                                          >
+                                            <option disabled selected>{{
+                                              move.category
+                                            }}</option>
+                                            <option>Consumible</option>
+                                            <option>Salud y Bienestar</option>
+                                            <option>Ocio</option>
+                                            <option>Electrónica</option>
+                                            <option>Viajes</option>
+                                            <option>Mantenimiento</option>
+                                          </select>
+                                        </div>
+                                        <div class="form-group text-center">
+                                          <label>Descripción</label>
+                                          <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="2"
+                                            v-model="move.description"
+                                          ></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <button
+                                      type="button"
+                                      class="btn btn-warning float-left"
+                                      @click.prevent="updateMoves(move), hide()">
+
+                                      Actualizar
+                                    </button>
+
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary float-right"
+                                      @click.prevent="hide(), moveLoad()"
+                                    >
+                                      Salir
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger mr-4 float-right"
+                                      @click.prevent="deleteMove(move)"
+                                    >
+                                      Borrar Movimiento
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </modal>
+                          </div>
+                        </div>
+                      </div>
                     <div class="d-flex w-100 justify-content-between">
                       <h6 class="mb-1">{{ transformDate(move) }}</h6>
                     </div>
@@ -42,7 +142,7 @@
                       />
                       <p class="mb-1 float-left">{{move.category}}</p>
 
-                      <p class="float-right">{{move.quantity}}€</p>
+                      <p class="float-right">-{{move.quantity}}€</p>
                     </div>
                     <small class="text-muted">{{move.type}}</small>
                   </b-list-group-item>
@@ -60,9 +160,109 @@
                     v-if="move.type !== 'gasto'"
                     >
                     <div class="d-flex w-100 justify-content-between cursiva">
-                      <h3 class="mb-1">{{move.description}}</h3>
-                      <small class="text-muted"></small>
-                    </div>
+                        <h3 class="mb-1">{{ move.description }}</h3>
+                        <small class="text-muted mt-2 mr-5">3 days ago</small>
+                        <small class="text-muted"
+                          ><div
+                            class="float-right"
+                            @click="(itemToShow = index), openModal()"
+                          >
+                            <i class="fas fa-edit"></i></div
+                        ></small>
+                        <div v-show="itemToShow == index">
+                          <div>
+                            <modal name="my-first-modal-move">
+                              <div class="container-full register-form">
+                                <div class="form">
+                                  <div class="note">
+                                    <p>Editar Movimiento</p>
+                                  </div>
+
+                                  <div class="form-content">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                          <label>Cantidad</label>
+                                          <input
+                                            type="text"
+                                            class="form-control"
+                                            :placeholder="move.quantity"
+                                            value=""
+                                            v-model="move.quantity"
+                                          />
+                                        </div>
+                                        <div class="form-group text-center">
+                                          <label>Tipo de Movimiento</label>
+                                          <select
+                                            class="form-control"
+                                            v-model="move.type"
+                                          >
+                                            <option disabled selected>{{
+                                              move.type
+                                            }}</option>
+                                            <option>gasto</option>
+                                            <option>ingreso</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                          <label>Categoria</label>
+                                          <select
+                                            class="form-control"
+                                            v-model="move.category"
+                                          >
+                                            <option disabled selected>{{
+                                              move.category
+                                            }}</option>
+                                            <option>Consumible</option>
+                                            <option>Salud y Bienestar</option>
+                                            <option>Ocio</option>
+                                            <option>Electrónica</option>
+                                            <option>Viajes</option>
+                                            <option>Mantenimiento</option>
+                                          </select>
+                                        </div>
+                                        <div class="form-group text-center">
+                                          <label>Descripción</label>
+                                          <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="2"
+                                            v-model="move.description"
+                                          ></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <button
+                                      type="button"
+                                      class="btn btn-warning float-left"
+                                      @click.prevent="updateMoves(move), hide(), moveLoad()">
+
+                                      Actualizar
+                                    </button>
+
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary float-right"
+                                      @click.prevent="hide(), moveLoad()"
+                                    >
+                                      Salir
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger mr-4 float-right"
+                                      @click.prevent="deleteMove(move), hide(), moveLoad()"
+                                    >
+                                      Borrar Movimiento
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </modal>
+                          </div>
+                        </div>
+                      </div>
                     <div class="d-flex w-100 justify-content-between">
                       <h6 class="mb-1">{{ transformDate(move) }}</h6>
                     </div>
@@ -93,6 +293,8 @@
 import Burger from "@/components/Menu/Burger.vue";
 import Sidebar from "@/components/Menu/Sidebar.vue";
 import MenuSlide from "@/mixins/MenuSlide";
+import OpenModal from "@/mixins/OpenModal"
+import TimeFormat from "@/mixins/TimeFormat"
 
 export default {
   name: "Movimientos",
@@ -101,10 +303,12 @@ export default {
     Sidebar,
     MenuSlide
   },
+  mixins: [OpenModal, TimeFormat],
   data(){
     return{
       allMoves: [],
-      hola: 'hola'
+      hola: 'hola',
+      itemToShow: -1
     }
   },
   methods:{
@@ -129,6 +333,13 @@ export default {
         move.image = '@/assets/money/png/025-profits.png'
         console.log(move.image);
       }
+    },
+    openModalGasto() {
+      this.$modal.show("my-first-modal-gasto");
+    },
+    hide() {
+      this.$modal.hide("my-first-modal-gasto");
+      this.hideIcon = false;
     }
   },
   mounted(){
