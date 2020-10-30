@@ -30,6 +30,7 @@ const store = new Vuex.Store({
       state.moves.push(payload)
     }
   },
+  // calculo de gastos
   getters: {
     totalGastos(state) {
       const gastosOBG = state.moves;
@@ -42,7 +43,23 @@ const store = new Vuex.Store({
       } else {
         return 0;
       }
+    },
+  // calculo ingresos
+    totalIngresos(state) {
+      const ingresosOBG = state.moves;
+
+      if(ingresosOBG.length > 0) {
+        const tottalsum = ingresosOBG.map((ingresos) => {
+          return ingresos.type === "ingreso" ? ingresos.quantity : 0;
+        });
+        return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2);
+      }else {
+        return 0;
+      }
+
     }
+
+
   },
   actions: {
     // context contiene todo el storage | usuario contiente los datos que vienen del formulario

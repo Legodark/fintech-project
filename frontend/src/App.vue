@@ -15,8 +15,14 @@ export default {
   methods: {
     ...mapActions(['readTokenFormLocalStorage'])
   },
+
+
   created(){
     this.readTokenFormLocalStorage()
+  },
+
+  computed: {
+
   }
 }
 </script>

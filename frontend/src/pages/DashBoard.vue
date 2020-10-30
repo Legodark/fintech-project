@@ -50,7 +50,10 @@
         <b-card-group columns>
           <b-card bg-variant="primary" text-variant="white">
             <blockquote class="card-blockquote">
-              <p>Aqui van los ingresos</p>
+              <h3>Ingresos</h3>
+              <h5 class="subtitle">
+                TOTAL: <span class="has-text-primary">{{ totalIngresos }} €</span>
+              </h5>
               <footer>
                 <small
                   >Someone famous in
@@ -64,7 +67,10 @@
           </b-card>
           <b-card bg-variant="primary" text-variant="white">
             <blockquote class="card-blockquote">
-              <p>Aqui van los gastos</p>
+              <h3>Gastos</h3>
+              <h5 class="subtitle">
+                TOTAL: <span class="has-text-primary">-{{ totalGastos }} €</span>
+              </h5>
               <footer>
                 <small
                   >Someone famous in
@@ -160,24 +166,7 @@
                     <small class="text-muted">Transferencia realizada</small>
                   </b-list-group-item>
 
-                  <!-- <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start"
-                  >
-                    <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1">List group item heading</h5>
-                      <small class="text-muted">3 days ago</small>
-                    </div>
 
-                    <p class="mb-1">
-                      Donec id elit non mi porta gravida at eget metus. Maecenas
-                      sed diam eget risus varius blandit.
-                    </p>
-
-                    <small class="text-muted"
-                      >Donec id elit non mi porta.</small
-                    >
-                  </b-list-group-item> -->
                 </b-card>
               </div>
             </b-card-group>
@@ -198,10 +187,17 @@ export default {
     Sidebar,
   },
   computed: {
-    totalGastos(){
-      return this.$store.getters.totalGastos
+    // total(){
+    //   return this.$store.getters.totalGastos;
+    //   return this.$store.getters.totalIngresos;
+    // }
+    totalGastos() {
+      return this.$store.getters.totalGastos;
+    },
+    totalIngresos() {
+      return this.$store.getters.totalIngresos;
     }
-  }
+  },
 };
 </script>
 
