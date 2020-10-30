@@ -91,17 +91,10 @@ export default {
       this.$modal.hide("my-first-modal-ingreso");
     },
     async registerMovesIngreso() {
+
       try {
-        let config = {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
-          }
-        };
-        await this.axios.post(
-          "http://localhost:3000/moves/entry",
-          this.registerIngreso,
-          config
-        );
+        await this.$store.dispatch('registerMoves', this.registerIngreso)
+        this.$store.dispatch('moveLoad')
       } catch (error) {
         console.log(error.response.data);
       }

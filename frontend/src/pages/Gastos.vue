@@ -24,7 +24,7 @@
                   header="Grafico redondo"
                   class="text-center"
                 >
-                  <b-card-text v-model="selectedCategory">
+                  <b-card-text>
                     <h4 class="subtitle">
                       TOTAL: <span class="has-text-primary">-{{ total }} €</span>
                     </h4>
@@ -217,6 +217,9 @@ export default {
   },
   computed: {
     total() {
+
+      return this.$store.getters.totalGastos
+      /*
       this.gastosOBG = this.$store.state.moves;
 
       if (this.gastosOBG.length > 0) {
@@ -227,6 +230,7 @@ export default {
       } else {
         return 0;
       }
+      */
     },
   },
 
