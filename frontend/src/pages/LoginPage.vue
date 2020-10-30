@@ -60,7 +60,7 @@ export default {
       try{
       await this.$store.dispatch('login', this.userLogin)
 
-      this.$router.push('/')
+      this.$router.push('/dashboard')
       }
       catch(error){
         this.error = error.response.data.mensage

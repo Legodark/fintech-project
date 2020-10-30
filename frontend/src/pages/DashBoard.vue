@@ -197,6 +197,11 @@ export default {
     Burger,
     Sidebar,
   },
+  computed: {
+    totalGastos(){
+      return this.$store.getters.totalGastos
+    }
+  }
 };
 </script>
 

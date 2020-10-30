@@ -13,10 +13,10 @@ export default {
 
   },
   methods: {
-    ...mapActions(['readToken'])
+    ...mapActions(['readTokenFormLocalStorage'])
   },
   created(){
-    this.readToken()
+    this.readTokenFormLocalStorage()
   }
 }
 </script>
