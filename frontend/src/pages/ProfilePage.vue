@@ -141,20 +141,7 @@ export default {
       console.log(this.userUpdate);
     },
     async updateUser() {
-      try {
-        let config = {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
-          }
-        };
-        await this.axios.patch(
-          `http://localhost:3000/auth/user`,
-          this.userUpdate,
-          config
-        );
-      } catch (error) {
-        console.log("No se ha podido actulizar el usuario", error);
-      }
+      await this.$store.dispatch('updateUser', this.userUpdate)
       this.isActive();
       this.logOut();
     },
@@ -163,19 +150,13 @@ export default {
         this.errorPassword = "Las contraseñas no coinciden";
         return;
       }
-      try {
-        let config = {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
-          }
-        };
-        await this.axios.patch(
-          `http://localhost:3000/auth/change/user`,
-          { password: this.passwordUpdate },
-          config
-        );
-      } catch (error) {
-        console.log("Las contraseñas no coinciden.", error);
+      try{
+      await this.$store.dispatch('updatePassword', this.passwordUpdate)
+      console.log(this.passwordUpdate);
+      this.logOut()
+      }
+      catch(error){
+        console.log('No se ha podido actualizar la contraseña', error);
       }
     },
     async logOut() {
@@ -184,24 +165,7 @@ export default {
       this.$router.push("/");
     },
     async deleteAccount() {
-      try {
-        if (
-          confirm(
-            "Seguro que deseas eliminar tu cuenta? Esta operación no se puede deshacer"
-          )
-        ) {
-          let config = {
-            headers: {
-              Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
-            }
-          };
-          await this.axios.delete(`http://localhost:3000/auth/user`, config);
-        } else {
-          return;
-        }
-      } catch (error) {
-        console.log("La cuenta no se ha podido eliminar correctamente", error);
-      }
+      this.$store.dispatch('deleteAccount')
       this.isActive();
       this.logOut();
     },

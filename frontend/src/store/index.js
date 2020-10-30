@@ -96,7 +96,7 @@ const store = new Vuex.Store({
         console.log('tienes un error aqui');
       }
     },
-    logOut(){
+    logOut(context){
       context.commit ('removeToken')
     },
     readTokenFormLocalStorage({commit}){
@@ -170,6 +170,59 @@ const store = new Vuex.Store({
         dispatch("moveLoad")
       } catch (error) {
         console.log("No se ha podido actulizar el movimiento", error);
+      }
+    },
+    async updateUser({state}, user){
+      try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${state.token}`
+          }
+        };
+        await Vue.axios.patch(
+          `http://localhost:3000/auth/user`,
+          user,
+          config
+        );
+      } catch (error) {
+        console.log("No se ha podido actulizar el usuario", error);
+      }
+    },
+    async updatePassword({state}, user){
+      try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${state.token}`
+          }
+        };
+        await Vue.axios.patch(
+          `http://localhost:3000/auth/change/user`,
+          { password: user },
+          config
+        );
+      } catch (error) {
+        console.log("Las contraseñas no coinciden.", error);
+      }
+    },
+    async deleteAccount({state}, user){
+      console.log(user);
+      try {
+        if (
+          confirm(
+            "Seguro que deseas eliminar tu cuenta? Esta operación no se puede deshacer"
+          )
+        ) {
+          let config = {
+            headers: {
+              Authorization: `Bearer ${state.token}`
+            }
+          };
+          await Vue.axios.delete(`http://localhost:3000/auth/user`, config);
+        } else {
+          return;
+        }
+      } catch (error) {
+        console.log("La cuenta no se ha podido eliminar correctamente", error);
       }
     },
     async deleteMove({dispatch, state}, move) {

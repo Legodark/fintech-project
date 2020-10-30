@@ -91,7 +91,7 @@
                     name="reg_agree"
                   />
                   <label for="reg_agree"
-                    >i agree with <a href="#">terms</a></label
+                    >Aceptar los<router-link to="/legal"> Terminos Legales</router-link></label
                   >
                 </div>
               </div>
@@ -102,15 +102,6 @@
               >
                 <i class="fa fa-chevron-right"></i>
               </button>
-            </div>
-            <div class="etc-login-form">
-              <p class="text-center">
-                Si ya tienes cuenta:
-                <router-link to="/login">Login</router-link>
-              </p>
-            </div>
-            <div class="text-center">
-              <router-link to="/">HomePage</router-link>
             </div>
           </form>
         </div>
@@ -128,7 +119,7 @@ export default {
   name: "ResgisterPage",
   components: {
     Burger,
-    Sidebar
+    Sidebar,
   },
   data() {
     return {

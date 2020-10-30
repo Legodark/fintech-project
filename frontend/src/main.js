@@ -28,6 +28,7 @@ import ProfilePage from '@/pages/ProfilePage'
 import Movimientos from '@/pages/Movimientos'
 import Ingresos from '@/pages/Ingresos'
 import Gastos from '@/pages/Gastos'
+import Legal from '@/pages/LegalPage'
 
 const routes = [
 
@@ -39,6 +40,7 @@ const routes = [
   { path: "/moves", name: "Movimientos", component: Movimientos, meta: { private: true, AutentificationProfile: ['user'] }},
   { path: "/entrys", name: "Ingresos", component: Ingresos},
   { path: "/spend", name: "Gastos", component: Gastos},
+  { path: "/legal", name: "Legal", component: Legal},
 
 ]
 

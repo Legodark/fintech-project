@@ -168,14 +168,14 @@ export default {
   computed: {
     totalGastos() {
       return this.$store.getters.totalGastos;
-    }
-  },
-  mounted() {
-    this.moveLoad()
-  },
-  totalIngresos() {
+    },
+    totalIngresos() {
       return this.$store.getters.totalIngresos;
     }
+  },
+  beforeMount() {
+    this.moveLoad()
+  }
 };
 </script>
 
