@@ -150,7 +150,7 @@
                     </div>
                     <div>
                       <img
-                        :src="typeImage(gastos)"
+                        :src="gastos.image"
                         alt=""
                         class="icon float-left mr-2"
                       />
