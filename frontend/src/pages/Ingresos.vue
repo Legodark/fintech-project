@@ -25,10 +25,12 @@
                   header="Grafico redondo"
                   class="text-center"
                 >
-                  <b-card-text
-                    >Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit.</b-card-text
-                  >
+                  <b-card-text>
+                    <h4 class="subtitle">
+                      TOTAL:
+                      <span class="has-text-primary">{{ total }} €</span>
+                    </h4>
+                  </b-card-text>
                 </b-card>
               </div>
               <!-- derecha listar movimientos -->
@@ -77,9 +79,9 @@
                                             class="form-control"
                                             v-model="ingreso.type"
                                           >
-                                            <option disabled selected>{{
-                                              ingreso.type
-                                            }}</option>
+                                            <option disabled selected>
+                                              {{ ingreso.type }}
+                                            </option>
                                             <option>gasto</option>
                                             <option>ingreso</option>
                                           </select>
@@ -92,9 +94,9 @@
                                             class="form-control"
                                             v-model="ingreso.category"
                                           >
-                                            <option disabled selected>{{
-                                              ingreso.category
-                                            }}</option>
+                                            <option disabled selected>
+                                              {{ ingreso.category }}
+                                            </option>
                                             <option>Consumible</option>
                                             <option>Salud y Bienestar</option>
                                             <option>Ocio</option>
@@ -117,8 +119,10 @@
                                     <button
                                       type="button"
                                       class="btn btn-warning float-left"
-                                      @click.prevent="updateMoves(ingreso), hide(), moveLoad()">
-
+                                      @click.prevent="
+                                        updateMoves(ingreso), hide(), moveLoad()
+                                      "
+                                    >
                                       Actualizar
                                     </button>
 
@@ -132,7 +136,9 @@
                                     <button
                                       type="button"
                                       class="btn btn-danger mr-4 float-right"
-                                      @click.prevent="deleteMove(ingreso), hide(), moveLoad()"
+                                      @click.prevent="
+                                        deleteMove(ingreso), hide(), moveLoad()
+                                      "
                                     >
                                       Borrar Movimiento
                                     </button>
@@ -174,8 +180,8 @@ import Burger from "@/components/Menu/Burger.vue";
 import Sidebar from "@/components/Menu/Sidebar.vue";
 import MenuSlide from "@/mixins/MenuSlide";
 import IngresosAdd from "@/components/movimientos/IngresosAdd";
-import OpenModal from "@/mixins/OpenModal"
-import TimeFormat from "@/mixins/TimeFormat"
+import OpenModal from "@/mixins/OpenModal";
+import TimeFormat from "@/mixins/TimeFormat";
 
 export default {
   name: "Ingresos",
@@ -191,7 +197,7 @@ export default {
       ingresosOBJ: [],
       updateOBG: {},
       deleteItem: {},
-      itemToShow: -1
+      itemToShow: -1,
     };
   },
   methods: {
@@ -218,13 +224,13 @@ export default {
         quantity: move.quantity,
         category: move.category,
         type: move.type,
-        description: move.description
+        description: move.description,
       };
       try {
         let config = {
           headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
-          }
+            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`,
+          },
         };
         await this.axios.patch(
           "http://localhost:3000/moves/update",
@@ -238,8 +244,8 @@ export default {
     async deleteMove(move) {
       try {
         const deleteItem = {
-            id: move._id,
-            }
+          id: move._id,
+        };
         console.log(deleteItem.id);
         if (
           confirm(
@@ -248,21 +254,42 @@ export default {
         ) {
           let config = {
             headers: {
-              Authorization: `Bearer ${window.localStorage.getItem("setToken")}`,
+              Authorization: `Bearer ${window.localStorage.getItem(
+                "setToken"
+              )}`,
             },
           };
-          await this.axios.delete(`http://localhost:3000/moves/delete/${deleteItem.id}`, config);
+          await this.axios.delete(
+            `http://localhost:3000/moves/delete/${deleteItem.id}`,
+            config
+          );
         } else {
           return;
         }
       } catch (error) {
-        console.log("El movimiento no se ha podido eliminar correctamente", error);
+        console.log(
+          "El movimiento no se ha podido eliminar correctamente",
+          error
+        );
+      }
+    },
+  },
+
+  computed: {
+    total() {
+      this.ingresosOBJ = this.$store.state.moves;
+
+      if (this.ingresosOBJ.length > 0) {
+        const tottalsum = this.ingresosOBJ.map((ingresos) => {
+          return ingresos.type === "ingreso" ? ingresos.quantity : 0;
+        });
+        return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2);
       }
     },
   },
   mounted() {
     this.moveLoad();
-  }
+  },
 };
 </script>
 
