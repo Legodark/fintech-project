@@ -9,7 +9,18 @@ export default {
     },
     hide() {
       this.$modal.hide("my-first-modal-move");
-      this.hideIcon = false;
+    },
+    openModalGasto() {
+      this.$modal.show("my-first-modal-gasto");
+    },
+    hideGasto() {
+      this.$modal.hide("my-first-modal-gasto");
+    },
+    openModalIngreso() {
+      this.$modal.show("my-first-modal-ingreso");
+    },
+    hideIngreso() {
+      this.$modal.hide("my-first-modal-ingreso");
     }
   }
 

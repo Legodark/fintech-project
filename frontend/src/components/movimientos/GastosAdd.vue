@@ -1,10 +1,8 @@
 <template>
   <div>
-    <li>
-      <button class="btn btn-danger" @click.prevent="openModalGasto()">
-        Agregar Gasto
-      </button>
-    </li>
+    <button class="btn btn-danger" @click.prevent="openModalGasto()">
+      Agregar Gasto
+    </button>
     <modal name="my-first-modal-gasto">
       <div class="container-full register-form">
         <div class="form">
@@ -74,8 +72,11 @@
 </template>
 
 <script>
+import OpenModal from "@/mixins/OpenModal";
+
 export default {
   name: "GastosAdd",
+  mixins: [OpenModal],
   data() {
     return {
       registerGasto: {
@@ -87,24 +88,14 @@ export default {
     };
   },
   methods: {
-    openModalGasto() {
-      this.$modal.show("my-first-modal-gasto");
-    },
-    hide() {
-      this.$modal.hide("my-first-modal-gasto");
-    },
     async registerMovesGasto() {
       try {
-        let config = {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`
-          }
-        };
-        await this.axios.post(
-          "http://localhost:3000/moves/entry", this.registerGasto, config);
+        await this.$store.dispatch("registerMoves", this.registerGasto);
+        this.$store.dispatch("moveLoad");
       } catch (error) {
         console.log(error.response.data);
       }
+      this.hideGasto();
     }
   },
   mount() {

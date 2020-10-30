@@ -9,19 +9,9 @@
         </nav>
 
         <Sidebar>
-          <ul class="sidebar-panel-nav">
-            <li><router-link to="/moves">Movimientos</router-link></li>
-            <li><router-link to="/entrys">Ingresos</router-link></li>
-            <li><router-link to="/spend">Gastos</router-link></li>
-          </ul>
+          <MenuSlide />
         </Sidebar>
       </div>
-
-      <!-- icono -->
-      <!-- <div class="float-right">
-        <img src="@/assets/bola.png" alt="" class="icono" />
-      </div> -->
-
       <!-- grafica -->
       <div class="container pading">
         <div class="">
@@ -50,7 +40,7 @@
         <b-card-group columns>
           <b-card bg-variant="primary" text-variant="white">
             <blockquote class="card-blockquote">
-              <p>Aqui van los ingresos</p>
+              <p>-{{ totalGastos }}€</p>
               <footer>
                 <small
                   >Someone famous in
@@ -112,72 +102,28 @@
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Movimientos" class="text-center">
-                  <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded gastos"
-                  >
-                    <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">24 de Octubre de 2020</h5>
-                      <small class="text-muted">3 days ago</small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">Tarjeta crédito *6845</h6>
-                    </div>
-                    <div>
-                      <img
-                        src="@/assets/money/png/024-loss-1.png"
-                        alt=""
-                        class="icon float-left"
-                      />
-                      <p class="mb-1 float-left">Pizza delicious</p>
+                  <div v-for="(move, index) in allMove" :key="index">
+                    <b-list-group-item
+                      class="flex-column align-items-start mb-2 shadow rounded">
+                      <div class="d-flex w-100 justify-content-center cursiva">
+                        <h3 class="mb-1">{{ move.description | upper }}</h3>
+                      </div>
+                      <div class="d-flex w-100 justify-content-center">
+                        <h6 class="mb-1">{{ move.category }}</h6>
+                      </div>
+                      <div>
+                        <img
+                          :src="move.image"
+                          alt=""
+                          class="icon float-left mr-2"
+                        />
+                        <p class="mb-1 float-left">{{ transformDate(move) }}</p>
 
-                      <p class="float-right">70€</p>
-                    </div>
-                    <small class="text-muted">Restaurante</small>
-                  </b-list-group-item>
-
-                  <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start mb-2 shadow rounded ingresos"
-                  >
-                    <div class="d-flex w-100 justify-content-between cursiva">
-                      <h5 class="mb-1">5 de Octubre de 2020</h5>
-                      <small class="text-muted">22 days ago</small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">Transferencia</h6>
-                    </div>
-                    <div>
-                      <img
-                        src="@/assets/money/png/025-profits.png"
-                        alt=""
-                        class="icon float-left"
-                      />
-                      <p class="mb-1 float-left">Traspaso desde cuenta</p>
-
-                      <p class="float-right">220€</p>
-                    </div>
-                    <small class="text-muted">Transferencia realizada</small>
-                  </b-list-group-item>
-
-                  <!-- <b-list-group-item
-                    href="#"
-                    class="flex-column align-items-start"
-                  >
-                    <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1">List group item heading</h5>
-                      <small class="text-muted">3 days ago</small>
-                    </div>
-
-                    <p class="mb-1">
-                      Donec id elit non mi porta gravida at eget metus. Maecenas
-                      sed diam eget risus varius blandit.
-                    </p>
-
-                    <small class="text-muted"
-                      >Donec id elit non mi porta.</small
-                    >
-                  </b-list-group-item> -->
+                        <p class="float-right">{{ move.quantity }}€</p>
+                      </div>
+                      <small class="text-muted">{{ move.type }}</small>
+                    </b-list-group-item>
+                  </div>
                 </b-card>
               </div>
             </b-card-group>
@@ -189,21 +135,39 @@
 </template>
 
 <script>
-import Burger from "@/components/Menu/Burger.vue";
-import Sidebar from "@/components/Menu/Sidebar.vue";
+import Burger from "@/components/Menu/Burger";
+import Sidebar from "@/components/Menu/Sidebar";
+import MenuSlide from "@/mixins/MenuSlide";
+import TimeFormat from "@/mixins/TimeFormat"
 export default {
   name: "DashBoard",
   components: {
     Burger,
     Sidebar,
+    MenuSlide
+  },
+  mixins: [TimeFormat],
+  data() {
+    return {
+      allMove: []
+    };
+  },
+  methods: {
+    async moveLoad() {
+      await this.$store.dispatch("moveLoad")
+      this.allMove = this.$store.state.moves;
+      console.log(allMove);
+    }
   },
   computed: {
-    totalGastos(){
-      return this.$store.getters.totalGastos
+    totalGastos() {
+      return this.$store.getters.totalGastos;
     }
+  },
+  mounted() {
+    this.moveLoad()
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -28,7 +28,7 @@
                   <b-card-text>
                     <h4 class="subtitle">
                       TOTAL:
-                      <span class="has-text-primary">{{ total }} €</span>
+                      <span class="has-text-primary">{{ totalIngresos }} €</span>
                     </h4>
                   </b-card-text>
                 </b-card>
@@ -36,6 +36,7 @@
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Ingresos" class="text-center">
+                  <div class="justify-content-center mb-3"><IngresosAdd/></div>
                   <div v-for="(ingreso, index) in ingresosOBJ" :key="index">
                     <b-list-group-item
                       class="flex-column align-items-start mb-2 shadow rounded ingresos"
@@ -120,7 +121,7 @@
                                       type="button"
                                       class="btn btn-warning float-left"
                                       @click.prevent="
-                                        updateMoves(ingreso), hide(), moveLoad()
+                                        updateMoves(ingreso), hide()
                                       "
                                     >
                                       Actualizar
@@ -137,7 +138,7 @@
                                       type="button"
                                       class="btn btn-danger mr-4 float-right"
                                       @click.prevent="
-                                        deleteMove(ingreso), hide(), moveLoad()
+                                        deleteMove(ingreso), hide()
                                       "
                                     >
                                       Borrar Movimiento
@@ -154,7 +155,7 @@
                       </div>
                       <div>
                         <img
-                          :src="typeImage(ingreso)"
+                          :src="ingreso.image"
                           alt=""
                           class="icon float-left mr-2"
                         />
@@ -205,6 +206,12 @@ export default {
       await this.$store.dispatch("moveLoad");
       this.ingresosOBJ = this.$store.state.moves;
       console.log(this.ingresosOBJ);
+      this.ingresosOBJ.map((ingreso) => {
+        if (ingreso.type === "ingreso") {
+          ingreso.image = require("@/assets/money/png/025-profits.png");
+          console.log(ingreso.image);
+        }
+      })
     },
     filterType(move) {
       if (move.type !== "ingreso") {
@@ -212,12 +219,12 @@ export default {
         console.log(this.isActive);
       }
     },
-    typeImage(move) {
+    /*typeImage(move) {
       if (move.type === "ingreso") {
-        move.image = "@/assets/money/png/025-profits.png";
+        move.image = require("@/assets/money/png/025-profits.png");
         console.log(move.image);
       }
-    },
+    },*/
     async updateMoves(move) {
       const updateOBG = {
         id: move._id,
@@ -226,57 +233,31 @@ export default {
         type: move.type,
         description: move.description,
       };
-      try {
-        let config = {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("setToken")}`,
-          },
-        };
-        await this.axios.patch(
-          "http://localhost:3000/moves/update",
-          updateOBG,
-          config
-        );
-      } catch (error) {
-        console.log("No se ha podido actulizar el movimiento", error);
+      try{
+      await this.$store.dispatch('updateMove', updateOBG)
+      }
+      catch(error){
+            console.log("Error al enviar la actualizacion", error);
       }
     },
     async deleteMove(move) {
-      try {
+
         const deleteItem = {
           id: move._id,
         };
         console.log(deleteItem.id);
-        if (
-          confirm(
-            "Seguro que deseas eliminar el movimiento? Esta operación no se puede deshacer"
-          )
-        ) {
-          let config = {
-            headers: {
-              Authorization: `Bearer ${window.localStorage.getItem(
-                "setToken"
-              )}`,
-            },
-          };
-          await this.axios.delete(
-            `http://localhost:3000/moves/delete/${deleteItem.id}`,
-            config
-          );
-        } else {
-          return;
+        try{
+        await this.$store.dispatch("deleteMove", deleteItem.id)
         }
-      } catch (error) {
-        console.log(
-          "El movimiento no se ha podido eliminar correctamente",
-          error
-        );
-      }
+        catch(error){
+            console.log("Error al enviar el id", error);
+        }
+
     },
   },
 
   computed: {
-    total() {
+    totalIngresos() {
       this.ingresosOBJ = this.$store.state.moves;
 
       if (this.ingresosOBJ.length > 0) {

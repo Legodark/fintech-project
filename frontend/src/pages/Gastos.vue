@@ -35,6 +35,7 @@
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Gastos" class="text-center">
+                  <div class="justify-content-center mb-3"><GastosAdd/></div>
                   <div v-for="(gastos, index) in gastosOBG" :key="index">
                   <b-list-group-item
                     href="#"
@@ -214,26 +215,42 @@ export default {
       }
     },
     typeImage(gastos) {},
+    async updateMoves(move) {
+      const updateOBG = {
+        id: move._id,
+        quantity: move.quantity,
+        category: move.category,
+        type: move.type,
+        description: move.description,
+      };
+      try{
+      await this.$store.dispatch('updateMove', updateOBG)
+      }
+      catch(error){
+            console.log("Error al enviar la actualizacion", error);
+      }
+    },
+    async deleteMove(move) {
+
+        const deleteItem = {
+          id: move._id,
+        };
+        console.log(deleteItem.id);
+        try{
+        await this.$store.dispatch("deleteMove", deleteItem.id)
+        }
+        catch(error){
+            console.log("Error al enviar el id", error);
+        }
+        this.hide()
+
+    }
   },
   computed: {
     total() {
-
       return this.$store.getters.totalGastos
-      /*
-      this.gastosOBG = this.$store.state.moves;
-
-      if (this.gastosOBG.length > 0) {
-        const tottalsum = this.gastosOBG.map((gastos) => {
-          return gastos.type === "gasto" ? gastos.quantity : 0;
-        });
-        return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2);
-      } else {
-        return 0;
-      }
-      */
     },
   },
-
   mounted() {
     this.moveLoad();
   },

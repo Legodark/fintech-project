@@ -42,7 +42,8 @@ router.post('/login', async(req,res) => {
 
   let jwtPayload = {
     id: user._id,
-    name: user.name
+    name: user.name,
+    profile: user.profile
   }
 
   let generatedToken = jwt.sign(jwtPayload, config.TOKEN_SECRET, {

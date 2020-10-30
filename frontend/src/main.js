@@ -32,24 +32,47 @@ import Gastos from '@/pages/Gastos'
 const routes = [
 
   { path: "/", name: "Home", component: HomePage },
-  { path: "/dashboard", name: "DashBoard", component: DashBoard },
+  { path: "/dashboard", name: "DashBoard", component: DashBoard, meta: { private: true, AutentificationProfile: ['user'] } },
   { path: "/login", name: "Login", component: LoginPage },
   { path: "/register", name: "Register", component: RegisterPage },
   { path: "/profile", name: "Profile", component: ProfilePage},
-  { path: "/moves", name: "Movimientos", component: Movimientos},
+  { path: "/moves", name: "Movimientos", component: Movimientos, meta: { private: true, AutentificationProfile: ['user'] }},
   { path: "/entrys", name: "Ingresos", component: Ingresos},
   { path: "/spend", name: "Gastos", component: Gastos},
 
 ]
 
-
-
-
 const router = new VueRouter({ routes, mode: 'history' })
 
-/*router.beforeEach((to, from, next) => {
-  // ...
-})*/
+router.beforeEach((to, from, next) => {
+  store.dispatch('readTokenFormLocalStorage')
+  if (to.matched.some(route => route.meta.private)) {
+    const isAuth = store.state.isAuth
+    console.log(store.state.user);
+
+    if (isAuth) {
+      if (to.meta.hasOwnProperty('AutentificationProfile')) {
+          console.info(to.meta.AutentificationProfile)
+          if (!to.meta.AutentificationProfile.includes(store.state.user.profile)) {
+              alert('No tienes permitida la entrada a esta ruta')
+              next('/dashboard')
+          }
+      }
+
+      next()
+    } else {
+        next("/login")
+    }
+  } else {
+      next()
+  }
+})
+
+// Filtros
+
+Vue.filter('upper', (value) => {
+  return value.replace(/\b\w/g, word => word.toUpperCase())
+})
 
 
 

@@ -21,6 +21,7 @@
               <!-- paneles de gastos -->
               <div class="col-6">
                 <b-card header="Gastos" class="text-center">
+                  <div class="justify-content-center mb-3"><GastosAdd/></div>
                   <div v-for="(move, index) in allMoves" :key="index">
                   <b-list-group-item
                     href="#"
@@ -28,7 +29,7 @@
                     v-if="move.type !== 'ingreso'"
                   >
                     <div class="d-flex w-100 justify-content-between cursiva">
-                        <h3 class="mb-1">{{ move.description }}</h3>
+                        <h3 class="mb-1">{{ move.description | upper }}</h3>
                         <small class="text-muted mt-2 mr-5">3 days ago</small>
                         <small class="text-muted"
                           ><div
@@ -81,7 +82,7 @@
                                             v-model="move.category"
                                           >
                                             <option disabled selected>{{
-                                              move.category
+                                              move.category | upper
                                             }}</option>
                                             <option>Consumible</option>
                                             <option>Salud y Bienestar</option>
@@ -153,6 +154,7 @@
               <!-- derecha listar Ingressos -->
               <div class="col-6">
                 <b-card header="Ingresos" class="text-center">
+                  <div class="justify-content-center mb-3"><IngresosAdd/></div>
                   <div v-for="(move, index) in allMoves" :key="index">
                   <b-list-group-item
                     href="#"
@@ -160,7 +162,7 @@
                     v-if="move.type !== 'gasto'"
                     >
                     <div class="d-flex w-100 justify-content-between cursiva">
-                        <h3 class="mb-1">{{ move.description }}</h3>
+                        <h3 class="mb-1">{{ move.description | upper }}</h3>
                         <small class="text-muted mt-2 mr-5">3 days ago</small>
                         <small class="text-muted"
                           ><div
@@ -292,6 +294,8 @@
 <script>
 import Burger from "@/components/Menu/Burger.vue";
 import Sidebar from "@/components/Menu/Sidebar.vue";
+import GastosAdd from "@/components/movimientos/GastosAdd";
+import IngresosAdd from "@/components/movimientos/IngresosAdd";
 import MenuSlide from "@/mixins/MenuSlide";
 import OpenModal from "@/mixins/OpenModal"
 import TimeFormat from "@/mixins/TimeFormat"
@@ -301,7 +305,9 @@ export default {
   components: {
     Burger,
     Sidebar,
-    MenuSlide
+    MenuSlide,
+    GastosAdd,
+    IngresosAdd
   },
   mixins: [OpenModal, TimeFormat],
   data(){
@@ -317,11 +323,6 @@ export default {
         this.allMoves = this.$store.state.moves;
         console.log(this.allMoves);
     },
-    transformDate(move) {
-      let transform = new Date(move.date)
-      let shortTime = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }
-      return new Intl.DateTimeFormat('en-US', shortTime).format(transform)
-    },
     filterType(move){
       if(move.type !== 'ingreso'){
         this.isActive = false
@@ -334,13 +335,35 @@ export default {
         console.log(move.image);
       }
     },
-    openModalGasto() {
-      this.$modal.show("my-first-modal-gasto");
+    async updateMoves(move) {
+      const updateOBG = {
+        id: move._id,
+        quantity: move.quantity,
+        category: move.category,
+        type: move.type,
+        description: move.description,
+      };
+      try{
+      await this.$store.dispatch('updateMove', updateOBG)
+      }
+      catch(error){
+            console.log("Error al enviar la actualizacion", error);
+      }
     },
-    hide() {
-      this.$modal.hide("my-first-modal-gasto");
-      this.hideIcon = false;
-    }
+    async deleteMove(move) {
+
+        const deleteItem = {
+          id: move._id,
+        };
+        console.log(deleteItem.id);
+        try{
+        await this.$store.dispatch("deleteMove", deleteItem.id)
+        }
+        catch(error){
+            console.log("Error al enviar el id", error);
+        }
+
+    },
   },
   mounted(){
       this.moveLoad()

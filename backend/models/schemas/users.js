@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, min: 8, max: 1024 },
   enabled: { type: Boolean, default: true },
+  profile: { type: String, required: false, default: 'user' },
   date: { type: Date, default: Date.now}
 
 })

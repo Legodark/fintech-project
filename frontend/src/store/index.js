@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import jwtDecode from "jwt-decode";
+import jwt from 'jwt-decode'
 Vue.use(Vuex)
 
 
@@ -9,11 +9,20 @@ const store = new Vuex.Store({
   state: {
     token: null,
     user: null,
-    moves: []
+    isAuth: null,
+    moves: [],
+    isNavOpen: false
   },
   mutations: {
     setToken(state, payload){
       state.token = payload
+      state.isAuth = (payload !== null)
+      state.user = null
+
+      if (null !== payload) {
+        state.user = jwt(payload)
+      }
+
       window.localStorage.setItem('token', payload)
     },
     removeToken(state){
@@ -28,7 +37,15 @@ const store = new Vuex.Store({
     },
     addMove(state, payload){
       state.moves.push(payload)
-    }
+    },
+    navigate(state) {
+      state.isNavOpen = !state.isNavOpen
+      /*if(state.isNavOpen !== true)
+      state.isNavOpen = true
+      else{
+        state.isNavOpen = false
+      }*/
+  }
   },
   getters: {
     totalGastos(state) {
@@ -102,7 +119,7 @@ const store = new Vuex.Store({
         alert ('Ups, no se pueden cargar los datos de los movimientos')
       }
     },
-    async registerMoves({commit, dispatch,state}, move) {
+    async registerMoves({dispatch,state}, move) {
       try {
         const config = {
           headers: {
@@ -114,11 +131,59 @@ const store = new Vuex.Store({
           move,
           config
         );
-        commit("addMove", move)
-        //dispatch("moveLoad")
+        //commit("addMove", move)
+        dispatch("moveLoad")
       } catch (error) {
         console.log(error.response.data);
       }
+    },
+    async updateMove({dispatch, state}, move){
+      console.log(move);
+      try {
+        let config = {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        };
+        await Vue.axios.patch(
+          "http://localhost:3000/moves/update",
+          move,
+          config
+        );
+        dispatch("moveLoad")
+      } catch (error) {
+        console.log("No se ha podido actulizar el movimiento", error);
+      }
+    },
+    async deleteMove({dispatch, state}, move) {
+
+      try {
+        if (
+          confirm(
+            "Seguro que deseas eliminar el movimiento? Esta operación no se puede deshacer"
+          )
+        ) {
+          let config = {
+            headers: {
+              Authorization: `Bearer ${state.token}`,
+            },
+          };
+          await Vue.axios.delete(`http://localhost:3000/moves/delete/${move}`,
+            config
+          );
+          dispatch("moveLoad")
+        } else {
+          return;
+        }
+      } catch (error) {
+        console.log(
+          "El movimiento no se ha podido eliminar correctamente",
+          error
+        );
+      }
+    },
+    navigateBurguer({commit}){
+      commit('navigate')
     }
   },
   modules: {

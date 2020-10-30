@@ -11,17 +11,17 @@
   </div>
 </template>
 <script>
-import { store, mutations } from "@/store.js";
 
 export default {
+  name: 'Burguer',
   computed: {
     isBurgerActive() {
-      return store.isNavOpen;
+      return this.$store.state.isNavOpen;
     },
   },
   methods: {
     toggle() {
-      mutations.toggleNav();
+      this.$store.dispatch('navigateBurguer')
     },
   },
 };

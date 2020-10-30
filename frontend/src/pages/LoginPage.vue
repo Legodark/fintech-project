@@ -1,6 +1,18 @@
 <template>
 <div class="degrade">
   <div class="container bg div-case-large box-shadow">
+    <div>
+        <nav class="main-nav">
+          <img src="@/assets/money/png/006-coins.png" alt="" class="logo" />
+          <Burger class="mt-2"></Burger>
+        </nav>
+        <Sidebar>
+          <ul class="sidebar-panel-nav">
+          <li><router-link to="/">Homepage</router-link></li>
+          <li><router-link to="/register">Registro</router-link></li>
+          </ul>
+        </Sidebar>
+      </div>
       <div class="text-center" style="padding:50px 0">
 	<div><h1 class="text-center text-light">Login</h1></div>
 
@@ -26,9 +38,8 @@
 				<p class="text-center"><a href="#"></a></p>
 				<p class="text-center">Registrate <router-link to="/register">aquí</router-link></p>
 			</div>
-      <div class="text-center"><router-link to="/">HomePage</router-link></div>
-      <div class="text-center"><router-link to="/profile">Profile</router-link></div>
-      <div class="text-center"><button @click.prevent="logOut()">Salir</button></div>
+      <!--<div class="text-center"><router-link to="/">HomePage</router-link></div>
+      <div class="text-center"><router-link to="/profile">Profile</router-link></div>-->
 
 		</form>
 	</div>
@@ -41,10 +52,16 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+//import {mapActions} from 'vuex'
+import Burger from "@/components/Menu/Burger.vue";
+import Sidebar from "@/components/Menu/Sidebar.vue";
 
 export default {
   name: "HomePage",
+  components: {
+    Burger,
+    Sidebar
+  },
   data(){
     return {
       userLogin: {
@@ -65,11 +82,6 @@ export default {
       catch(error){
         this.error = error.response.data.mensage
       }
-    },
-    async logOut(){
-       await this.$store.dispatch('logOut')
-
-        this.$router.push("/")
     }
   }
 }

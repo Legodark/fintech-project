@@ -1,10 +1,8 @@
 <template>
   <div>
-    <li>
       <button class="btn btn-success" @click.prevent="openModalIngreso()">
         Agregar Ingreso
       </button>
-    </li>
     <modal name="my-first-modal-ingreso">
       <div class="container-full register-form">
         <div class="form">
@@ -71,8 +69,11 @@
 </template>
 
 <script>
+import OpenModal from "@/mixins/OpenModal"
+
 export default {
   name: "IngresosAdd",
+  mixins: [OpenModal],
   data() {
     return {
       registerIngreso: {
@@ -84,12 +85,6 @@ export default {
     };
   },
   methods: {
-    openModalIngreso() {
-      this.$modal.show("my-first-modal-ingreso");
-    },
-    hide() {
-      this.$modal.hide("my-first-modal-ingreso");
-    },
     async registerMovesIngreso() {
 
       try {
@@ -98,6 +93,7 @@ export default {
       } catch (error) {
         console.log(error.response.data);
       }
+      this.hideIngreso()
     }
   },
   mount() {
