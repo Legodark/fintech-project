@@ -40,7 +40,10 @@
         <b-card-group columns>
           <b-card bg-variant="primary" text-variant="white">
             <blockquote class="card-blockquote">
-              <p>-{{ totalGastos }}€</p>
+              <h3>Ingresos</h3>
+              <h5 class="subtitle">
+                TOTAL: <span class="has-text-primary">{{ totalIngresos }} €</span>
+              </h5>
               <footer>
                 <small
                   >Someone famous in
@@ -54,7 +57,10 @@
           </b-card>
           <b-card bg-variant="primary" text-variant="white">
             <blockquote class="card-blockquote">
-              <p>Aqui van los gastos</p>
+              <h3>Gastos</h3>
+              <h5 class="subtitle">
+                TOTAL: <span class="has-text-primary">-{{ totalGastos }} €</span>
+              </h5>
               <footer>
                 <small
                   >Someone famous in
@@ -166,7 +172,10 @@ export default {
   },
   mounted() {
     this.moveLoad()
-  }
+  },
+  totalIngresos() {
+      return this.$store.getters.totalIngresos;
+    }
 };
 </script>
 

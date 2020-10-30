@@ -259,13 +259,20 @@ export default {
   computed: {
     totalIngresos() {
       this.ingresosOBJ = this.$store.state.moves;
+      },
+    total() {
 
-      if (this.ingresosOBJ.length > 0) {
-        const tottalsum = this.ingresosOBJ.map((ingresos) => {
-          return ingresos.type === "ingreso" ? ingresos.quantity : 0;
-        });
-        return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2);
-      }
+      return this.$store.getters.totalIngresos;
+      // this.ingresosOBJ = this.$store.state.moves;
+
+      // if (this.ingresosOBJ.length > 0) {
+      //   const tottalsum = this.ingresosOBJ.map((ingresos) => {
+      //     return ingresos.type === "ingreso" ? ingresos.quantity : 0;
+      //   });
+      //   return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2);
+      // }else {
+      //   return 0;
+      // }
     },
   },
   mounted() {
