@@ -204,6 +204,16 @@ const store = new Vuex.Store({
         console.log("Las contraseñas no coinciden.", error);
       }
     },
+    async updatePasswordLogin({state}, user){
+      try {
+        await Vue.axios.patch(
+          `http://localhost:3000/auth/forward`,
+          user
+        );
+      } catch (error) {
+        console.log("Las contraseñas no coinciden.", error);
+      }
+    },
     async deleteAccount({state}, user){
       console.log(user);
       try {

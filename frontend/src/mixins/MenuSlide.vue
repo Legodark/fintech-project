@@ -29,7 +29,7 @@ export default {
     closeSidebarPanel() {
       this.$store.dispatch("navigateBurguer");
     }
-  }
+  },
 };
 </script>
 

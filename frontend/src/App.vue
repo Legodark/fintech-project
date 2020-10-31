@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div id="app" class="sticky-top">
     <router-view></router-view>
 </div>
 </template>
@@ -20,10 +20,6 @@ export default {
   created(){
     this.readTokenFormLocalStorage()
   },
-
-  computed: {
-
-  }
 }
 </script>
 
