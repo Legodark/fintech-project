@@ -89,10 +89,12 @@
                     class=""
                     id="reg_agree"
                     name="reg_agree"
+                    v-model="checkBoxAccess"
                   />
                   <label for="reg_agree"
                     >Aceptar los<router-link to="/legal"> Terminos Legales</router-link></label
                   >
+                  <p>{{checkNotTrue}}</p>
                 </div>
               </div>
               <button
@@ -127,26 +129,33 @@ export default {
         name: "",
         lastname: "",
         email: "",
-        password: ""
-      }
+        password: "",
+      },
+      checkBoxAccess: false,
+      checkNotTrue: ""
     };
   },
   methods: {
     async register() {
-      try {
-        await this.axios.post(
-          "http://localhost:3000/auth/register",
-          this.registerUser
-        );
+        if(this.checkBoxAccess !== false){
+        try {
+          await this.axios.post(
+            "http://localhost:3000/auth/register",
+            this.registerUser
+          );
 
-        alert("Te has registrado satisfactorizamente.");
+          alert("Te has registrado satisfactorizamente.");
 
-        this.$router.push("/login");
-      } catch (error) {
-        console.log(error.response.data);
+          this.$router.push("/login");
+        } catch (error) {
+          console.log(error.response.data);
+        }
       }
-    }
+      else{
+        this.checkNotTrue = "Debes aceptar los terminos"
+      }
   }
+}
 };
 </script>
 

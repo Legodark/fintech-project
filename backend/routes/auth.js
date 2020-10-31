@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const schemaRegister = require('../models/validations/validateRegister')
 const schemaLogin = require('../models/validations/validateLogin')
+const schemaForward = require('../models/validations/validateForward')
 const verification = require('../middlewares/validate-token')
 
 const User = require('../models/users')
@@ -101,6 +102,52 @@ router.post('/register', async(req,res) => {
 
 })
 
+router.patch('/forward', async(req, res) =>{
+
+
+  const { error } = schemaForward.validate(req.body)
+  if (error) return res.status(400).json({ error: error.details[0].message })
+
+  const emailOnBase = await User.findOne({email: req.body.email})
+
+
+  if(emailOnBase !== null){
+
+    let searchEmail = emailOnBase.email
+    let emailUser = { email: searchEmail }
+
+    const salt = await bcrypt.genSalt(10)
+    const password = await bcrypt.hash(req.body.password, salt)
+
+    const newPassword = {
+      password
+    }
+
+    try{
+    let foundItem = await User.findOneAndUpdate(emailUser, newPassword, { new: true }).exec()
+
+    let foundUser = foundItem.toJSON()
+    delete foundUser.password
+    delete foundUser._id
+    delete foundUser.name
+    delete foundUser.lastname
+    delete foundUser.enabled
+    delete foundUser.date
+    delete foundUser.profile
+
+
+    res.json(foundUser)
+    }
+    catch(error){
+      res.status(400).json({ message: error.message })
+    }
+  }
+  else{
+    res.status(400).json({ message: "Esta cuenta no existe" })
+  }
+})
+
+
 
 router.patch('/user', verification, async(req,res) => {
 
@@ -136,13 +183,13 @@ router.patch('/change/user', verification, async(req,res) =>{
   const salt = await bcrypt.genSalt(10)
   const password = await bcrypt.hash(req.body.password, salt)
 
-  const newuser = {
+  const newPassword = {
     password
   }
 
   try {
 
-    let foundItem = await User.findOneAndUpdate(filters, newuser, { new: true }).exec()
+    let foundItem = await User.findOneAndUpdate(filters, newPassword, { new: true }).exec()
 
     let foundUser = foundItem.toJSON()
     delete foundUser.password

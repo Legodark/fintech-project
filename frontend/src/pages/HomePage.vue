@@ -15,22 +15,24 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-nav-form>
-              <b-navbar-brand>
+              <b-navbar-brand v-if="isAuth === null">
                 <router-link to="/register">
                   <p class="white">Register</p>
                 </router-link>
               </b-navbar-brand>
             </b-nav-form>
 
-            <b-navbar-brand href="#"
+            <b-navbar-brand v-if="isAuth === null"
               ><router-link to="/login"
                 ><p class="white">Login</p></router-link
               ></b-navbar-brand
             >
 
             <!-- hacer dinamico -->
-            <b-navbar-brand href="/dashboard"
-              ><p class="white">Dashboard</p></b-navbar-brand
+            <b-navbar-brand v-if="isAuth !== null"
+              ><router-link to="/dashboard"
+                ><p class="white">Dashboard</p></router-link
+              ></b-navbar-brand
             >
           </b-navbar-nav>
         </b-collapse>
@@ -73,6 +75,20 @@
 <script>
 export default {
   name: "Homepage",
+  data(){
+    return{
+      isAuth: null
+    }
+  },
+  methods: {
+    isLogin(){
+      console.log(this.$store.state.token);
+      this.isAuth = this.$store.state.token
+    }
+  },
+  mounted(){
+    this.isLogin()
+  }
 };
 </script>
 

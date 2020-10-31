@@ -40,7 +40,7 @@ const routes = [
   { path: "/moves", name: "Movimientos", component: Movimientos, meta: { private: true, AutentificationProfile: ['user'] }},
   { path: "/entrys", name: "Ingresos", component: Ingresos},
   { path: "/spend", name: "Gastos", component: Gastos},
-  { path: "/legal", name: "Legal", component: Legal},
+  { path: "/legal", name: "Legal", component: Legal}
 
 ]
 

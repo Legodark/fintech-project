@@ -1,6 +1,15 @@
 <template>
   <div class="degrade">
     <div class="container bg div-case-large box-shadow">
+      <div>
+        <nav class="main-nav">
+          <img src="@/assets/money/png/006-coins.png" alt="" class="logo" />
+          <Burger class="mt-2"></Burger>
+        </nav>
+        <Sidebar>
+          <MenuSlide/>
+        </Sidebar>
+      </div>
       <div class="row justify-content-center">
         <card class="custom-margin">
           <h4 slot="header" class="card-title text-center">{{ nameEdit }}</h4>
@@ -108,19 +117,22 @@
           </form>
         </card>
       </div>
-      <div class="text-center mt-2">
-        <router-link to="/" class="text-warning">HomePage</router-link>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Burger from "@/components/Menu/Burger.vue";
+import Sidebar from "@/components/Menu/Sidebar.vue";
+import MenuSlide from "@/mixins/MenuSlide";
 import Card from "@/components/Card";
 import BaseInput from "@/inputs/BaseInput";
 export default {
   name: "ProfilePage",
   components: {
+    Burger,
+    Sidebar,
+    MenuSlide,
     Card,
     BaseInput
   },
@@ -137,13 +149,15 @@ export default {
   methods: {
     async userLoad() {
       await this.$store.dispatch("userLoad");
+      this.$store.dispatch("navigateBurguer");
       this.userUpdate = this.$store.state.user;
       console.log(this.userUpdate);
     },
     async updateUser() {
       await this.$store.dispatch('updateUser', this.userUpdate)
+      this.userLoad()
       this.isActive();
-      this.logOut();
+      this.$store.dispatch("navigateBurguer");
     },
     async updatePassword() {
       if (this.passwordUpdate !== this.repeatpassword) {
@@ -187,33 +201,4 @@ export default {
 </script>
 
 <style>
-.bg {
-  background-color: #00487c;
-}
-
-.degrade {
-  background: -webkit-linear-gradient(
-    top,
-    rgba(248, 181, 0, 1) 0%,
-    rgba(248, 181, 0, 1) 15%,
-    rgba(252, 205, 77, 1) 78%,
-    rgba(251, 223, 147, 1) 87%,
-    rgba(252, 234, 187, 1) 95%,
-    rgba(252, 234, 187, 1) 100%
-  );
-  height: 1000px;
-}
-.div-case-large {
-  height: 1000px;
-}
-
-.box-shadow {
-  -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-  box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
-}
-
-.custom-margin {
-  margin-top: 100px;
-}
 </style>

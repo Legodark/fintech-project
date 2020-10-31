@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-    <div class="container bg box-shadow div-case-large">
+    <div class="container bg box-shadow div-case-larges">
       <!-- slidenav panel de navejacion superior -->
       <div>
         <nav class="main-nav">
@@ -17,19 +17,10 @@
         <div class="">
           <b-card title="Grafica" sub-title="Card subtitle">
             <b-card-text>
-              Aqui va una <em>grafica</em> Grafica to guapa
+              <div>
+                <div id="grafic-line" style="width: auto; height: 250px"></div>
+              </div>
             </b-card-text>
-
-            <b-card-text>A second paragraph of text in the card.</b-card-text>
-            <b-button variant="outline-primary">
-              <b-icon icon="tools"></b-icon> Settings
-            </b-button>
-            <b-button variant="outline-primary">
-              <b-icon icon="person-fill"></b-icon> Tiempo
-            </b-button>
-            <b-button variant="outline-primary">
-              <b-icon icon="inbox-fill"></b-icon> Categorias
-            </b-button>
           </b-card>
         </div>
       </div>
@@ -76,10 +67,11 @@
           </b-card>
           <b-card bg-variant="primary" text-variant="white">
             <blockquote class="card-blockquote">
-              <p>Aqui va el balance</p>
+              <h3>Balance</h3>
+              <h5> <span class="has-text-primary"> {{balance}}€ </span> </h5>
               <footer>
                 <small
-                  >Saldo a nuestro favor
+                  >
                   <cite title="Source Title">
                     la banca siempre gana</cite
                   ></small
@@ -95,49 +87,55 @@
         <div class="row">
           <div class="mt-3 col-12">
             <b-card-group deck>
-              <div class="col-6">
+              <div class="col-lg-6">
                 <b-card
                   bg-variant="light"
                   header="Grafico redondo"
                   class="text-center"
                 >
-                  <b-card-text
-                    >Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit.</b-card-text
-                  >
+                  <b-card-text>
+                    <div id="grafic-cir">
+                      <!-- Plotly chart will be drawn inside this DIV -->
+                    </div>
+                  </b-card-text>
                 </b-card>
               </div>
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Movimientos" class="text-center">
                   <div class="scrollbar scrollbar-morpheus-den">
-                    <div class="force-overflow"></div>
-                    <div v-for="(move, index) in allMove" :key="index">
-                      <b-list-group-item
-                        class="flex-column align-items-start mb-2 shadow rounded"
+                    <div class="force-overflow">
+                      <div
+                        class="mr-4"
+                        v-for="(move, index) in allMove"
+                        :key="index"
                       >
-                        <div
-                          class="d-flex w-100 justify-content-center cursiva"
+                        <b-list-group-item
+                          class="flex-column align-items-start mb-2 shadow rounded"
                         >
-                          <h3 class="mb-1">{{ move.description | upper }}</h3>
-                        </div>
-                        <div class="d-flex w-100 justify-content-center">
-                          <h6 class="mb-1">{{ move.category }}</h6>
-                        </div>
-                        <div>
-                          <img
-                            :src="move.image"
-                            alt=""
-                            class="icon float-left mr-2"
-                          />
-                          <p class="mb-1 float-left">
-                            {{ transformDate(move) }}
-                          </p>
+                          <div
+                            class="d-flex w-100 justify-content-center cursiva"
+                          >
+                            <h3 class="mb-1">{{ move.description | upper }}</h3>
+                          </div>
+                          <div class="d-flex w-100 justify-content-center">
+                            <h6 class="mb-1">{{ move.category }}</h6>
+                          </div>
+                          <div>
+                            <img
+                              :src="move.image"
+                              alt=""
+                              class="icon float-left mr-2"
+                            />
+                            <p class="mb-1 float-left">
+                              {{ transformDate(move) }}
+                            </p>
 
-                          <p class="float-right">{{ move.quantity }}€</p>
-                        </div>
-                        <small class="text-muted">{{ move.type }}</small>
-                      </b-list-group-item>
+                            <p class="float-right">{{ move.quantity }}€</p>
+                          </div>
+                          <small class="text-muted">{{ move.type }}</small>
+                        </b-list-group-item>
+                      </div>
                     </div>
                   </div>
                 </b-card>
@@ -155,6 +153,7 @@ import Burger from "@/components/Menu/Burger";
 import Sidebar from "@/components/Menu/Sidebar";
 import MenuSlide from "@/mixins/MenuSlide";
 import TimeFormat from "@/mixins/TimeFormat";
+import { setTimeout } from "timers";
 export default {
   name: "DashBoard",
   components: {
@@ -171,8 +170,16 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
+      this.$store.dispatch("navigateBurguer");
       this.allMove = this.$store.state.moves;
-      console.log(allMove);
+      console.log(this.allMove);
+      this.allMove.map((move) => {
+        if (move.type === "gasto") {
+          move.image = require("@/assets/money/png/024-loss-1.png");
+        } else {
+          move.image = require("@/assets/money/png/025-profits.png");
+        }
+      });
     },
   },
   computed: {
@@ -182,11 +189,67 @@ export default {
     totalIngresos() {
       return this.$store.getters.totalIngresos;
     },
+    balance(){
+      return this.$store.getters.totalIngresos - this.$store.getters.totalGastos
+    }
   },
-  beforeMount() {
+  mounted() {
     this.moveLoad();
   },
+
+  totalBalance(){
+    return this.$store.getters.totalBalance
+  }
 };
+
+// graficas
+setTimeout(() => {
+  var trace1 = {
+    x: [1, 10, 20, 30],
+    y: [1200, 1250, 1300, 1300],
+    // y: this.moveQuantityIngresos,
+    type: "scatter",
+    name: "ingresos",
+  };
+
+  var trace2 = {
+    x: [1, 10, 20, 30],
+    y: [800, 950, 1100, 980],
+    type: "scatter",
+    name: "gastos",
+  };
+
+  var data = [trace1, trace2];
+
+  Plotly.newPlot("grafic-line", data);
+}, 100);
+
+setTimeout(() => {
+var data = [{
+  type: "pie",
+  values: [2, 1, 3, 5],
+  labels: ["Ocio", "Belleza y Salud", "Alquiler y Coche", "Ingresos"],
+  textinfo: "label+percent",
+  textposition: "outside",
+  automargin: true
+}]
+
+var layout = {
+  height: 400,
+  width: 400,
+  margin: {"t": 0, "b": 0, "l": 0, "r": 0},
+  showlegend: false
+  }
+
+Plotly.newPlot('grafic-cir', data, layout)
+
+}, 200);
 </script>
 
-<style></style>
+
+
+<style>
+.degradade{
+  height: 2000px;
+}
+</style>

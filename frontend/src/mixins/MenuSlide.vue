@@ -6,7 +6,7 @@
       <li><router-link to="/moves" v-if="$router.history.current['path'] !=='/moves'">Movimientos</router-link></li>
       <li><router-link to="/entrys" v-if="$router.history.current['path'] !=='/entrys'">Ingresos</router-link></li>
       <li><router-link to="/spend" v-if="$router.history.current['path'] !=='/spend'">Gastos</router-link></li>
-      <li @click.prevent="LogOut"><router-link to="/" class="text-warning">LogOut</router-link></li>
+      <li class="text-warning" @click.prevent="logOut">LogOut</li>
     </ul>
   </div>
 </template>
@@ -23,6 +23,11 @@ export default {
   methods: {
     async logOut(){
        await this.$store.dispatch('logOut')
+       this.closeSidebarPanel()
+       this.$router.push('/')
+    },
+    closeSidebarPanel() {
+      this.$store.dispatch("navigateBurguer");
     }
   }
 };

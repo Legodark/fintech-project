@@ -209,6 +209,7 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
+      this.$store.dispatch("navigateBurguer");
       this.ingresosOBJ = this.$store.state.moves;
       console.log(this.ingresosOBJ);
       this.ingresosOBJ.map((ingreso) => {
@@ -224,12 +225,6 @@ export default {
         console.log(this.isActive);
       }
     },
-    /*typeImage(move) {
-      if (move.type === "ingreso") {
-        move.image = require("@/assets/money/png/025-profits.png");
-        console.log(move.image);
-      }
-    },*/
     async updateMoves(move) {
       const updateOBG = {
         id: move._id,
@@ -263,16 +258,6 @@ export default {
     },
     total() {
       return this.$store.getters.totalIngresos;
-      // this.ingresosOBJ = this.$store.state.moves;
-
-      // if (this.ingresosOBJ.length > 0) {
-      //   const tottalsum = this.ingresosOBJ.map((ingresos) => {
-      //     return ingresos.type === "ingreso" ? ingresos.quantity : 0;
-      //   });
-      //   return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2);
-      // }else {
-      //   return 0;
-      // }
     },
   },
   mounted() {
