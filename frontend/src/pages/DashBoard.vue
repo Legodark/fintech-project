@@ -42,7 +42,8 @@
             <blockquote class="card-blockquote">
               <h3>Ingresos</h3>
               <h5 class="subtitle">
-                TOTAL: <span class="has-text-primary">{{ totalIngresos }} €</span>
+                TOTAL:
+                <span class="has-text-primary">{{ totalIngresos }} €</span>
               </h5>
               <footer>
                 <small
@@ -59,7 +60,8 @@
             <blockquote class="card-blockquote">
               <h3>Gastos</h3>
               <h5 class="subtitle">
-                TOTAL: <span class="has-text-primary">-{{ totalGastos }} €</span>
+                TOTAL:
+                <span class="has-text-primary">-{{ totalGastos }} €</span>
               </h5>
               <footer>
                 <small
@@ -108,27 +110,35 @@
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Movimientos" class="text-center">
-                  <div v-for="(move, index) in allMove" :key="index">
-                    <b-list-group-item
-                      class="flex-column align-items-start mb-2 shadow rounded">
-                      <div class="d-flex w-100 justify-content-center cursiva">
-                        <h3 class="mb-1">{{ move.description | upper }}</h3>
-                      </div>
-                      <div class="d-flex w-100 justify-content-center">
-                        <h6 class="mb-1">{{ move.category }}</h6>
-                      </div>
-                      <div>
-                        <img
-                          :src="move.image"
-                          alt=""
-                          class="icon float-left mr-2"
-                        />
-                        <p class="mb-1 float-left">{{ transformDate(move) }}</p>
+                  <div class="scrollbar scrollbar-morpheus-den">
+                    <div class="force-overflow"></div>
+                    <div v-for="(move, index) in allMove" :key="index">
+                      <b-list-group-item
+                        class="flex-column align-items-start mb-2 shadow rounded"
+                      >
+                        <div
+                          class="d-flex w-100 justify-content-center cursiva"
+                        >
+                          <h3 class="mb-1">{{ move.description | upper }}</h3>
+                        </div>
+                        <div class="d-flex w-100 justify-content-center">
+                          <h6 class="mb-1">{{ move.category }}</h6>
+                        </div>
+                        <div>
+                          <img
+                            :src="move.image"
+                            alt=""
+                            class="icon float-left mr-2"
+                          />
+                          <p class="mb-1 float-left">
+                            {{ transformDate(move) }}
+                          </p>
 
-                        <p class="float-right">{{ move.quantity }}€</p>
-                      </div>
-                      <small class="text-muted">{{ move.type }}</small>
-                    </b-list-group-item>
+                          <p class="float-right">{{ move.quantity }}€</p>
+                        </div>
+                        <small class="text-muted">{{ move.type }}</small>
+                      </b-list-group-item>
+                    </div>
                   </div>
                 </b-card>
               </div>
@@ -144,26 +154,26 @@
 import Burger from "@/components/Menu/Burger";
 import Sidebar from "@/components/Menu/Sidebar";
 import MenuSlide from "@/mixins/MenuSlide";
-import TimeFormat from "@/mixins/TimeFormat"
+import TimeFormat from "@/mixins/TimeFormat";
 export default {
   name: "DashBoard",
   components: {
     Burger,
     Sidebar,
-    MenuSlide
+    MenuSlide,
   },
   mixins: [TimeFormat],
   data() {
     return {
-      allMove: []
+      allMove: [],
     };
   },
   methods: {
     async moveLoad() {
-      await this.$store.dispatch("moveLoad")
+      await this.$store.dispatch("moveLoad");
       this.allMove = this.$store.state.moves;
       console.log(allMove);
-    }
+    },
   },
   computed: {
     totalGastos() {
@@ -171,11 +181,11 @@ export default {
     },
     totalIngresos() {
       return this.$store.getters.totalIngresos;
-    }
+    },
   },
   beforeMount() {
-    this.moveLoad()
-  }
+    this.moveLoad();
+  },
 };
 </script>
 
