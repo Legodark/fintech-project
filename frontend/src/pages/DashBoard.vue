@@ -170,7 +170,7 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
-      this.allMove = this.$store.state.moves;
+      this.allMove = this.$store.state.moves.reverse();
       console.log(this.allMove);
       this.allMove.map((move) => {
         if (move.type === "gasto") {
@@ -180,12 +180,9 @@ export default {
         }
       });
     },
-<<<<<<< HEAD
-=======
     closeSidebarPanel() {
       this.$store.dispatch("navigateBurguer");
     }
->>>>>>> bde5749ca3bbca18921e5141cf6458b23a41d3a1
   },
   computed: {
     totalGastos() {
@@ -195,7 +192,8 @@ export default {
       return this.$store.getters.totalIngresos;
     },
     balance(){
-      return this.$store.getters.totalIngresos - this.$store.getters.totalGastos
+      const balance = this.$store.getters.totalIngresos - this.$store.getters.totalGastos
+      return balance.toFixed(2)
     }
   },
   beforeMount(){
@@ -205,9 +203,7 @@ export default {
     this.moveLoad();
   },
 
-  totalBalance(){
-    return this.$store.getters.totalBalance
-  }
+
 };
 
 // graficas
