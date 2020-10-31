@@ -137,7 +137,7 @@
                     </div>
                     <div>
                       <img
-                        src="@/assets/money/png/024-loss-1.png"
+                        :src="move.image"
                         alt=""
                         class="icon float-left mr-2"
                       />
@@ -270,7 +270,7 @@
                     </div>
                     <div>
                       <img
-                        :src="typeImage(move)"
+                        :src="move.image"
                         alt=""
                         class="icon float-left mr-2"
                       />
@@ -320,8 +320,17 @@ export default {
   methods:{
     async moveLoad() {
         await this.$store.dispatch("moveLoad");
+        this.$store.dispatch("navigateBurguer");
         this.allMoves = this.$store.state.moves;
         console.log(this.allMoves);
+        this.allMoves.map((move) => {
+          if (move.type === "gasto") {
+            move.image = require("@/assets/money/png/024-loss-1.png");
+          }
+          else{
+            move.image = require("@/assets/money/png/025-profits.png")
+          }
+      })
     },
     filterType(move){
       if(move.type !== 'ingreso'){
@@ -365,9 +374,16 @@ export default {
 
     },
   },
+  computed: {
+    totalGastos() {
+      return this.$store.getters.totalGastos;
+    },
+    totalIngresos() {
+      return this.$store.getters.totalIngresos;
+  }},
   mounted(){
       this.moveLoad()
-    }
+  }
 };
 </script>
 

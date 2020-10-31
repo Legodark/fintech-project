@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-    <div class="container bg box-shadow div-case-large">
+    <div class="container bg box-shadow div-case-larges">
       <!-- slidenav panel de navejacion superior -->
       <div>
         <nav class="main-nav">
@@ -42,7 +42,8 @@
             <blockquote class="card-blockquote">
               <h3>Ingresos</h3>
               <h5 class="subtitle">
-                TOTAL: <span class="has-text-primary">{{ totalIngresos }} €</span>
+                TOTAL:
+                <span class="has-text-primary">{{ totalIngresos }} €</span>
               </h5>
               <footer>
                 <small
@@ -59,7 +60,8 @@
             <blockquote class="card-blockquote">
               <h3>Gastos</h3>
               <h5 class="subtitle">
-                TOTAL: <span class="has-text-primary">-{{ totalGastos }} €</span>
+                TOTAL:
+                <span class="has-text-primary">-{{ totalGastos }} €</span>
               </h5>
               <footer>
                 <small
@@ -110,7 +112,8 @@
                 <b-card header="Movimientos" class="text-center">
                   <div v-for="(move, index) in allMove" :key="index">
                     <b-list-group-item
-                      class="flex-column align-items-start mb-2 shadow rounded">
+                      class="flex-column align-items-start mb-2 shadow rounded"
+                    >
                       <div class="d-flex w-100 justify-content-center cursiva">
                         <h3 class="mb-1">{{ move.description | upper }}</h3>
                       </div>
@@ -144,7 +147,7 @@
 import Burger from "@/components/Menu/Burger";
 import Sidebar from "@/components/Menu/Sidebar";
 import MenuSlide from "@/mixins/MenuSlide";
-import TimeFormat from "@/mixins/TimeFormat"
+import TimeFormat from "@/mixins/TimeFormat";
 export default {
   name: "DashBoard",
   components: {
@@ -160,9 +163,17 @@ export default {
   },
   methods: {
     async moveLoad() {
-      await this.$store.dispatch("moveLoad")
+      await this.$store.dispatch("moveLoad");
+      this.$store.dispatch("navigateBurguer");
       this.allMove = this.$store.state.moves;
-      console.log(allMove);
+      console.log(this.allMove);
+      this.allMove.map(move => {
+        if (move.type === "gasto") {
+          move.image = require("@/assets/money/png/024-loss-1.png");
+        } else {
+          move.image = require("@/assets/money/png/025-profits.png");
+        }
+      });
     }
   },
   computed: {
@@ -173,8 +184,8 @@ export default {
       return this.$store.getters.totalIngresos;
     }
   },
-  beforeMount() {
-    this.moveLoad()
+  mounted() {
+    this.moveLoad();
   }
 };
 </script>

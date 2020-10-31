@@ -199,6 +199,7 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
+      this.$store.dispatch("navigateBurguer");
       this.gastosOBG = this.$store.state.moves;
 
       this.gastosOBG.map((gasto) => {

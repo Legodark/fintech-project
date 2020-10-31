@@ -11,7 +11,8 @@ const store = new Vuex.Store({
     user: null,
     isAuth: null,
     moves: [],
-    isNavOpen: false
+    isNavOpen: false,
+    loginError: ''
   },
   mutations: {
     setToken(state, payload){
@@ -40,12 +41,10 @@ const store = new Vuex.Store({
     },
     navigate(state) {
       state.isNavOpen = !state.isNavOpen
-      /*if(state.isNavOpen !== true)
-      state.isNavOpen = true
-      else{
-        state.isNavOpen = false
-      }*/
-  }
+    },
+    errorLogin(state) {
+      state.errorLogin = 'Usuario o contraseño invalidos'
+    }
   },
   // calculo de gastos
   getters: {
@@ -93,7 +92,8 @@ const store = new Vuex.Store({
 
       }
       catch(error){
-        console.log('tienes un error aqui');
+        console.log('Usuario o contraseño invalidos');
+        context.commit('errorLogin')
       }
     },
     logOut(context){
