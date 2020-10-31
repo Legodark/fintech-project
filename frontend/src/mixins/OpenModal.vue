@@ -21,6 +21,12 @@ export default {
     },
     hideIngreso() {
       this.$modal.hide("my-first-modal-ingreso");
+    },
+    openModalLogin() {
+      this.$modal.show("my-first-modal-login");
+    },
+    hideLogin() {
+      this.$modal.hide("my-first-modal-login");
     }
   }
 

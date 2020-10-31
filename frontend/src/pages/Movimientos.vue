@@ -314,7 +314,9 @@ export default {
     return{
       allMoves: [],
       hola: 'hola',
-      itemToShow: -1
+      itemToShow: -1,
+      moveQuantityIngreso: [],
+      moveQuantityGasto: [],
     }
   },
   methods:{
@@ -373,6 +375,21 @@ export default {
         }
 
     },
+    quantityValor(){
+      for(let valor of this.$store.state.moves){
+        if(valor.type !== 'gasto'){
+        let valores = valor.quantity
+        this.moveQuantityIngreso.push(valores)
+        console.log(this.moveQuantityIngreso);
+        }
+        if(valor.type !== 'ingreso'){
+        let valores = valor.quantity
+        this.moveQuantityGasto.push(valores)
+        console.log(this.moveQuantityGasto);
+        }
+      }
+
+    },
   },
   computed: {
     totalGastos() {
@@ -383,6 +400,7 @@ export default {
   }},
   mounted(){
       this.moveLoad()
+      this.quantityValor()
   }
 };
 </script>

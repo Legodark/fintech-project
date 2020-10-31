@@ -58,10 +58,10 @@
                 <p>{{ error }}</p>
               </div>
               <div class="text-center">
-              <a href="" @click.prevent="openModal()">Recuperar Contraseña</a>
+              <a href="" @click.prevent="openModalLogin()">Recuperar Contraseña</a>
               </div>
               <div>
-                <modal name="my-first-modal-move">
+                <modal name="my-first-modal-login">
                   <div class="container-full register-form">
                     <div class="form">
                       <div class="note">
@@ -72,49 +72,55 @@
                         <div class="row justify-content-center">
                           <div class="col-md-6">
                             <div class="form-group text-center mb-2">
-                              <label>Email</label>
+                              <label class="text-dark">Email</label>
                               <input
                                 type="text"
                                 class="form-control border border-primary rounded-pill"
                                 placeholder=""
                                 value=""
+                                v-model="forwardPass.email"
                               />
                             </div>
                           </div>
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group text-center">
-                              <label>Contraseña</label>
+                              <label class="text-dark">Contraseña</label>
                               <input
                                 type="text"
                                 class="form-control border border-primary rounded-pill"
                                 placeholder=""
                                 value=""
+                                v-model="forwardPass.password"
                               />
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group text-center">
-                              <label>Repetir Contraseña</label>
+                              <label class="text-dark">Repetir Contraseña</label>
                               <input
                                 type="text"
                                 class="form-control border border-primary rounded-pill mb-4"
                                 placeholder=""
                                 value=""
+                                v-model="repeatpassword"
                               />
                             </div>
                           </div>
                         </div>
                         </div>
+                        <div class="float-left text-dark"><p>{{errorPassword}}</p></div>
                         <button
                           type="button"
                           class="btn btn-primary float-right"
+                          @click.prevent="hideLogin()"
                         >
                           Salir
                         </button>
                         <button
                           type="button"
                           class="btn btn-warning float-right mr-3"
+                          @click.prevent="updatePasswordLogin()"
                         >
                           Actualizar
                         </button>
@@ -156,6 +162,12 @@ export default {
         email: "",
         password: ""
       },
+      forwardPass: {
+        email: "",
+        password: ""
+      },
+      repeatpassword: '',
+      errorPassword: '',
       error: ""
     };
   },
@@ -172,7 +184,22 @@ export default {
       } catch (error) {
         this.error = "Ya estas logueado";
       }
-    }
+    },
+    async updatePasswordLogin() {
+      if (this.forwardPass.password !== this.repeatpassword) {
+        this.errorPassword = "Las contraseñas no coinciden";
+        console.log(this.errorPassword);
+        return;
+      }
+      try{
+      await this.$store.dispatch('updatePasswordLogin', this.forwardPass)
+      console.log(this.userLogin);
+      this.hideLogin()
+      }
+      catch(error){
+        console.log('No se ha podido actualizar la contraseña', error);
+      }
+    },
   }
 };
 </script>
@@ -180,22 +207,6 @@ export default {
 <style>
 .bg {
   background-color: #00487c;
-}
-
-.degrade {
-  background: -webkit-linear-gradient(
-    top,
-    rgba(248, 181, 0, 1) 0%,
-    rgba(248, 181, 0, 1) 15%,
-    rgba(252, 205, 77, 1) 78%,
-    rgba(251, 223, 147, 1) 87%,
-    rgba(252, 234, 187, 1) 95%,
-    rgba(252, 234, 187, 1) 100%
-  );
-  height: 1000px;
-}
-.div-case-large {
-  height: 1000px;
 }
 
 .box-shadow {

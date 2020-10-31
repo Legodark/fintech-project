@@ -164,7 +164,6 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
-      this.$store.dispatch("navigateBurguer");
       this.allMove = this.$store.state.moves;
       console.log(this.allMove);
       this.allMove.map(move => {
@@ -174,6 +173,9 @@ export default {
           move.image = require("@/assets/money/png/025-profits.png");
         }
       });
+    },
+    closeSidebarPanel() {
+      this.$store.dispatch("navigateBurguer");
     }
   },
   computed: {
@@ -183,6 +185,9 @@ export default {
     totalIngresos() {
       return this.$store.getters.totalIngresos;
     }
+  },
+  beforeMount(){
+    this.closeSidebarPanel()
   },
   mounted() {
     this.moveLoad();
