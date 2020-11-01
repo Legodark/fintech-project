@@ -283,10 +283,10 @@
               </div>
             </b-card-group>
           </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -319,7 +319,6 @@ export default {
   },
   methods: {
     async moveLoad() {
-<<<<<<< HEAD
       await this.$store.dispatch("moveLoad");
       this.$store.dispatch("sliderOff");
       this.allMoves = this.$store.state.moves;
@@ -331,20 +330,6 @@ export default {
           move.image = require("@/assets/money/png/025-profits.png");
         }
       });
-=======
-        await this.$store.dispatch("moveLoad");
-        //this.$store.dispatch("navigateBurguer");
-        this.allMoves = this.$store.state.moves;
-        console.log(this.allMoves);
-        this.allMoves.map((move) => {
-          if (move.type === "gasto") {
-            move.image = require("@/assets/money/png/024-loss-1.png");
-          }
-          else{
-            move.image = require("@/assets/money/png/025-profits.png")
-          }
-      })
->>>>>>> bd0a292bf6970fd3a22b5fe17187ab870c8be992
     },
     filterType(move) {
       if (move.type !== "ingreso") {

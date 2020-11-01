@@ -209,11 +209,7 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
-<<<<<<< HEAD
       this.$store.dispatch("sliderOff");
-=======
-      //this.$store.dispatch("navigateBurguer");
->>>>>>> bd0a292bf6970fd3a22b5fe17187ab870c8be992
       this.ingresosOBJ = this.$store.state.moves;
       console.log(this.ingresosOBJ);
       this.ingresosOBJ.map(ingreso => {
