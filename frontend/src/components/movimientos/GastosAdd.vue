@@ -91,7 +91,7 @@ export default {
     async registerMovesGasto() {
       try {
         await this.$store.dispatch("registerMoves", this.registerGasto);
-        this.$store.dispatch("moveLoad");
+        await this.$store.dispatch("moveLoad");
       } catch (error) {
         console.log(error.response.data);
       }

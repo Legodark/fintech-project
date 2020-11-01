@@ -36,15 +36,14 @@
               <!-- derecha listar movimientos -->
               <div class="col-6">
                 <b-card header="Ingresos" class="text-center">
-                  <div class="justify-content-center mb-3"><IngresosAdd/></div>
+                  <div class="justify-content-center mb-3"><IngresosAdd /></div>
                   <div v-for="(ingreso, index) in ingresosOBJ" :key="index">
                     <b-list-group-item
                       class="flex-column align-items-start mb-2 shadow rounded ingresos"
                       v-if="ingreso.type !== 'gasto'"
                     >
                       <div class="d-flex w-100 justify-content-between cursiva">
-                        <h3 class="mb-1">{{ ingreso.description }}</h3>
-                        <small class="text-muted mt-2 mr-5">3 days ago</small>
+                        <h3 class="mb-1">{{ ingreso.description | upper }}</h3>
                         <small class="text-muted"
                           ><div
                             class="float-right"
@@ -121,7 +120,7 @@
                                       type="button"
                                       class="btn btn-warning float-left"
                                       @click.prevent="
-                                        updateMoves(ingreso), hide()
+                                        updateMoves(ingreso)
                                       "
                                     >
                                       Actualizar
@@ -130,7 +129,7 @@
                                     <button
                                       type="button"
                                       class="btn btn-primary float-right"
-                                      @click.prevent="hide(), moveLoad()"
+                                      @click.prevent="hide()"
                                     >
                                       Salir
                                     </button>
@@ -138,7 +137,7 @@
                                       type="button"
                                       class="btn btn-danger mr-4 float-right"
                                       @click.prevent="
-                                        deleteMove(ingreso), hide()
+                                        deleteMove(ingreso)
                                       "
                                     >
                                       Borrar Movimiento
@@ -151,7 +150,7 @@
                         </div>
                       </div>
                       <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">{{ transformDate(ingreso) }}</h6>
+                        <h6 class="mb-1 ">{{ ingreso.category }}</h6>
                       </div>
                       <div>
                         <img
@@ -159,7 +158,9 @@
                           alt=""
                           class="icon float-left mr-2"
                         />
-                        <p class="mb-1 float-left">{{ ingreso.category }}</p>
+                        <p class="mb-1 float-left">
+                          {{ transformDate(ingreso) }}
+                        </p>
 
                         <p class="float-right">{{ ingreso.quantity }}€</p>
                       </div>
@@ -191,28 +192,28 @@ export default {
     Burger,
     Sidebar,
     MenuSlide,
-    IngresosAdd,
+    IngresosAdd
   },
   data() {
     return {
       ingresosOBJ: [],
       updateOBG: {},
       deleteItem: {},
-      itemToShow: -1,
+      itemToShow: -1
     };
   },
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
-      this.$store.dispatch("navigateBurguer");
+      this.$store.dispatch("sliderOff");
       this.ingresosOBJ = this.$store.state.moves;
       console.log(this.ingresosOBJ);
-      this.ingresosOBJ.map((ingreso) => {
+      this.ingresosOBJ.map(ingreso => {
         if (ingreso.type === "ingreso") {
           ingreso.image = require("@/assets/money/png/025-profits.png");
           console.log(ingreso.image);
         }
-      })
+      });
     },
     filterType(move) {
       if (move.type !== "ingreso") {
@@ -226,43 +227,42 @@ export default {
         quantity: move.quantity,
         category: move.category,
         type: move.type,
-        description: move.description,
+        description: move.description
       };
-      try{
-      await this.$store.dispatch('updateMove', updateOBG)
+      try {
+        await this.$store.dispatch("updateMove", updateOBG);
+      } catch (error) {
+        console.log("Error al enviar la actualizacion", error);
       }
-      catch(error){
-            console.log("Error al enviar la actualizacion", error);
-      }
+      this.hide()
+      await this.moveLoad()
     },
     async deleteMove(move) {
-
-        const deleteItem = {
-          id: move._id,
-        };
-        console.log(deleteItem.id);
-        try{
-        await this.$store.dispatch("deleteMove", deleteItem.id)
-        }
-        catch(error){
-            console.log("Error al enviar el id", error);
-        }
-
-    },
+      const deleteItem = {
+        id: move._id
+      };
+      console.log(deleteItem.id);
+      try {
+        await this.$store.dispatch("deleteMove", deleteItem.id);
+      } catch (error) {
+        console.log("Error al enviar el id", error);
+      }
+      this.hide()
+      await this.moveLoad()
+    }
   },
 
   computed: {
     totalIngresos() {
       this.ingresosOBJ = this.$store.state.moves;
-      },
-    total() {
-
-      return this.$store.getters.totalIngresos;
     },
+    total() {
+      return this.$store.getters.totalIngresos;
+    }
   },
   mounted() {
     this.moveLoad();
-  },
+  }
 };
 </script>
 

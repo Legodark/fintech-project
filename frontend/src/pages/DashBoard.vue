@@ -158,25 +158,24 @@ export default {
   mixins: [TimeFormat],
   data() {
     return {
-      allMove: []
+      allMove: [],
     };
   },
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
+      this.$store.dispatch("sliderOff");
       this.allMove = this.$store.state.moves;
       console.log(this.allMove);
       this.allMove.map(move => {
         if (move.type === "gasto") {
+
           move.image = require("@/assets/money/png/024-loss-1.png");
         } else {
           move.image = require("@/assets/money/png/025-profits.png");
         }
       });
     },
-    closeSidebarPanel() {
-      this.$store.dispatch("navigateBurguer");
-    }
   },
   computed: {
     totalGastos() {
@@ -184,15 +183,11 @@ export default {
     },
     totalIngresos() {
       return this.$store.getters.totalIngresos;
-    }
-  },
-  beforeMount(){
-    this.closeSidebarPanel()
+    },
   },
   mounted() {
     this.moveLoad();
   }
 };
 </script>
-
 <style></style>

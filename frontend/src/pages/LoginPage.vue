@@ -179,6 +179,7 @@ export default {
         if (this.$store.state.token === null) {
           this.error = this.$store.state.errorLogin;
         } else {
+          await this.$store.dispatch("moveLoad");
           this.$router.push("/dashboard");
         }
       } catch (error) {

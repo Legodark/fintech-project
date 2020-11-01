@@ -89,11 +89,11 @@ export default {
 
       try {
         await this.$store.dispatch('registerMoves', this.registerIngreso)
-        this.$store.dispatch('moveLoad')
       } catch (error) {
         console.log(error.response.data);
       }
       this.hideIngreso()
+      this.$store.dispatch('moveLoad')
     }
   },
   mount() {

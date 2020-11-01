@@ -36,13 +36,15 @@ const routes = [
   { path: "/dashboard", name: "DashBoard", component: DashBoard, meta: { private: true, AutentificationProfile: ['user'] } },
   { path: "/login", name: "Login", component: LoginPage },
   { path: "/register", name: "Register", component: RegisterPage },
-  { path: "/profile", name: "Profile", component: ProfilePage},
+  { path: "/profile", name: "Profile", component: ProfilePage, meta: { private: true, AutentificationProfile: ['user'] } },
   { path: "/moves", name: "Movimientos", component: Movimientos, meta: { private: true, AutentificationProfile: ['user'] }},
-  { path: "/entrys", name: "Ingresos", component: Ingresos},
-  { path: "/spend", name: "Gastos", component: Gastos},
-  { path: "/legal", name: "Legal", component: Legal}
+  { path: "/entrys", name: "Ingresos", component: Ingresos, meta: { private: true, AutentificationProfile: ['user'] }},
+  { path: "/spend", name: "Gastos", component: Gastos, meta: { private: true, AutentificationProfile: ['user'] }},
+  { path: "/legal", name: "Legal", component: Legal, meta: { private: true, AutentificationProfile: ['user'] }}
 
 ]
+
+// Restricciones de acceso
 
 const router = new VueRouter({ routes, mode: 'history' })
 

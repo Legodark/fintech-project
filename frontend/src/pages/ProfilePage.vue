@@ -149,7 +149,7 @@ export default {
   methods: {
     async userLoad() {
       await this.$store.dispatch("userLoad");
-      this.$store.dispatch("navigateBurguer");
+      this.$store.dispatch("sliderOff");
       this.userUpdate = this.$store.state.user;
       console.log(this.userUpdate);
     },
@@ -157,7 +157,6 @@ export default {
       await this.$store.dispatch('updateUser', this.userUpdate)
       this.userLoad()
       this.isActive();
-      this.$store.dispatch("navigateBurguer");
     },
     async updatePassword() {
       if (this.passwordUpdate !== this.repeatpassword) {

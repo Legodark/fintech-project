@@ -25,6 +25,7 @@ const store = new Vuex.Store({
       }
 
       window.localStorage.setItem('token', payload)
+      window.localStorage.setItem('sliderOff', this.state.isNavOpen)
     },
     removeToken(state){
       state.token = null
@@ -41,6 +42,10 @@ const store = new Vuex.Store({
     },
     navigate(state) {
       state.isNavOpen = !state.isNavOpen
+
+    },
+    slideOff(state){
+      state.isNavOpen = false
     },
     errorLogin(state) {
       state.errorLogin = 'Usuario o contraseño invalidos'
@@ -149,7 +154,7 @@ const store = new Vuex.Store({
           config
         );
         //commit("addMove", move)
-        dispatch("moveLoad")
+        //dispatch("moveLoad")
       } catch (error) {
         console.log(error.response.data);
       }
@@ -264,6 +269,9 @@ const store = new Vuex.Store({
     },
     navigateBurguer({commit}){
       commit('navigate')
+    },
+    sliderOff({commit}){
+      commit('slideOff')
     }
   },
   modules: {
