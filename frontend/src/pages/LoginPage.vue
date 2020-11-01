@@ -210,6 +210,14 @@ export default {
   background-color: #00487c;
 }
 
+<<<<<<< HEAD
+
+.div-case-large {
+  height: 1000px;
+}
+
+=======
+>>>>>>> bde5749ca3bbca18921e5141cf6458b23a41d3a1
 .box-shadow {
   -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);

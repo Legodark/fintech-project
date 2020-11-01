@@ -60,59 +60,90 @@
                                     <p>Editar Movimiento</p>
                                   </div>
 
-                                  <div class="form-content">
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <div class="form-group text-center">
-                                          <label>Cantidad</label>
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            :placeholder="gastos.quantity"
-                                            value=""
-                                            v-model="gastos.quantity"
-                                          />
+                  <div class="scrollbar scrollbar-morpheus-den scrollbarbig">
+                    <div class="force-overflow"></div>
+
+                    <div v-for="(gastos, index) in gastosOBG" :key="index">
+                      <b-list-group-item
+                        href="#"
+                        class="flex-column align-items-start mb-2 shadow rounded gastos"
+                        v-if="gastos.type !== 'ingreso'"
+                      >
+                        <div
+                          class="d-flex w-100 justify-content-between cursiva"
+                        >
+                          <h3 class="mb-1">{{ gastos.description }}</h3>
+                          <small class="text-muted mt-2 mr-5">3 days ago</small>
+                          <small class="text-muted"
+                            ><div
+                              class="float-right"
+                              @click="(itemToShow = index), openModal()"
+                            >
+                              <i class="fas fa-edit"></i></div
+                          ></small>
+                          <div v-show="itemToShow == index">
+                            <div>
+                              <modal name="my-first-modal-move">
+                                <div class="container-full register-form">
+                                  <div class="form">
+                                    <div class="note">
+                                      <p>Editar Movimiento</p>
+                                    </div>
+
+                                    <div class="form-content">
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group text-center">
+                                            <label>Cantidad</label>
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              :placeholder="gastos.quantity"
+                                              value=""
+                                              v-model="gastos.quantity"
+                                            />
+                                          </div>
+                                          <div class="form-group text-center">
+                                            <label>Tipo de Movimiento</label>
+                                            <select
+                                              class="form-control"
+                                              v-model="gastos.type"
+                                            >
+                                              <option disabled selected>
+                                                {{ gastos.type }}
+                                              </option>
+                                              <option>gasto</option>
+                                              <option>ingreso</option>
+                                            </select>
+                                          </div>
                                         </div>
-                                        <div class="form-group text-center">
-                                          <label>Tipo de Movimiento</label>
-                                          <select
-                                            class="form-control"
-                                            v-model="gastos.type"
-                                          >
-                                            <option disabled selected>{{
-                                              gastos.type
-                                            }}</option>
-                                            <option>gasto</option>
-                                            <option>ingreso</option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="form-group text-center">
-                                          <label>Categoria</label>
-                                          <select
-                                            class="form-control"
-                                            v-model="gastos.category"
-                                          >
-                                            <option disabled selected>{{
-                                              gastos.category
-                                            }}</option>
-                                            <option>Consumible</option>
-                                            <option>Salud y Bienestar</option>
-                                            <option>Ocio</option>
-                                            <option>Electrónica</option>
-                                            <option>Viajes</option>
-                                            <option>Mantenimiento</option>
-                                          </select>
-                                        </div>
-                                        <div class="form-group text-center">
-                                          <label>Descripción</label>
-                                          <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="2"
-                                            v-model="gastos.description"
-                                          ></textarea>
+                                        <div class="col-md-6">
+                                          <div class="form-group text-center">
+                                            <label>Categoria</label>
+                                            <select
+                                              class="form-control"
+                                              v-model="gastos.category"
+                                            >
+                                              <option disabled selected>
+                                                {{ gastos.category }}
+                                              </option>
+                                              <option>Consumible</option>
+                                              <option>Salud y Bienestar</option>
+                                              <option>Ocio</option>
+                                              <option>Electrónica</option>
+                                              <option>Viajes</option>
+                                              <option>Mantenimiento</option>
+                                            </select>
+                                          </div>
+                                          <div class="form-group text-center">
+                                            <label>Descripción</label>
+                                            <textarea
+                                              class="form-control"
+                                              id="exampleFormControlTextarea1"
+                                              rows="2"
+                                              v-model="gastos.description"
+                                            ></textarea>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -140,8 +171,8 @@
                                     </button>
                                   </div>
                                 </div>
-                              </div>
-                            </modal>
+                              </modal>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -156,15 +187,13 @@
                         />
                         <p class="mb-1 float-left">{{ gastos.category }}</p>
 
-                        <p class="float-right">-{{ gastos.quantity }}€</p>
-                      </div>
-                      <small class="text-muted">{{ gastos.type }}</small>
-                    </b-list-group-item>
+                          <p class="float-right">-{{ gastos.quantity }}€</p>
+                        </div>
+                        <small class="text-muted">{{ gastos.type }}</small>
+                      </b-list-group-item>
+                    </div>
                   </div>
-                </b-card>
               </div>
-            </b-card-group>
-          </div>
         </div>
       </div>
     </div>
@@ -185,7 +214,7 @@ export default {
     Burger,
     Sidebar,
     MenuSlide,
-    GastosAdd
+    GastosAdd,
   },
   mixins: [OpenModal, TimeFormat],
   data() {

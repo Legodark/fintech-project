@@ -78,7 +78,7 @@ const store = new Vuex.Store({
         return 0;
       }
 
-    }
+    },
 
 
   },

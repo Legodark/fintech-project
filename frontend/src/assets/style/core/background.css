@@ -2,6 +2,7 @@
 
 .bg {
   background-color: #00487c;
+  height: 2000px;
 }
 
 .box-shadow {
@@ -11,6 +12,7 @@
 }
 
 .degrade {
+  height: 2000px;
   background: -webkit-linear-gradient(
     top,
     rgba(248, 181, 0, 1) 0%,
@@ -20,5 +22,9 @@
     rgba(252, 234, 187, 1) 95%,
     rgba(252, 234, 187, 1) 100%
   );
+
+}
+.div-case-large{
+    height: 2000px;
 }
 
