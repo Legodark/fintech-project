@@ -322,7 +322,7 @@ export default {
   methods:{
     async moveLoad() {
         await this.$store.dispatch("moveLoad");
-        this.$store.dispatch("navigateBurguer");
+        //this.$store.dispatch("navigateBurguer");
         this.allMoves = this.$store.state.moves;
         console.log(this.allMoves);
         this.allMoves.map((move) => {

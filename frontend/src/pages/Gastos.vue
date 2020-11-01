@@ -29,6 +29,15 @@
                       TOTAL:
                       <span class="has-text-primary">-{{ total }} €</span>
                     </h4>
+                          <!-- grafica -->
+                    <!-- <div>
+                      <b-card-text>
+                        <div id="grafic-cir "> -->
+
+                          <!-- Plotly chart will be drawn inside this DIV -->
+                        <!-- </div>
+                      </b-card-text>
+                    </div> -->
                   </b-card-text>
                 </b-card>
               </div>
@@ -208,8 +217,8 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
-      this.$store.dispatch("navigateBurguer");
-      this.gastosOBG = this.$store.state.moves;
+      //this.$store.dispatch("navigateBurguer"); ¿POR QUÉ ESTÁ AQUI ESTO?
+      this.gastosOBG = this.$store.state.moves.reverse();
 
       this.gastosOBG.map((gasto) => {
         if (gasto.type === "gasto") {
@@ -261,7 +270,30 @@ export default {
     this.moveLoad();
   },
 };
+
+// setTimeout(() => {
+//   var data = [
+//     {
+//       type: "gastos",
+//       values: [2, 1, 3, 5],
+//       labels: ["Ocio", "Belleza y Salud", "Coche", "Necesidades"],
+//       textinfo: "label+percent",
+//       textposition: "outside",
+//       automargin: true,
+//     },
+//   ];
+
+//   var layout = {
+//     height: 400,
+//     width: 400,
+//     margin: { t: 0, b: 0, l: 0, r: 0 },
+//     showlegend: false,
+//   };
+
+//   Plotly.newPlot("grafic-cir", data, layout);
+// }, 400);
 </script>
 
 <style>
+
 </style>

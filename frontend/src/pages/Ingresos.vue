@@ -209,7 +209,7 @@ export default {
   methods: {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
-      this.$store.dispatch("navigateBurguer");
+      //this.$store.dispatch("navigateBurguer");
       this.ingresosOBJ = this.$store.state.moves;
       console.log(this.ingresosOBJ);
       this.ingresosOBJ.map((ingreso) => {
