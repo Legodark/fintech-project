@@ -27,7 +27,6 @@ Desarrollado por:
     - [VUE components](#vue-components)
 5. [Desarrollo Back End](#desarrollo-frond-end)
     - [Dependecias Usadas](#dependecias-usadas)
-6. [Mapa Web](#mapa-web)
 7. [Análisis API](#análisis-api)
     - [Identificación de Recursos](#identificación-de-recursos)
     - [Definición de los Recursos](#definición-de-los-recursos)
@@ -49,13 +48,13 @@ Para que la web sea rentable...(en proceso)
 ## Básicas 
 
 - Agregar, editar y eliminar gastos e ingresos.
-- Listar ingresos y gastos por días, meses y años.
-- Filtrar ingresos y gastos por categoria.
+- Gráfico con los gastos y ingresos
+- Listar ingresos y gastos
+
 
 
 ## Avanzadas
-
-- Gráfico con el balance de situación.
+- Filtrar ingresos y gastos por categoria.
 - Barras de objetivos para los ahorros.
 
 ## Futuras
@@ -90,7 +89,7 @@ Para que la web sea rentable...(en proceso)
     - HomePage.vue
     - Login.vue
     - Registro.vue
-    - RecoverAccount.vue
+    - ForwardPassword.vue
     - Profile.vue
     - Ingresos.vue
     - Movimientos.vue
@@ -101,17 +100,13 @@ Para que la web sea rentable...(en proceso)
     - IngresosTotales.vue
 - Overflow:
     - AñadirIngresos.vue
-    - AñadirGastos.vue 
-    - EditarGastos.vue (Recurrente)*
-    - EditarIngresos.vue (Recurrente)*
+    - AñadirGastos.vue
 
 # Desarrollo Back End
 
 ### Dependecias Usadas
 
-<img src="https://img.icons8.com/color/48/000000/nodejs.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/>
-
-# Mapa Web (En proceso)
+<img src="https://img.icons8.com/color/48/000000/nodejs.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/>
 
 # Análisis API
 
@@ -131,6 +126,7 @@ Para que la web sea rentable...(en proceso)
     - Contraseña [string]
     - Activo [boolean]
     - Date [date]
+    - Profile [string]
 
 - Movimientos (Schema):
     - ID[number]
@@ -143,12 +139,6 @@ Para que la web sea rentable...(en proceso)
     - Comentario[string]
     - Tipo[cadena]
     - Recurrente[boolean]
-
-- Categorías (Schema):
-    - ID[number]
-    - Nombre[string]
-    - Tipo[string]
-    - Image[string]
 
 ## Endpoints
 
@@ -172,15 +162,6 @@ Para que la web sea rentable...(en proceso)
 | POST | /movement | USER |
 | PUT | /movement/:movementid | USER |
 | DELETE | /movement/:movementid | USER |
-
----
-
-### Categorias
-
-
-| VERBO   |      RUTA      |  ACCESO |
-|----------|:-------------:|------:|
-| GET |  /category | USER |
 
 ---
 
