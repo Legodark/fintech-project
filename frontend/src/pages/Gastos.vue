@@ -61,7 +61,7 @@
                   <div class="scrollbar scrollbar-morpheus-den scrollbarbig">
                     <div class="force-overflow">
                       <div class="justify-content-center mb-3">
-                        <GastosAdd />
+                        <GastosAdd :refreshMovesLista="refreshMovesLista" />
                       </div>
                       <div class="mr-4" v-for="(gastos, index) in gastosOBG" :key="index">
                         <b-list-group-item
@@ -336,6 +336,10 @@ export default {
     },
     graficCalculate() {
       this.$store.getters.graficCalculate
+    // refrsecar lista
+    },
+    refreshMovesLista(){
+      this.moveLoad();
     }
   },
 

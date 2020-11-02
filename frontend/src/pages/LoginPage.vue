@@ -210,7 +210,6 @@ export default {
   background-color: #00487c;
 }
 
-
 .box-shadow {
   -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);

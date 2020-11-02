@@ -60,7 +60,7 @@
                   <div class="scrollbar scrollbar-morpheus-den scrollbarbig">
                     <div class="force-overflow">
                       <div class="justify-content-center mb-3">
-                        <IngresosAdd />
+                        <IngresosAdd :refreshMovesLista="refreshMovesLista" />
                       </div>
                       <div
                         class="mr-4"
@@ -344,6 +344,10 @@ export default {
     },
     graficCalculate() {
       this.$store.getters.graficCalculate
+    // refescarlista
+    },
+    refreshMovesLista(){
+      this.moveLoad();
     }
   },
   computed: {
