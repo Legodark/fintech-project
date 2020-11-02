@@ -100,9 +100,9 @@
             </div>
           </div>
 
-          <div class="col-lg-5 bg-white float-left ml-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum impedit cupiditate, suscipit asperiores aliquam eveniet ea alias, consequatur tenetur, magni temporibus aspernatur? Ratione animi neque ipsa repellendus reprehenderit dolores omnis.</div>
+          <div class="col-lg-5 white float-left ml-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum impedit cupiditate, suscipit asperiores aliquam eveniet ea alias, consequatur tenetur, magni temporibus aspernatur? Ratione animi neque ipsa repellendus reprehenderit dolores omnis.</div>
           <img src="https://elandroidelibre.elespanol.com/wp-content/uploads/2014/09/grafica-crecimiento.jpg" alt="" class="cuadro">
-          <div class="col-lg-5 bg-white float-right mr-5 mb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis qui cum commodi sint obcaecati, nostrum a ea tempore voluptatibus quia pariatur minus iusto voluptatem, itaque labore? Non ducimus vitae obcaecati.</div>
+          <div class="col-lg-5 white float-right mr-5 mb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis qui cum commodi sint obcaecati, nostrum a ea tempore voluptatibus quia pariatur minus iusto voluptatem, itaque labore? Non ducimus vitae obcaecati.</div>
           <img src="https://image.freepik.com/vector-gratis/graficas-economia_23-2147598629.jpg" alt="" class="cuadro-2 ml-5">
         </div>
         <div class="col-12 bg-warning custom-card-height">
