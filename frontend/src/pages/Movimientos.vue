@@ -21,131 +21,147 @@
               <!-- paneles de gastos -->
               <div class="col-6">
                 <b-card header="Gastos" class="text-center">
-                  <div class="justify-content-center mb-3"><GastosAdd /></div>
-                  <div v-for="(move, index) in allMoves" :key="index">
-                    <b-list-group-item
-                      href="#"
-                      class="flex-column align-items-start mb-2 shadow rounded gastos"
-                      v-if="move.type !== 'ingreso'"
-                    >
-                      <div class="d-flex w-100 justify-content-between cursiva">
-                        <h3 class="mb-1">{{ move.description | upper }}</h3>
-                        <small class="text-muted"
-                          ><div
-                            class="float-right"
-                            @click="(itemToShow = index), openModal()"
+                  <div class="scrollbar scrollbar-morpheus-den scrollbarbig">
+                    <div class="force-overflow">
+                      <div class="justify-content-center mb-3">
+                        <GastosAdd :refreshMovesLista="refreshMovesLista" />
+                      </div>
+                      <div
+                        class="mr-4"
+                        v-for="(move, index) in allMoves"
+                        :key="index"
+                      >
+                        <b-list-group-item
+                          href="#"
+                          class="flex-column align-items-start mb-2 shadow rounded gastos"
+                          v-if="move.type !== 'ingreso'"
+                        >
+                          <div
+                            class="d-flex w-100 justify-content-between cursiva"
                           >
-                            <i class="fas fa-edit"></i></div
-                        ></small>
-                        <div v-show="itemToShow == index">
-                          <div>
-                            <modal name="my-first-modal-move">
-                              <div class="container-full register-form">
-                                <div class="form">
-                                  <div class="note">
-                                    <p>Editar Movimiento</p>
-                                  </div>
-
-                                  <div class="form-content">
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <div class="form-group text-center">
-                                          <label>Cantidad</label>
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            :placeholder="move.quantity"
-                                            value=""
-                                            v-model="move.quantity"
-                                          />
-                                        </div>
-                                        <div class="form-group text-center">
-                                          <label>Tipo de Movimiento</label>
-                                          <select
-                                            class="form-control"
-                                            v-model="move.type"
-                                          >
-                                            <option disabled selected>{{
-                                              move.type
-                                            }}</option>
-                                            <option>gasto</option>
-                                            <option>ingreso</option>
-                                          </select>
-                                        </div>
+                            <h3 class="mb-1">{{ move.description | upper }}</h3>
+                            <small class="text-muted"
+                              ><div
+                                class="float-right"
+                                @click="(itemToShow = index), openModal()"
+                              >
+                                <i class="fas fa-edit"></i></div
+                            ></small>
+                            <div v-show="itemToShow == index">
+                              <div>
+                                <modal name="my-first-modal-move">
+                                  <div class="container-full register-form">
+                                    <div class="form">
+                                      <div class="note">
+                                        <p>Editar Movimiento</p>
                                       </div>
-                                      <div class="col-md-6">
-                                        <div class="form-group text-center">
-                                          <label>Categoria</label>
-                                          <select
-                                            class="form-control"
-                                            v-model="move.category"
-                                          >
-                                            <option disabled selected>{{
-                                              move.category | upper
-                                            }}</option>
-                                            <option>Consumible</option>
-                                            <option>Salud y Bienestar</option>
-                                            <option>Ocio</option>
-                                            <option>Electrónica</option>
-                                            <option>Viajes</option>
-                                            <option>Mantenimiento</option>
-                                          </select>
+
+                                      <div class="form-content">
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group text-center">
+                                              <label>Cantidad</label>
+                                              <input
+                                                type="text"
+                                                class="form-control"
+                                                :placeholder="move.quantity"
+                                                value=""
+                                                v-model="move.quantity"
+                                              />
+                                            </div>
+                                            <div class="form-group text-center">
+                                              <label>Tipo de Movimiento</label>
+                                              <select
+                                                class="form-control"
+                                                v-model="move.type"
+                                              >
+                                                <option disabled selected>
+                                                  {{ move.type }}
+                                                </option>
+                                                <option>gasto</option>
+                                                <option>ingreso</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group text-center">
+                                              <label>Categoria</label>
+                                              <select
+                                                class="form-control"
+                                                v-model="move.category"
+                                              >
+                                                <option disabled selected>
+                                                  {{ move.category | upper }}
+                                                </option>
+                                                <option>Consumible</option>
+                                                <option>
+                                                  Salud y Bienestar
+                                                </option>
+                                                <option>Ocio</option>
+                                                <option>Electrónica</option>
+                                                <option>Viajes</option>
+                                                <option>Mantenimiento</option>
+                                              </select>
+                                            </div>
+                                            <div class="form-group text-center">
+                                              <label>Descripción</label>
+                                              <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="2"
+                                                v-model="move.description"
+                                              ></textarea>
+                                            </div>
+                                          </div>
                                         </div>
-                                        <div class="form-group text-center">
-                                          <label>Descripción</label>
-                                          <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="2"
-                                            v-model="move.description"
-                                          ></textarea>
-                                        </div>
+                                        <button
+                                          type="button"
+                                          class="btn btn-warning float-left"
+                                          @click.prevent="updateMoves(move)"
+                                        >
+                                          Actualizar
+                                        </button>
+
+                                        <button
+                                          type="button"
+                                          class="btn btn-primary float-right"
+                                          @click.prevent="hide()"
+                                        >
+                                          Salir
+                                        </button>
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger mr-4 float-right"
+                                          @click.prevent="deleteMove(move)"
+                                        >
+                                          Borrar Movimiento
+                                        </button>
                                       </div>
                                     </div>
-                                    <button
-                                      type="button"
-                                      class="btn btn-warning float-left"
-                                      @click.prevent="updateMoves(move)"
-                                    >
-                                      Actualizar
-                                    </button>
-
-                                    <button
-                                      type="button"
-                                      class="btn btn-primary float-right"
-                                      @click.prevent="hide()"
-                                    >
-                                      Salir
-                                    </button>
-                                    <button
-                                      type="button"
-                                      class="btn btn-danger mr-4 float-right"
-                                      @click.prevent="deleteMove(move)"
-                                    >
-                                      Borrar Movimiento
-                                    </button>
                                   </div>
-                                </div>
+                                </modal>
                               </div>
-                            </modal>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">{{ move.category }}</h6>
-                      </div>
-                      <div>
-                        <img
-                          :src="move.image"
-                          alt=""
-                          class="icon float-left mr-2"
-                        />
-                        <p class="mb-1 float-left">{{ transformDate(move) }}</p>
+                          <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ move.category }}</h6>
+                          </div>
+                          <div>
+                            <img
+                              :src="move.image"
+                              alt=""
+                              class="icon float-left mr-2"
+                            />
+                            <p class="mb-1 float-left">
+                              {{ transformDate(move) }}
+                            </p>
 
-                        <p class="float-right">-{{ move.quantity }}€</p>
+                            <p class="float-right">-{{ move.quantity }}€</p>
+                          </div>
+                          <small class="text-muted">{{ move.type }}</small>
+                        </b-list-group-item>
                       </div>
-                      <small class="text-muted">{{ move.type }}</small>
-                    </b-list-group-item>
+                    </div>
                   </div>
                 </b-card>
               </div>
@@ -153,140 +169,156 @@
               <!-- derecha listar Ingressos -->
               <div class="col-6">
                 <b-card header="Ingresos" class="text-center">
-                  <div class="justify-content-center mb-3"><IngresosAdd /></div>
-                  <div v-for="(move, index) in allMoves" :key="index">
-                    <b-list-group-item
-                      href="#"
-                      class="flex-column align-items-start mb-2 shadow rounded ingresos"
-                      v-if="move.type !== 'gasto'"
-                    >
-                      <div class="d-flex w-100 justify-content-between cursiva">
-                        <h3 class="mb-1">{{ move.description | upper }}</h3>
-                        <small class="text-muted"
-                          ><div
-                            class="float-right"
-                            @click="(itemToShow = index), openModal()"
+                  <div class="scrollbar scrollbar-morpheus-den scrollbarbig">
+                    <div class="force-overflow">
+                      <div class="justify-content-center mb-3">
+                        <IngresosAdd :refreshMovesLista="refreshMovesLista" />
+                      </div>
+                      <div
+                        class="mr-4"
+                        v-for="(move, index) in allMoves"
+                        :key="index"
+                      >
+                        <b-list-group-item
+                          href="#"
+                          class="flex-column align-items-start mb-2 shadow rounded ingresos"
+                          v-if="move.type !== 'gasto'"
+                        >
+                          <div
+                            class="d-flex w-100 justify-content-between cursiva"
                           >
-                            <i class="fas fa-edit"></i></div
-                        ></small>
-                        <div v-show="itemToShow == index">
-                          <div>
-                            <modal name="my-first-modal-move">
-                              <div class="container-full register-form">
-                                <div class="form">
-                                  <div class="note">
-                                    <p>Editar Movimiento</p>
-                                  </div>
-
-                                  <div class="form-content">
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <div class="form-group text-center">
-                                          <label>Cantidad</label>
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            :placeholder="move.quantity"
-                                            value=""
-                                            v-model="move.quantity"
-                                          />
-                                        </div>
-                                        <div class="form-group text-center">
-                                          <label>Tipo de Movimiento</label>
-                                          <select
-                                            class="form-control"
-                                            v-model="move.type"
-                                          >
-                                            <option disabled selected>{{
-                                              move.type
-                                            }}</option>
-                                            <option>gasto</option>
-                                            <option>ingreso</option>
-                                          </select>
-                                        </div>
+                            <h3 class="mb-1">{{ move.description | upper }}</h3>
+                            <small class="text-muted"
+                              ><div
+                                class="float-right"
+                                @click="(itemToShow = index), openModal()"
+                              >
+                                <i class="fas fa-edit"></i></div
+                            ></small>
+                            <div v-show="itemToShow == index">
+                              <div>
+                                <modal name="my-first-modal-move">
+                                  <div class="container-full register-form">
+                                    <div class="form">
+                                      <div class="note">
+                                        <p>Editar Movimiento</p>
                                       </div>
-                                      <div class="col-md-6">
-                                        <div class="form-group text-center">
-                                          <label>Categoria</label>
-                                          <select
-                                            class="form-control"
-                                            v-model="move.category"
-                                          >
-                                            <option disabled selected>{{
-                                              move.category
-                                            }}</option>
-                                            <option>Consumible</option>
-                                            <option>Salud y Bienestar</option>
-                                            <option>Ocio</option>
-                                            <option>Electrónica</option>
-                                            <option>Viajes</option>
-                                            <option>Mantenimiento</option>
-                                          </select>
+
+                                      <div class="form-content">
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group text-center">
+                                              <label>Cantidad</label>
+                                              <input
+                                                type="text"
+                                                class="form-control"
+                                                :placeholder="move.quantity"
+                                                value=""
+                                                v-model="move.quantity"
+                                              />
+                                            </div>
+                                            <div class="form-group text-center">
+                                              <label>Tipo de Movimiento</label>
+                                              <select
+                                                class="form-control"
+                                                v-model="move.type"
+                                              >
+                                                <option disabled selected>
+                                                  {{ move.type }}
+                                                </option>
+                                                <option>gasto</option>
+                                                <option>ingreso</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group text-center">
+                                              <label>Categoria</label>
+                                              <select
+                                                class="form-control"
+                                                v-model="move.category"
+                                              >
+                                                <option disabled selected>
+                                                  {{ move.category }}
+                                                </option>
+                                                <option>Consumible</option>
+                                                <option>
+                                                  Salud y Bienestar
+                                                </option>
+                                                <option>Ocio</option>
+                                                <option>Electrónica</option>
+                                                <option>Viajes</option>
+                                                <option>Mantenimiento</option>
+                                              </select>
+                                            </div>
+                                            <div class="form-group text-center">
+                                              <label>Descripción</label>
+                                              <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="2"
+                                                v-model="move.description"
+                                              ></textarea>
+                                            </div>
+                                          </div>
                                         </div>
-                                        <div class="form-group text-center">
-                                          <label>Descripción</label>
-                                          <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="2"
-                                            v-model="move.description"
-                                          ></textarea>
-                                        </div>
+                                        <button
+                                          type="button"
+                                          class="btn btn-warning float-left"
+                                          @click.prevent="updateMoves(move)"
+                                        >
+                                          Actualizar
+                                        </button>
+
+                                        <button
+                                          type="button"
+                                          class="btn btn-primary float-right"
+                                          @click.prevent="hide()"
+                                        >
+                                          Salir
+                                        </button>
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger mr-4 float-right"
+                                          @click.prevent="deleteMove(move)"
+                                        >
+                                          Borrar Movimiento
+                                        </button>
                                       </div>
                                     </div>
-                                    <button
-                                      type="button"
-                                      class="btn btn-warning float-left"
-                                      @click.prevent="updateMoves(move)"
-                                    >
-                                      Actualizar
-                                    </button>
-
-                                    <button
-                                      type="button"
-                                      class="btn btn-primary float-right"
-                                      @click.prevent="hide()"
-                                    >
-                                      Salir
-                                    </button>
-                                    <button
-                                      type="button"
-                                      class="btn btn-danger mr-4 float-right"
-                                      @click.prevent="deleteMove(move)"
-                                    >
-                                      Borrar Movimiento
-                                    </button>
                                   </div>
-                                </div>
+                                </modal>
                               </div>
-                            </modal>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">{{ move.category }}</h6>
-                      </div>
-                      <div>
-                        <img
-                          :src="move.image"
-                          alt=""
-                          class="icon float-left mr-2"
-                        />
-                        <p class="mb-1 float-left">{{ transformDate(move) }}</p>
+                          <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ move.category }}</h6>
+                          </div>
+                          <div>
+                            <img
+                              :src="move.image"
+                              alt=""
+                              class="icon float-left mr-2"
+                            />
+                            <p class="mb-1 float-left">
+                              {{ transformDate(move) }}
+                            </p>
 
-                        <p class="float-right">{{ move.quantity }}€</p>
+                            <p class="float-right">{{ move.quantity }}€</p>
+                          </div>
+                          <small class="text-muted">{{ move.type }}</small>
+                        </b-list-group-item>
                       </div>
-                      <small class="text-muted">{{ move.type }}</small>
-                    </b-list-group-item>
+                    </div>
                   </div>
                 </b-card>
               </div>
             </b-card-group>
           </div>
-          </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -305,7 +337,7 @@ export default {
     Sidebar,
     MenuSlide,
     GastosAdd,
-    IngresosAdd
+    IngresosAdd,
   },
   mixins: [OpenModal, TimeFormat],
   data() {
@@ -314,7 +346,7 @@ export default {
       hola: "hola",
       itemToShow: -1,
       moveQuantityIngreso: [],
-      moveQuantityGasto: []
+      moveQuantityGasto: [],
     };
   },
   methods: {
@@ -322,9 +354,9 @@ export default {
       await this.$store.dispatch("moveLoad");
       this.$store.dispatch("sliderOff");
 
-      this.addData()
+      this.addData();
 
-      this.allMoves.map(move => {
+      this.allMoves.map((move) => {
         if (move.type === "gasto") {
           move.image = require("@/assets/money/png/024-loss-1.png");
         } else {
@@ -350,7 +382,7 @@ export default {
         quantity: move.quantity,
         category: move.category,
         type: move.type,
-        description: move.description
+        description: move.description,
       };
       try {
         await this.$store.dispatch("updateMove", updateOBG);
@@ -362,7 +394,7 @@ export default {
     },
     async deleteMove(move) {
       const deleteItem = {
-        id: move._id
+        id: move._id,
       };
       console.log(deleteItem.id);
       try {
@@ -374,14 +406,18 @@ export default {
       await this.moveLoad();
     },
     addData() {
-      this.allMoves = this.$store.state.moves;
-      this.moveQuantityIngreso = this.$store.state.moveQuantityIngreso
-      this.moveQuantityGasto = this.$store.state.moveQuantityGasto
+      this.allMoves = this.$store.state.moves.reverse();
+      this.moveQuantityIngreso = this.$store.state.moveQuantityIngreso;
+      this.moveQuantityGasto = this.$store.state.moveQuantityGasto;
 
       console.log(this.allMoves);
       console.log(this.moveQuantityIngreso);
       console.log(this.moveQuantityGasto);
-    }
+    },
+    // refescarlista
+    refreshMovesLista() {
+      this.moveLoad();
+    },
   },
   computed: {
     totalGastos() {
@@ -389,12 +425,12 @@ export default {
     },
     totalIngresos() {
       return this.$store.getters.totalIngresos;
-    }
+    },
   },
   mounted() {
     this.moveLoad();
     //this.quantityValor();
-  }
+  },
 };
 </script>
 
