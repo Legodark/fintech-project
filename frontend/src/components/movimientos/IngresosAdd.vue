@@ -72,6 +72,9 @@
 import OpenModal from "@/mixins/OpenModal"
 
 export default {
+  props: {
+    refreshMovesLista: { type: Function },
+  },
   name: "IngresosAdd",
   mixins: [OpenModal],
   data() {
@@ -89,6 +92,7 @@ export default {
 
       try {
         await this.$store.dispatch('registerMoves', this.registerIngreso)
+        this.refreshMovesLista();
       } catch (error) {
         console.log(error.response.data);
       }

@@ -60,7 +60,7 @@
                   <div class="scrollbar scrollbar-morpheus-den scrollbarbig">
                     <div class="force-overflow">
                       <div class="justify-content-center mb-3">
-                        <IngresosAdd />
+                        <IngresosAdd :refreshMovesLista="refreshMovesLista" />
                       </div>
                       <div
                         class="mr-4"
@@ -322,6 +322,10 @@ export default {
 
       Plotly.newPlot("grafic-cir-ingresos", data, layout);
     },
+    // refescarlista
+    refreshMovesLista(){
+      this.moveLoad();
+    }
   },
   computed: {
     totalIngresos() {
