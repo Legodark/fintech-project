@@ -11,7 +11,13 @@ const store = new Vuex.Store({
     user: null,
     isAuth: null,
     moves: [],
+    moveQuantityIngreso: [],
+    moveQuantityGasto: [],
     isNavOpen: false,
+    filterDay: [],
+    sumaMes: [],
+    monthGastos: [{id: 1, spend: [], total: 0 },{id: 2,spend: [], total: 0 },{id: 3,spend: [], total: 0 },{id: 4,spend: 0 , total: 0 },{id: 5,spend: [], total: 0},{id: 6,spend: [], total: 0},{id: 7,spend: [], total: 0},{id: 8,spend: [], total: 0},{id: 9,spend: [], total: 0},{id: 10,spend: [], total: 0},{id: 11,spend: [], total: 0},{id: 12,spend: [], total: 0}],
+    monthIngresos: [{id: 1, spend: [], total: 0 },{id: 2,spend: [], total: 0 },{id: 3,spend: [], total: 0 },{id: 4,spend: 0 , total: 0 },{id: 5,spend: [], total: 0},{id: 6,spend: [], total: 0},{id: 7,spend: [], total: 0},{id: 8,spend: [], total: 0},{id: 9,spend: [], total: 0},{id: 10,spend: [], total: 0},{id: 11,spend: [], total: 0},{id: 12,spend: [], total: 0}],
     loginError: ''
   },
   mutations: {
@@ -60,7 +66,7 @@ const store = new Vuex.Store({
         const tottalsum = gastosOBG.map((gastos) => {
           return gastos.type === "gasto" ? gastos.quantity : 0;
         });
-        return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2);
+        return tottalsum.reduce((acum, quantity) => acum + quantity)
       } else {
         return 0;
       }
@@ -79,6 +85,54 @@ const store = new Vuex.Store({
       }
 
     },
+    graficCalculate(state){
+      for (let valor of state.moves) {
+        if (valor.type !== "gasto") {
+          let valores = valor.quantity;
+          let transform = new Date(valor.date);
+          let shortTime = {
+            month: "numeric",
+          }
+          let fecha = new Intl.DateTimeFormat("en-US", shortTime).format(transform)
+          let fechaInt = parseInt(fecha)
+          state.filterDay.push(fechaInt)
+          state.moveQuantityIngreso.push(valores);
+
+          for (let mes of state.monthIngresos){
+            if(fechaInt === mes.id){
+
+              mes.spend.push(valor.quantity)
+
+              const total = mes.spend.reduce((acum, quantity) => acum + quantity)
+              mes.total = total
+            }
+          }
+        }
+        if (valor.type !== "ingreso") {
+          let valores = valor.quantity;
+          let transform = new Date(valor.date);
+          let shortTime = {
+            month: "numeric",
+          }
+          let fecha = new Intl.DateTimeFormat("en-US", shortTime).format(transform)
+          let fechaInt = parseInt(fecha)
+          state.filterDay.push(fechaInt)
+          state.moveQuantityGasto.push(valores);
+
+          for (let mes of state.monthGastos){
+            if(fechaInt === mes.id){
+
+              mes.spend.push(valor.quantity)
+
+              const total = mes.spend.reduce((acum, quantity) => acum + quantity)
+              mes.total = total
+            }
+          }
+        }
+      }
+    console.log(state.monthIngresos, 'ingresos');
+    console.log(state.monthGastos, 'gastos');
+    }
 
 
   },

@@ -321,8 +321,9 @@ export default {
     async moveLoad() {
       await this.$store.dispatch("moveLoad");
       this.$store.dispatch("sliderOff");
-      this.allMoves = this.$store.state.moves;
-      console.log(this.allMoves);
+
+      this.addData()
+
       this.allMoves.map(move => {
         if (move.type === "gasto") {
           move.image = require("@/assets/money/png/024-loss-1.png");
@@ -372,19 +373,14 @@ export default {
       this.hide();
       await this.moveLoad();
     },
-    quantityValor() {
-      for (let valor of this.$store.state.moves) {
-        if (valor.type !== "gasto") {
-          let valores = valor.quantity;
-          this.moveQuantityIngreso.push(valores);
-          console.log(this.moveQuantityIngreso);
-        }
-        if (valor.type !== "ingreso") {
-          let valores = valor.quantity;
-          this.moveQuantityGasto.push(valores);
-          console.log(this.moveQuantityGasto);
-        }
-      }
+    addData() {
+      this.allMoves = this.$store.state.moves;
+      this.moveQuantityIngreso = this.$store.state.moveQuantityIngreso
+      this.moveQuantityGasto = this.$store.state.moveQuantityGasto
+
+      console.log(this.allMoves);
+      console.log(this.moveQuantityIngreso);
+      console.log(this.moveQuantityGasto);
     }
   },
   computed: {
@@ -397,7 +393,7 @@ export default {
   },
   mounted() {
     this.moveLoad();
-    this.quantityValor();
+    //this.quantityValor();
   }
 };
 </script>
