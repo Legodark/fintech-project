@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-    <div class="container bg div-case-large box-shadow">
+    <div class="container bg box-shadow">
       <div>
         <nav class="main-nav">
           <img src="@/assets/money/png/006-coins.png" alt="" class="logo" />
@@ -210,10 +210,6 @@ export default {
   background-color: #00487c;
 }
 
-
-.div-case-large {
-  height: 1000px;
-}
 
 .box-shadow {
   -webkit-box-shadow: 2px 9px 5px 21px rgba(0, 0, 0, 0.75);

@@ -36,7 +36,7 @@
             <b-card-group deck>
               <div class="col-lg-6">
                 <b-card
-                  bg-variant="light"
+
                   header="Grafico redondo"
                   class="text-center"
                 >

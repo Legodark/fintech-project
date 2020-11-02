@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-    <div class="container bg div-case-large box-shadow">
+    <div class="container bg box-shadow">
       <!-- slidenav panel de navejacion superior -->
       <div>
         <nav class="main-nav">
