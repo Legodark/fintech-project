@@ -58,7 +58,7 @@
               <!-- derecha listar movimientos -->
               <div class="col-lg-6">
                 <b-card header="Gastos" class="text-center">
-                  <div class="scrollbar scrollbar-morpheus-den">
+                  <div class="scrollbar scrollbar-morpheus-den scrollbarbig">
                     <div class="force-overflow">
                       <div class="justify-content-center mb-3">
                         <GastosAdd />
