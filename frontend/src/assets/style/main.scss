@@ -4,6 +4,10 @@
 /* background blanco */
 @import "../style/core/bg-white.css";
 
+
+// margin
+@import "../style/core/notpadding.css";
+
 /* caligrafia */
 @import "../style/core/cursiva.css";
 @import "../style/core/letrawhite.css";
@@ -17,6 +21,9 @@
 // scrollbar
 @import "../style/core/scrollbar.scss";
 @import "../style/core/scrollbarbig.scss";
+
+
+
 
 
         // ******DASHBOARD***
@@ -40,6 +47,12 @@
 
 @import "../style/core/bordergastos.css";
 @import "../style/core/borderingresos.css";
+
+
+// tamaño imagen home
+@import "../style/core/cuadro";
+
+
 
 
 body{

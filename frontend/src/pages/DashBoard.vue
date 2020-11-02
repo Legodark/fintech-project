@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-    <div class="container bg box-shadow div-case-larges">
+    <div class="container bg box-shadow">
       <!-- slidenav panel de navejacion superior -->
       <div>
         <nav class="main-nav">
@@ -101,7 +101,7 @@
                 </b-card>
               </div>
               <!-- derecha listar movimientos -->
-              <div class="col-6">
+              <div class="col-lg-6">
                 <b-card header="Movimientos" class="text-center">
                   <div class="scrollbar scrollbar-morpheus-den">
                     <div class="force-overflow">

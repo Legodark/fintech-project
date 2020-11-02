@@ -1,6 +1,6 @@
 <template>
   <div class="degrade">
-  <div class="container bg div-case-large box-shadow ">
+  <div class="container bg box-shadow ">
     <nav class="main-nav">
         <img src="@/assets/money/png/006-coins.png" alt="" class="logo" />
         <Burger class="mt-2"></Burger>
