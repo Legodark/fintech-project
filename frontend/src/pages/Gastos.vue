@@ -223,6 +223,7 @@ export default {
   data() {
     return {
       gastosOBG: [],
+      yGastos: [],
       itemToShow: -1,
     };
   },
@@ -231,6 +232,12 @@ export default {
       await this.$store.dispatch("moveLoad");
       this.$store.dispatch("sliderOff");
       this.gastosOBG = this.$store.state.moves.reverse();
+      this.yGastos = []
+      this.addData()
+      this.graficCalculate()
+      this.createLineGraficGastos();
+      this.createCircleGraficGastos();
+
       this.gastosOBG.map((gasto) => {
         if (gasto.type === "gasto") {
           gasto.image = require("@/assets/money/png/024-loss-1.png");
@@ -275,54 +282,77 @@ export default {
     },
     // grafica lineal
     createLineGraficGastos() {
-      var trace1 = {
-        x: [1, 10, 20, 30],
-        y: [800, 950, 1100, 980],
-        type: "scatter",
-        name: "gastos",
+      const trace1 = {
+        x: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        y: this.yGastos,
+        type: "line",
+        line: {color: '#FF7F0E'},
+        name: "Ingresos",
       };
 
-      var data = [trace1];
+      const layout = {
+      title: '',
+      uirevision:'true',
+      xaxis: {autorange: true},
+      yaxis: {autorange: true}
+      };
 
-      Plotly.newPlot("grafic-line-gastos", data);
+      const data = [trace1];
+
+      Plotly.newPlot("grafic-line-gastos", data, layout);
     },
+
     // grafico redondo
 
     createCircleGraficGastos() {
-      var data = [
+      const data = [
         {
           //TODO:
           //LOOP TODOS MOVES
           //SWITCH SUMANDO POR CATEGORIA
           type: "pie",
-          values: [2, 1, 3, 5],
-          labels: ["Ocio", "Belleza y Salud", "Alquiler y Coche", "Ingresos"],
+          values: [this.total, this.totalIngresos],
+          labels: ["Gastos", "Ingresos"],
           textinfo: "label+percent",
-          textposition: "outside",
-          automargin: true,
+          textposition: "inside",
+          automargin: false,
         },
       ];
 
-      var layout = {
+      const layout = {
         height: 400,
         width: 400,
         margin: { t: 0, b: 0, l: 0, r: 0 },
-        showlegend: false,
+        showlegend: true,
       };
 
       Plotly.newPlot("grafic-cir-gastos", data, layout);
     },
+    addData() {
+        for (let month of this.$store.state.monthGastos){
+          this.yGastos.push(month.total)
+        }
+        console.log(this.yGastos);
+    },
+    graficCalculate() {
+      this.$store.getters.graficCalculate
+    }
   },
 
   computed: {
+    totalGastos() {
+      return this.gastosOBJ = this.$store.state.moves;
+    },
     total() {
       return this.$store.getters.totalGastos;
     },
+    totalIngresos() {
+      return this.$store.getters.totalIngresos;
+    }
+
   },
   mounted() {
     this.moveLoad();
-    this.createLineGraficGastos();
-    this.createCircleGraficGastos();
   },
 };
 </script>

@@ -45,65 +45,83 @@
         <div class="col-12">
           <div class="header-description pb-4 pt-3">
             <div class="">
-          <h1 class="text-center header-title-color">FinSave</h1>
-          <p class="text-black pr-5 pl-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget
-            pellentesque eros. Donec dictum eget lectus quis eleifend. Morbi nec
-            velit et augue eleifend porttitor quis ac nunc. Proin gravida eros
-            mauris, quis facilisis turpis elementum non. Duis efficitur
-            efficitur dolor. In vulputate vitae lorem at ultricies. Duis vitae
-            risus mauris. Donec eget metus eget ligula tincidunt dignissim a sit
-            amet urna. Maecenas enim magna, volutpat id fringilla nec, posuere
-            quis tellus. Praesent pharetra arcu erat, id malesuada justo
-            tristique sit amet. Nulla facilisi. Nam vestibulum felis id dolor
-            finibus viverra. Praesent eleifend felis dictum vehicula eleifend.
-            Suspendisse elementum vestibulum nisl, vel condimentum massa ornare
-            vel. Duis ipsum felis, vulputate a velit at, pretium pharetra
-            tortor. Phasellus at mi mi. Integer non scelerisque dolor. Duis
-            facilisis fermentum pretium. Ut metus metus, ultricies at maximus
-            eu, consectetur quis massa. Nunc eget tristique velit. Nullam quam
-            ipsum, facilisis ac luctus a, vestibulum sit amet nunc.
-          </p>
-          <div class="col text-center">
-            <button class="btn btn-success text-dark boton_sombra">
-              <router-link to="/register" class="text-white ">
-                Empezar a Gestionar
-              </router-link>
-            </button>
-          </div>
-          </div>
+              <h1 class="text-center header-title-color">FinSave</h1>
+              <p class="text-black pr-5 pl-5 font-weight-bold text-center">
+                Ofrecemos gestionar sus gastos e ingresos, de forma fácil y
+                sencilla. Con gráficos y estadísticas para exhibiciones visuales
+                adicionales de sus ganancias, flujo de dinero y cómo sus gastos
+                afectan su capacidad para pagar sus facturas y, por lo tanto, su
+                éxito financiero. Un enfoque basado en fórmulas de Excel
+                Ingresos + Gastos = Saldo La mayoría de las herramientas de
+                administración de gastos requieren que los usuarios asignen
+                valores a los datos relacionados con los gastos. Muchos
+                funcionan de manera similar a las hojas de cálculo u otros
+                programas creados para trabajar con modelos específicos, pero no
+                utilizan el poder y la funcionalidad de Excel. Verá estimaciones
+                y análisis de datos en tiempo real.
+              </p>
+              <div class="col text-center">
+                <button class="btn btn-success text-dark boton_sombra">
+                  <router-link to="/register" class="text-white ">
+                    Empezar a Gestionar
+                  </router-link>
+                </button>
+              </div>
+            </div>
           </div>
           <div class=" row justify-content-center">
             <div class="mt-5 col-7">
               <b-card
-                img-src="https://lh3.googleusercontent.com/SB0QA5wGZPdDaU2gFyA_8akX7VxMSCa-evUxLpVbzBBLFtgQcuAhBu5bjzP0fz_V_A=h300"
+                img-src="https://image.freepik.com/vector-gratis/ilustracion-concepto-finanzas-rendimiento-financiero_53876-40450.jpg"
                 img-alt="Card image "
                 img-left
                 class="mb-3 text-white custom-bg-card"
               >
-                <b-card-text>
-                  Some quick example text to build on the card and make up the
-                  bulk of the card's content.
+                <b-card-text class="mt-5 mb-5 text-center font-weight-bold">
+                  <p>Gestione sus ingresos para alcanzar metas a medio-largo plazo.
+                  Aumente los ingresos gradualmente para que no se agote. Use
+                  parte del dinero para volver a priorizar sus ahorros.
+                  </p><p> Mejorar
+                  el rendimiento y la eficiencia de su trabajo. Por ejemplo,
+                  controle su tiempo y sea más productivo. Emprende algunos
+                  proyectos que te harán más creativo.
+                  </p>
+                  <p>Cambie a un plan
+                  telefónico más económico para ahorrar dinero en su factura de
+                  telecomunicaciones. y ahorrar dinero en su factura de
+                  telecomunicaciones. Para darse un incentivo para ceñirse a su
+                  presupuesto, designe una pequeña cantidad de efectivo cada mes
+                  como recompensa.</p>
                 </b-card-text>
               </b-card>
               <b-card
-                img-src="https://blog.formaciongerencial.com/wp-content/uploads/2016/03/g6-300x300.png"
+                img-src="https://image.freepik.com/vector-gratis/inversor-laptop-monitoreando-crecimiento-dividendos-comerciante-sentado-sobre-pila-dinero-invertir-capital-analizar-graficos-ganancias-ilustracion-vector-finanzas-comercio-acciones-inversion_74855-8432.jpg"
                 img-alt="Card image"
                 img-right
-                class="text-white custom-bg-card mb-5 "
+                class="text-white custom-bg-card mb-5 mt-5"
               >
-                <b-card-text>
-                  Some quick example text to build on the card and make up the
-                  bulk of the card's content.
+                <b-card-text class="mt-5 text-center font-weight-bold">
+                  <p>Controle sus gastos, para lograr sus objetivos, necesita
+                  dedicar un tiempo a analizar los gastos de su estilo de vida.
+                  La gente generalmente juzga mal sus hábitos de gasto, a menudo
+                  porque no puede controlar a dónde va su dinero.</p>
+                  <p>Una excelente
+                  manera de gastar menos es organizar sus gastos y facturas por
+                  categoría. Antes de comenzar a realizar compras, asigne un
+                  valor a cada uno. Si no tiene cuidado, es posible que no se dé
+                  cuenta de que la factura de reparación de su automóvil es más
+                  cara de lo que parece. Incluso puede sentirse avergonzado de
+                  contarles a sus amigos y familiares en qué gasta su dinero.
+                  </p>
                 </b-card-text>
               </b-card>
             </div>
           </div>
 
-          <div class="col-lg-5 white float-left ml-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum impedit cupiditate, suscipit asperiores aliquam eveniet ea alias, consequatur tenetur, magni temporibus aspernatur? Ratione animi neque ipsa repellendus reprehenderit dolores omnis.</div>
+          <!--<div class="col-lg-5 white float-left ml-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum impedit cupiditate, suscipit asperiores aliquam eveniet ea alias, consequatur tenetur, magni temporibus aspernatur? Ratione animi neque ipsa repellendus reprehenderit dolores omnis.</div>
           <img src="https://elandroidelibre.elespanol.com/wp-content/uploads/2014/09/grafica-crecimiento.jpg" alt="" class="cuadro">
           <div class="col-lg-5 white float-right mr-5 mb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis qui cum commodi sint obcaecati, nostrum a ea tempore voluptatibus quia pariatur minus iusto voluptatem, itaque labore? Non ducimus vitae obcaecati.</div>
-          <img src="https://image.freepik.com/vector-gratis/graficas-economia_23-2147598629.jpg" alt="" class="cuadro-2 ml-5">
+          <img src="https://image.freepik.com/vector-gratis/graficas-economia_23-2147598629.jpg" alt="" class="cuadro-2 ml-5">-->
         </div>
         <div class="col-12 bg-warning custom-card-height">
           <div class="col-6 float-left custom-bg-form">
@@ -260,7 +278,7 @@ body {
 }
 
 .boton_sombra {
-  box-shadow: 0 0 10px 1px #FFFCFF;
+  box-shadow: 0 0 10px 1px #fffcff;
 }
 
 .header-description {
@@ -270,5 +288,9 @@ body {
 
 .header-title-color {
   color: #00487c;
+}
+
+.box-up {
+  box-shadow: 0 0 10px 1px black;
 }
 </style>

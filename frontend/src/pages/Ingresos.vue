@@ -229,6 +229,7 @@ export default {
   data() {
     return {
       ingresosOBJ: [],
+      yIngresos: [],
       updateOBG: {},
       deleteItem: {},
       itemToShow: -1,
@@ -239,6 +240,12 @@ export default {
       await this.$store.dispatch("moveLoad");
       this.$store.dispatch("sliderOff");
       this.ingresosOBJ = this.$store.state.moves.reverse();
+
+      this.addData()
+      this.graficCalculate()
+      this.createLineGraficIngresos();
+      this.createCircleGraficIngresos();
+
       console.log(this.ingresosOBJ);
       this.ingresosOBJ.map((ingreso) => {
         if (ingreso.type === "ingreso") {
@@ -284,57 +291,74 @@ export default {
     },
     // grafica lineal
     createLineGraficIngresos() {
-      var trace1 = {
-        x: [1, 10, 20, 30],
-        y: [800, 950, 1100, 980],
-        type: "scatter",
-        name: "gastos",
+      const trace1 = {
+        x: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        y: this.yIngresos,
+        type: "line",
+        name: "Ingresos",
       };
 
-      var data = [trace1];
+      const layout = {
+      title: '',
+      uirevision:'true',
+      xaxis: {autorange: true},
+      yaxis: {autorange: true}
+      };
 
-      Plotly.newPlot("grafic-line-ingresos", data);
+      const data = [trace1];
+
+      Plotly.newPlot("grafic-line-ingresos", data, layout);
     },
 
     // grafico redondo
 
     createCircleGraficIngresos() {
-      var data = [
+      const data = [
         {
           //TODO:
           //LOOP TODOS MOVES
           //SWITCH SUMANDO POR CATEGORIA
           type: "pie",
-          values: [2, 1, 3, 5],
-          labels: ["Ocio", "Belleza y Salud", "Alquiler y Coche", "Ingresos"],
+          values: [this.totalGastos, this.total],
+          labels: ["Gastos", "Ingresos"],
           textinfo: "label+percent",
-          textposition: "outside",
-          automargin: true,
+          textposition: "inside",
+          automargin: false,
         },
       ];
 
-      var layout = {
+      const layout = {
         height: 400,
         width: 400,
         margin: { t: 0, b: 0, l: 0, r: 0 },
-        showlegend: false,
+        showlegend: true,
       };
 
       Plotly.newPlot("grafic-cir-ingresos", data, layout);
     },
+    addData() {
+        for (let month of this.$store.state.monthIngresos){
+          this.yIngresos.push(month.total)
+        }
+        console.log(this.yIngresos);
+    },
+    graficCalculate() {
+      this.$store.getters.graficCalculate
+    }
   },
   computed: {
     totalIngresos() {
-      this.ingresosOBJ = this.$store.state.moves;
+      return this.ingresosOBJ = this.$store.state.moves;
     },
     total() {
       return this.$store.getters.totalIngresos;
     },
+    totalGastos() {
+      return this.$store.getters.totalGastos;
+    }
   },
   mounted() {
     this.moveLoad();
-    this.createLineGraficIngresos();
-    this.createCircleGraficIngresos();
   },
 };
 </script>

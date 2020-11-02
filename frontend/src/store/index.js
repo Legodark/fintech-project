@@ -15,7 +15,6 @@ const store = new Vuex.Store({
     moveQuantityGasto: [],
     isNavOpen: false,
     filterDay: [],
-    sumaMes: [],
     monthGastos: [{id: 1, spend: [], total: 0 },{id: 2,spend: [], total: 0 },{id: 3,spend: [], total: 0 },{id: 4,spend: 0 , total: 0 },{id: 5,spend: [], total: 0},{id: 6,spend: [], total: 0},{id: 7,spend: [], total: 0},{id: 8,spend: [], total: 0},{id: 9,spend: [], total: 0},{id: 10,spend: [], total: 0},{id: 11,spend: [], total: 0},{id: 12,spend: [], total: 0}],
     monthIngresos: [{id: 1, spend: [], total: 0 },{id: 2,spend: [], total: 0 },{id: 3,spend: [], total: 0 },{id: 4,spend: 0 , total: 0 },{id: 5,spend: [], total: 0},{id: 6,spend: [], total: 0},{id: 7,spend: [], total: 0},{id: 8,spend: [], total: 0},{id: 9,spend: [], total: 0},{id: 10,spend: [], total: 0},{id: 11,spend: [], total: 0},{id: 12,spend: [], total: 0}],
     loginError: ''
