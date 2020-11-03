@@ -201,6 +201,9 @@ export default {
         console.log('No se ha podido actualizar la contraseña', error);
       }
     },
+  },
+  mounted(){
+    this.$store.dispatch("sliderOff");
   }
 };
 </script>

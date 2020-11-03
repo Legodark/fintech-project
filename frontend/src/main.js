@@ -40,7 +40,8 @@ const routes = [
   { path: "/moves", name: "Movimientos", component: Movimientos, meta: { private: true, AutentificationProfile: ['user'] }},
   { path: "/entrys", name: "Ingresos", component: Ingresos, meta: { private: true, AutentificationProfile: ['user'] }},
   { path: "/spend", name: "Gastos", component: Gastos, meta: { private: true, AutentificationProfile: ['user'] }},
-  { path: "/legal", name: "Legal", component: Legal, meta: { private: true, AutentificationProfile: ['user'] }}
+  { path: "/legal", name: "Legal", component: Legal, meta: { private: true, AutentificationProfile: ['user'] }},
+  { path: "*", name: "error", component: HomePage }
 
 ]
 

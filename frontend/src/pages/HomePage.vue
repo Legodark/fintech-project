@@ -244,6 +244,7 @@ export default {
   },
   methods: {
     isLogin() {
+      this.$store.dispatch("sliderOff");
       console.log(this.$store.state.token);
       this.isAuth = this.$store.state.token;
     }

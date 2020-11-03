@@ -272,6 +272,7 @@ export default {
     },
     addData() {
         this.allMove = this.$store.state.moves.reverse();
+
         for (let month of this.$store.state.monthIngresos){
           this.yIngresos.push(month.total)
         }

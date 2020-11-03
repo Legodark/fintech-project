@@ -155,6 +155,9 @@ export default {
         this.checkNotTrue = "Debes aceptar los terminos"
       }
   }
+},
+mounted() {
+  this.$store.dispatch("sliderOff");
 }
 };
 </script>

@@ -65,7 +65,7 @@ const store = new Vuex.Store({
         const tottalsum = gastosOBG.map((gastos) => {
           return gastos.type === "gasto" ? gastos.quantity : 0;
         });
-        return tottalsum.reduce((acum, quantity) => acum + quantity)
+        return tottalsum.reduce((acum, quantity) => acum + quantity).toFixed(2)
       } else {
         return 0;
       }
@@ -85,6 +85,14 @@ const store = new Vuex.Store({
 
     },
     graficCalculate(state){
+      for (let monthReset of  state.monthIngresos){
+        monthReset.spend = []
+        monthReset.total = 0
+      }
+      for (let monthReset of  state.monthGastos){
+        monthReset.spend = []
+        monthReset.total = 0
+      }
       for (let valor of state.moves) {
         if (valor.type !== "gasto") {
           let valores = valor.quantity;
@@ -119,6 +127,7 @@ const store = new Vuex.Store({
           state.moveQuantityGasto.push(valores);
 
           for (let mes of state.monthGastos){
+
             if(fechaInt === mes.id){
 
               mes.spend.push(valor.quantity)
@@ -334,5 +343,36 @@ const store = new Vuex.Store({
 })
 
 export default store
+
+
+/*getTotalSpendByMonthsAndType: (state) => (type) => {
+
+  //store.getters.getTotalSpendByMonthsAndType("gastos")
+
+  const monthData =[]
+  for (let month=0; month<=11;month++){
+    //let totalQuantityMonth = 0
+
+    const monthMoves = state.moves.filter(item => {
+      item.date = new Date(item.date).getMonth()
+      return (item.date === month && item.type === type)
+    })
+    console.log(monthMoves);
+    const monthQuantity = monthMoves.map(item => item.quantity)
+    console.log(monthQuantity);
+    if (monthQuantity.length > 0){
+      return monthQuantity.reduce((acc,current) => acc + current)
+    }
+    else{
+      return console.log(0);
+    }
+    console.log(monthQuantity);
+    monthData.push({
+      month,
+      totalMonth: monthQuantity
+    })
+    return monthData
+  }
+}*/
 
 

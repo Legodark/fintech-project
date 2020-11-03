@@ -341,6 +341,7 @@ export default {
           this.yIngresos.push(month.total)
         }
         console.log(this.yIngresos);
+
     },
     graficCalculate() {
       this.$store.getters.graficCalculate
