@@ -41,7 +41,6 @@ Debemos  crear una aplicación que ofrezca a los clientes la posibilidad de gest
 
 Desarrollar una aplicación web, en el que los usuarios puedan registrarse en la aplicación, se puedan realizar operaciones de registro, actualización y borrado de gastos e ingresos, pudiendo estos ser categorizados según un tipo de gasto o ingreso.
 
-Para que la web sea rentable...(en proceso)
 
 # Funcionalidades
 
@@ -106,7 +105,7 @@ Para que la web sea rentable...(en proceso)
 
 ### Dependecias Usadas
 
-<img src="https://img.icons8.com/color/48/000000/nodejs.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/>
+<img src="https://img.icons8.com/color/48/000000/nodejs.png"/><img src="https://img.icons8.com/color/48/000000/npm.png"/>
 
 # Análisis API
 

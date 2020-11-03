@@ -17,7 +17,7 @@
       <!-- grafica linea -->
       <div class="container pading">
         <div class="">
-          <b-card title="Grafica" sub-title="Card subtitle">
+          <b-card title="Estadistica" sub-title="Mensual">
             <b-card-text>
               <div>
                 <div
@@ -37,7 +37,7 @@
               <div class="col-lg-6">
                 <b-card
 
-                  header="Grafico redondo"
+                  header="Comparación"
                   class="text-center"
                 >
                   <b-card-text>

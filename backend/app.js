@@ -19,14 +19,12 @@ app.use(bodyparser.json());
 
 const homeRoute = require('./routes/home')
 const authRoute = require('./routes/auth')
-const dashRoute = require('./routes/dashboard')
 const movesRoute = require('./routes/moves')
 
 // Activación de las rutas
 
 app.use('/', homeRoute)
 app.use('/auth', authRoute)
-app.use('/dashboard', dashRoute)
 app.use('/moves', movesRoute)
 
 // Conexion a la base de datos
